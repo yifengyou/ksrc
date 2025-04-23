@@ -1,0 +1,8 @@
+*.o
+initramfs
+*.img
+ubuntu-rootfs
+
+
+
+

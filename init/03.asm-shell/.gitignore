@@ -1,0 +1,5 @@
+shell
+shell.cpio
+*.o
+init
+init.cpio
