@@ -1,8 +1,0 @@
-shell
-shell.cpio
-*.o
-init
-init.cpio
-filelist
-lua-5.4.7
-
