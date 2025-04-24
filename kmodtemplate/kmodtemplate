@@ -1,0 +1,118 @@
+#!/bin/bash
+
+if [ $# -eq 1 ] && [ -z "$1" ]; then
+	echo "Usage: $0 MODULENAME"
+	echo "     Modulename begin with {a-z、A-z、_} , may contain 0-9 , make it sense."
+	exit 1
+fi
+
+if [[ ! "$1" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+	echo "Error: Invalid MODULENAME '$1'"
+	echo "     Modulename must begin with {a-z、A-Z、_} and may contain 0-9."
+	exit 1
+fi
+
+MODULE_NAME=$1
+MODULE_DIR="kmod-${MODULE_NAME}"
+PROJECT_DIR=$(pwd)
+MAKEFILE="${MODULE_DIR}/Makefile"
+SRCFILE="${MODULE_DIR}/${MODULE_NAME}.c"
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+
+if [ -d "${MODULE_DIR}" ]; then
+	echo "${MODULE_DIR} already exists!"
+	exit 1
+fi
+mkdir -p ${MODULE_DIR}
+if [ -d "${MAKEFILE}" ]; then
+	echo "${MAKEFILE} already exists!"
+	exit 1
+fi
+touch ${MAKEFILE}
+if [ -d "${SRCFILE}" ]; then
+	echo "${SRCFILE} already exists!"
+	exit 1
+fi
+touch ${SRCFILE}
+
+cat >${MAKEFILE} <<EOF
+ENTRY := ${MODULE_NAME}
+obj-m := ${MODULE_NAME}.o
+KERNEL_VERSIONSION = \$(shell uname -r)
+default: force_build
+  
+force_build: ${MODULE_NAME}.c
+	rm -f *.ko
+	make -C /lib/modules/\$(KERNEL_VERSIONSION)/build M=\$(PWD) modules
+	ls -alh *.ko
+
+notfound_build: ${MODULE_NAME}.c
+	[ -f *.ko ] || make -C /lib/modules/\$(KERNEL_VERSIONSION)/build M=\$(PWD) modules
+
+build: force_build
+
+clean:
+	make -C /lib/modules/\$(KERNEL_VERSION)/build M=\$(PWD) clean
+
+insmod: info notfound_build
+	dmesg --clear
+	insmod ${MODULE_NAME}.ko || true
+	dmesg
+
+rmmod:
+	rmmod ${MODULE_NAME} && dmesg
+
+lsmod:
+	lsmod |grep ${MODULE_NAME}
+
+status: lsmod
+
+info: notfound_build ${MODULE_NAME}.ko
+	modinfo ${MODULE_NAME}.ko
+	md5sum ${MODULE_NAME}.ko
+
+modinfo: info
+
+help:
+	@echo " build    - build module(default target)"
+	@echo " clean    - clean build dir"
+	@echo " insmod   - insmod ${MODULE_NAME} ko module"
+	@echo " rmmod    - rmmod ${MODULE_NAME} ko module"
+	@echo " lsmod    - find ${MODULE_NAME} ko module whether already insmod"
+	@echo " status   - same as lsmod"
+	@echo " info     - display ${MODULE_NAME} ko info"
+	@echo " modinfo  - same as info"
+	@echo " help     - display help info"
+
+EOF
+
+
+cat >${SRCFILE} <<EOF
+#include <linux/init.h>
+#include <linux/kernel.h>
+#include <linux/module.h>
+
+static int __init ${MODULE_NAME}_init(void)
+{
+    printk(KERN_INFO "--------------------------------------------\n");
+    printk(KERN_INFO "kdev load module [${MODULE_NAME}]\n");
+    printk(KERN_INFO "file:%s func:%s line:%d\n",__FILE__,__func__,__LINE__);
+    return 0;
+}
+
+static void __exit ${MODULE_NAME}_exit(void)
+{
+    printk(KERN_INFO "--------------------------------------------\n");
+    printk(KERN_INFO "kdev unload module [${MODULE_NAME}]\n");
+    printk(KERN_INFO "file:%s func:%s line:%d\n",__FILE__,__func__,__LINE__);
+}
+
+module_init(${MODULE_NAME}_init);
+module_exit(${MODULE_NAME}_exit);
+
+MODULE_LICENSE("GPL");
+MODULE_DESCRIPTION("${MODULE_NAME} Module");
+MODULE_AUTHOR("kdev");
+EOF
+
+echo "All done!"
