@@ -86,7 +86,6 @@ help:
 
 EOF
 
-
 cat >${SRCFILE} <<EOF
 #include <linux/init.h>
 #include <linux/kernel.h>
