@@ -47,6 +47,7 @@ static int rsa_pub_encrypt(const void *plaintext, size_t plaintext_len)
 
 	/* Allocate crypto transforms */
 	encrypt_tfm = crypto_alloc_akcipher("pkcs1pad(rsa)", 0, 0);
+	// encrypt_tfm = crypto_alloc_akcipher("rsa", 0, 0);
 	if (IS_ERR(encrypt_tfm)) {
 		pr_err("Failed to allocate encryption akcipher handle: %ld\n", PTR_ERR(encrypt_tfm));
 		ret = PTR_ERR(encrypt_tfm);
@@ -246,6 +247,6 @@ module_init(rsa_crypto_init);
 module_exit(rsa_crypto_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("kdev");
-MODULE_DESCRIPTION("RSA Crypto Module for Linux");
+MODULE_AUTHOR("Your Name");
+MODULE_DESCRIPTION("RSA Crypto Module for Linux 6.6");
 MODULE_VERSION("1.0");
