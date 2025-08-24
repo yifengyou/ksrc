@@ -28,6 +28,13 @@ void hexdump(const char *prefix, const void *data, int len) {
 			16, 1, data, len, true);
 }
 
+int verify_key(const u8 *key, size_t key_len, bool is_private)
+{
+	int ret;
+	ret = 0;
+	return ret;
+}
+
 static int rsa_pub_encrypt(const void *plaintext, size_t plaintext_len)
 {
 	struct scatterlist src, dst;
@@ -240,6 +247,6 @@ module_init(rsa_crypto_init);
 module_exit(rsa_crypto_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("kdev");
+MODULE_AUTHOR("Your Name");
 MODULE_DESCRIPTION("RSA Crypto Module for Linux 6.6");
 MODULE_VERSION("1.0");
