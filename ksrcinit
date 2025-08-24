@@ -13,6 +13,16 @@ MODULE_NAME=$1
 SRC_FILE="${MODULE_NAME}.c"
 MAKEFILE="Makefile"
 
+if [[ ! "$MODULE_NAME" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+    echo "Error: Invalid module name '$MODULE_NAME'"
+    echo "Module name must follow C identifier rules:"
+    echo "  - Start with a letter (a-z, A-Z) or underscore (_)"
+    echo "  - Contain only letters, numbers, and underscores"
+    echo "  - Cannot start with a number"
+    echo "  - Cannot contain hyphens, spaces, or special characters"
+    exit 1
+fi
+
 if [ -f "$SRC_FILE" ]; then
     echo "Error: ${SRC_FILE} already exist! Choose different module name or remove existing files"
     exit 1
