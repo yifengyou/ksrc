@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-#!/usr/bin/env python3
 import os
 import fcntl
 from ctypes import *
@@ -26,24 +25,24 @@ def get_file_blocks(file_path):
     # 定义FIEMAP extent结构体
     class fiemap_extent(Structure):
         _fields_ = [
-            ("fe_logical", c_uint64),    # 文件中的逻辑偏移 (bytes)
-            ("fe_physical", c_uint64),   # 磁盘上的物理偏移 (bytes)
-            ("fe_length", c_uint64),     # 长度 (bytes)
-            ("fe_reserved64", c_uint64 * 2),
-            ("fe_flags", c_uint32),      # 标志位
-            ("fe_reserved", c_uint32 * 3),
-        ]
+                ("fe_logical", c_uint64),    # 文件中的逻辑偏移 (bytes)
+                ("fe_physical", c_uint64),   # 磁盘上的物理偏移 (bytes)
+                ("fe_length", c_uint64),     # 长度 (bytes)
+                ("fe_reserved64", c_uint64 * 2),
+                ("fe_flags", c_uint32),      # 标志位
+                ("fe_reserved", c_uint32 * 3),
+                ]
 
     # 定义FIEMAP结构体
     class fiemap(Structure):
         _fields_ = [
-            ("fm_start", c_uint64),          # 起始逻辑偏移 (bytes)
-            ("fm_length", c_uint64),         # 映射长度 (bytes)
-            ("fm_flags", c_uint32),         # 标志位
-            ("fm_mapped_extents", c_uint32), # 已映射的extent数量
-            ("fm_extent_count", c_uint32),   # 分配的extent数量
-            ("fm_reserved", c_uint32),
-        ]
+                ("fm_start", c_uint64),          # 起始逻辑偏移 (bytes)
+                ("fm_length", c_uint64),         # 映射长度 (bytes)
+                ("fm_flags", c_uint32),         # 标志位
+                ("fm_mapped_extents", c_uint32), # 已映射的extent数量
+                ("fm_extent_count", c_uint32),   # 分配的extent数量
+                ("fm_reserved", c_uint32),
+                ]
 
     try:
         # 获取文件大小
@@ -123,3 +122,5 @@ if __name__ == "__main__":
     print(f"Physical blocks for file '{file_path}':")
     for block in blocks:
         print(block)
+
+
