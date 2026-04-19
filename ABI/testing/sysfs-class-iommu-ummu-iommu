@@ -1,0 +1,113 @@
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/eid_list
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		List of all EIDs registered to UMMU.
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/evtq_log2num
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The number of Event Queues in the non-secure state of the
+		UMMU device (in log2).
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/evtq_log2size
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The depth of each Event Queue in the non-secure state of the
+		UMMU device (in log2).
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/features
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		UMMU device capabilities.
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/mcmdq_log2num
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The number of Command Queues in the non-secure state of the
+		UMMU device in kernel mode.
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/mcmdq_log2size
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The depth of each command queue in the non-secure state of the
+		UMMU device in kernel mode.
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/permq_ent_num
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The depth of the permission queue in user mode of the UMMU
+		device (in log2).
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/permq_num
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The number of permission queues in user mode of the UMMU
+		device (in log2).
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/ias
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The bit width of the input address supported by the UMMU
+		device.
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/oas
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The bit width of the output address of the UMMU device.
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/options
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		Configurable features of the UMMU device.
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/pgsize_bitmap
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		Supported page size bitmap of the UMMU translation table.
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/ptsize_bitmap
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		Supported page size bitmap of the UMMU MAPT table
+		(permission check).
+
+What:		/sys/class/iommu/ummu.<x>/ummu-iommu/tid_bits
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		Maximum TokenID bit width supported in non-secure state.
+
+What:		/sys/class/iommu/logic_ummu/tid_type
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The domain_type corresponding to the TokenID, which requires
+		the TokenID value as input. Format: %x.

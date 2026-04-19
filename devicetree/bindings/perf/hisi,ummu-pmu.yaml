@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/perf/hisi,ummu-pmu.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: HiSilicon UMMU Performance Monitor Unit (PMU)
+
+maintainers:
+  - Jingbin Wu <wujingbin2@huawei.com>
+
+description: |
+  The UMMU includes a PMU(Performance Monitor Unit ) to monitor and collect
+  statistics on key hardware events, such as TLB/PLB cache hit rates and
+  lookup latencies.
+
+properties:
+  $nodename:
+    pattern: "^ummu-pmu@[0-9a-f]*"
+  compatible:
+    const: ub,ummu_pmu
+  index:
+    $ref: /schemas/types.yaml#/definitions/uint32
+    description: |
+      PMU device index. Identifies a specific UMMU-PMU instance in multi-UMMU-PMU
+      systems.
+  msi-parent:
+    $ref: /schemas/types.yaml#/definitions/phandle
+    description: |
+      MSI parent device phandle. Required for MSI interrupt handling.
+
+required:
+  - compatible
+  - index
+  - msi-parent
+
+additionalProperties: false
+
+examples:
+  - |
+    ummu-pmu@0 {
+        compatible = "ub,ummu_pmu";
+        index = <0x0>;
+        msi-parent = <&its>;
+    };

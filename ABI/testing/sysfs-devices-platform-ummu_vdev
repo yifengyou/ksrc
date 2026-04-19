@@ -1,0 +1,19 @@
+What:		/sys/devices/platform/ummu_tid_root/logic_ummu/ummu_vdev.<X>.auto/ummu-vdev-attr/tid_mode
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Yanlong Zhu <zhuyanlong3@huawei.com>
+Description:
+		(RO) Displays the MAPT mode of Token ID.  Format: %d. Allowed values:
+
+		==	===========================================
+		0	Token ID is table mode.
+		1	Token ID is entry mode.
+		2	Fatal error occurred.
+		==	===========================================
+
+What:		/sys/devices/platform/ummu_tid_root/logic_ummu/ummu_vdev.<X>.auto/ummu-vdev-attr/tid_val
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Yanlong Zhu <zhuyanlong3@huawei.com>
+Description:
+		(RO) Displays the value of Token ID.  Format: %u.

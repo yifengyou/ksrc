@@ -1,0 +1,37 @@
+What:		/sys/kernel/debug/UB_BUS_CTL<x>/eu_table
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:	Display the contents of the EID-UPI entry.
+		By default, the EID and UPI key-value pair for entry 0 is displayed.
+		By writing an entry index to the properties file, you can retrieve
+		the content of the corresponding entry.
+
+		Example::
+
+			Display the content of entry5:
+			# echo 5 > /sys/kernel/debug/UB_BUS_CTL<x>/eu_table
+			# cat /sys/kernel/debug/UB_BUS_CTL<x>/eu_table
+
+What:		/sys/kernel/debug/UB_BUS_CTL<x>/hi_msgq<x>-<y>/reg_info
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:	Display the register information for the specified queue of the designated
+		UB Bus controller.
+
+What:		/sys/kernel/debug/UB_BUS_CTL<x>/hi_msgq<x>-<y>/q_entry_info
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:	Display the SQE and CQE contents of the specified MSQG for the designated
+		UB Bus controller. By default, the content of SQ entry 0 is displayed.
+		By writing the queue type and entry index to the properties file, you can
+		retrieve the content of the corresponding entry.
+
+		Example::
+
+			Output the content of SQ entry3:
+			# echo 0 3 > /sys/kernel/debug/UB_BUS_CTL<x>/hi_msgq<x>-<y>/q_entry_info
+			# cat /sys/kernel/debug/UB_BUS_CTL<x>/hi_msgq<x>-<y>/q_entry_info
+
+			Output the content of CQ entry5:
+			# echo 2 5 > /sys/kernel/debug/UB_BUS_CTL<x>/hi_msgq<x>-<y>/q_entry_info
+			# cat /sys/kernel/debug/UB_BUS_CTL<x>/hi_msgq<x>-<y>/q_entry_info

@@ -1,0 +1,31 @@
+What:		/sys/class/iommu/ummu.<x>/ummu_uotr_mpam/uotr_partid
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The PartID value used by the MPAM function to tag UMMU-initiated
+		traffic. Format: %x.
+
+What:		/sys/class/iommu/ummu.<x>/ummu_uotr_mpam/uotr_pmg
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The PMG value used by the MPAM function to tag UMMU-initiated traffic.
+		Format: %x.
+
+What:		/sys/class/iommu/ummu.<x>/ummu_uotr_mpam/uotr_run
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		After setting the uotr_partid and uotr_pmg values, write 1 to uotr_run
+		to apply them to the UMMU device. These values tag I/O traffic initiated
+		by the UMMU itself.
+
+What:		/sys/class/iommu/ummu.<x>/ummu_uotr_mpam/uotr_mpam_info
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		Retrieve the MPAM configuration last applied to the UMMU device.

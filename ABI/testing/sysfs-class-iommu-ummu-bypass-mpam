@@ -1,0 +1,31 @@
+What:		/sys/class/iommu/ummu.<x>/ummu_bypass_mpam/bp_partid
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The partID value used by the MPAM function in the bypass UMMU
+		scenario. Format: %x.
+
+What:		/sys/class/iommu/ummu.<x>/ummu_bypass_mpam/bp_pmg
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		The PMG value used by the MPAM function in the bypass UMMU scenario.
+		Format: %x.
+
+What:		/sys/class/iommu/ummu.<x>/ummu_bypass_mpam/bp_run
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		After setting the bp_partid and bp_pmg values, write 1 to bp_run to
+		apply these values to the UMMU device. These values define the IO
+		regions that bypass the UMMU device in the bypass UMMU scenario.
+
+What:		/sys/class/iommu/ummu.<x>/ummu_bypass_mpam/bp_mpam_info
+Date:		Oct 2025
+KernelVersion:	6.6
+Contact:	Jingbin Wu <wujingbin2@huawei.com>
+Description:
+		Retrieve the currently active MPAM configuration from the UMMU device.

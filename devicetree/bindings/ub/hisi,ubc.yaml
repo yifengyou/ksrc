@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/ub/hisi,ubc.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: HiSilicon UBC (Unified Bus Controller) platform device
+
+maintainers:
+  - Yuhao Xiang <xiangyuhao2@huawei.com>
+
+description: |+
+  This platform device was added to enable the automatic loading of the
+  hisi_ubus driver. If this feature is not needed, you can omit adding this
+  device and manually load the driver instead.
+
+properties:
+  $nodename:
+    pattern: "^hisi-ubc$"
+    description: |
+      The node name should be "hisi-ubc".
+
+  compatible:
+    const: "hisi,ubc"
+    description: |
+      The compatible property should be "hisi,ubc" to identify the device as a
+      HiSilicon UBC platform device.
+
+unevaluatedProperties: false
+
+examples:
+  - |+
+    hisi-ubc {
+        compatible = "hisi,ubc";
+    };

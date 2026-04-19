@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/iommu/hisi,ubmem_vmmu.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: HiSilicon ubmem_vmmu Architecture Implementation
+
+maintainers:
+  - Lizhi He <helizhi1@huawei.com>
+
+description: |+
+  ubmem_vmmu is an IOMMU device used in a VM, it achieves the mapping/unmapping of UBA -> GPA through iommu_map/iommu_unmap.
+
+properties:
+  $nodename:
+    pattern: "^ubmem_vmmu$"
+
+  compatible:
+    const: hisi,ubmem_vmmu
+
+required:
+  - compatible
+
+additionalProperties: false
+
+examples:
+  - |+
+    ubmem_vmmu {
+        compatible = "hisi,ubmem_vmmu";
+    };

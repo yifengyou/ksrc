@@ -1,0 +1,427 @@
+What:		/sys/bus/ub/cluster
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Indicates the current system operating mode:
+		1 for cluster mode, 0 for Standalone mode.
+
+What:		/sys/bus/ub/instance
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the list of bus instances created in the current system.
+		By default, it starts from the first one. Writing numbers into
+		the file can change the starting position of the output bus
+		instance.
+
+What:		/sys/bus/ub/drivers/.../bind
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Writing an entity number to this file will cause the driver
+		to attempt to bind to the entity. This is useful for
+		overriding default bindings. The entity number is
+		the same as found in /sys/bus/ub/devices/.
+		For example::
+
+		  # echo 00002 > /sys/bus/ub/drivers/sample/bind
+
+What:		/sys/bus/ub/drivers/.../unbind
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Writing an entity number to this file will cause the
+		driver to attempt to unbind from the entity. This may be
+		useful when overriding default bindings. The entity
+		number is the same as found in /sys/bus/ub/devices/.
+		For example::
+
+		  # echo 00002 > /sys/bus/ub/drivers/sample/unbind
+
+What:		/sys/bus/ub/drivers/.../new_id
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Writing a device ID to this file will attempt to
+		dynamically add a new device ID to a UB device driver.
+		This may allow the driver to support more hardware than
+		was included in the driver's static device ID support
+		table at compile time.  The format for the device ID is:
+		VVVV DDDD MVVV MMMM CCCC MMMM PPPP. That is Vendor ID,
+		Device ID, Module Vendor ID, Module ID, Class, Class Mask
+		and Private Driver Data. The Vendor ID and Device ID fields
+		are required, the rest are optional. Upon successfully
+		adding an ID, the driver will probe for the device and
+		attempt to bind to it.
+		For example::
+
+		  # echo cc08 a001 > /sys/bus/ub/drivers/sample/new_id
+
+What:		/sys/bus/ub/drivers/.../remove_id
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Writing a device ID to this file will remove an ID
+		that was dynamically added via the new_id sysfs entry.
+		The format for the device ID is:
+		VVVV DDDD MVVV MMMM CCCC MMMM.	That is Vendor ID, Device
+		ID, Module Vendor ID, Module ID, Class and Class Mask.
+		The Vendor ID and Device ID fields are required, the rest
+		are optional. After successfully removing an ID,
+		the driver will no longer support the device.
+		This is useful to ensure auto probing won't
+		match the driver to the device.
+		For example::
+
+		  # echo cc08 a001 > /sys/bus/ub/drivers/sample/remove_id
+
+What:		/sys/bus/ub/devices/.../class_code
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the class code type of the entity.
+
+What:		/sys/bus/ub/devices/.../config
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		A channel is provided for user-mode programs to access the
+		entity configuration space. User programs can open the file
+		using the open system call and then perform read/write
+		operations on the configuration space using the pread/pwrite
+		system calls.
+		For details, please refer to the implementation of ubutils
+		<https://gitee.com/openeuler/ubutils>.
+
+What:		/sys/bus/ub/devices/.../device
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the Device ID of the entity.
+
+What:		/sys/bus/ub/devices/.../device_reset
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Writing 1 to this file can trigger a device-level reset. All
+		entities below it will be reset.
+		Supported only by Entity0.
+
+What:		/sys/bus/ub/devices/.../direct_link
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the link connection relationships and the peer
+		information of the ports connected to this entity.
+
+What:		/sys/bus/ub/devices/.../driver_override
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		This file allows the driver for a device to be specified which
+		will override standard static and dynamic ID matching.  When
+		specified, only a driver with a name matching the value written
+		to driver_override will have an opportunity to bind to the
+		device.  The override is specified by writing a string to the
+		driver_override file (echo sample > driver_override) and
+		may be cleared with an empty string (echo > driver_override).
+		This returns the device to standard matching rules binding.
+		Writing to driver_override does not automatically unbind the
+		device from its current driver or make any attempt to
+		automatically load the specified driver.  If no driver with a
+		matching name is currently loaded in the kernel, the device
+		will not bind to any driver.  This also allows devices to
+		opt-out of driver binding using a driver_override name such as
+		"none".  Only a single driver may be specified in the override,
+		there is no support for parsing delimiters.
+
+What:		/sys/bus/ub/devices/.../eid
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the entity's EID.
+
+What:		/sys/bus/ub/devices/.../entity_idx
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the index of the entity, numbered starting from 0.
+
+What:		/sys/bus/ub/devices/.../guid
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the GUID of the entity.
+
+What:		/sys/bus/ub/devices/.../instance
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the EID of the bus instance bound to the entity.
+
+What:		/sys/bus/ub/devices/.../kref
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the current reference count of the entity.
+
+What:		/sys/bus/ub/devices/.../match_driver
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Indicates whether the current entity is ready for driver
+		matching. Some entities require additional initialization work,
+		so this entry is provided to control the entity separately.
+		In this case, it is necessary to ensure a certain timing
+		sequence; For example, the driver should be loaded only after
+		this status of the entity is set to 1 to ensure that the driver
+		probe is correctly initiated.
+
+What:		/sys/bus/ub/devices/.../numa
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		This file contains the NUMA node to which the UB Entity is
+		attached, or -1 if the node is unknown.  The initial value
+		comes from UBRT table, defined in the UB firmware specification.
+
+What:		/sys/bus/ub/devices/.../primary_cna
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the primary compact network address of the entity.
+
+What:		/sys/bus/ub/devices/.../primary_entity
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the entity number of the entity0 to which this entity
+		belongs.
+
+What:		/sys/bus/ub/devices/.../mue_list
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display a list of all MUEs under this entity, excluding itself.
+		Only Entity0 has this attribute file.
+
+What:		/sys/bus/ub/devices/.../reset
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Writing 1 to this file can trigger an entity-level reset, only
+		reset this entity, it will not affect other entities.
+
+What:		/sys/bus/ub/devices/.../resource
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Information about the resource space of the entity is displayed,
+		with a total of 3 entries, each consisting of the following
+		three components: start_address, end_address, flags.
+		If all values are 0, it indicates that the resource space is
+		not supported.
+
+What:		/sys/bus/ub/devices/.../resource<x>
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Provide attribute files to the user-mode driver. Through the
+		open and mmap system calls, the resource space of an entity can
+		be mapped into the process space for direct access, thereby
+		improving the efficiency of cross-mode resource space access.
+		The memory attribute mapped by this interface is the device
+		attribute.
+
+What:		/sys/bus/ub/devices/.../resource<x>_wc
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Provide attribute files to the user-mode driver. Through the
+		open and mmap system calls, the resource space of an entity can
+		be mapped into the process space for direct access, thereby
+		improving the efficiency of cross-mode resource space access.
+		The memory attribute mapped by this interface is the
+		write-combine attribute.
+
+What:		/sys/bus/ub/devices/.../sw_cap
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display whether forwarding capability is supported.
+		Only UBC supports it.
+
+What:		/sys/bus/ub/devices/.../tid
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the Token ID of the entity. The entity uses this
+		Token ID to access system memory.
+
+What:		/sys/bus/ub/devices/.../type
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the type of the entity. The type is a subdomain segment
+		of GUID.
+
+What:		/sys/bus/ub/devices/.../ubc
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the entity number of the UB controller associated with
+		the entity.
+
+What:		/sys/bus/ub/devices/.../ub_numues
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the number of UEs that have been enabled for this
+		entity. Writing a value to the file enables the UEs. The written
+		value must be within the range of ub_totalues. Writing 0
+		disables all UEs.
+		Only MUE supports this file.
+
+What:		/sys/bus/ub/devices/.../ub_total_entities
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the number of all entities supported by this entity.
+		Only Entity0 supports this file.
+
+What:		/sys/bus/ub/devices/.../ub_totalues
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the number of UEs owned by this entity.
+		Only MUE supports this file.
+
+What:		/sys/bus/ub/devices/.../ue_list
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display a list of all UEs under this entity, excluding itself.
+		Only MUE has this attribute file.
+
+What:		/sys/bus/ub/devices/.../upi
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display UPI of the entity.
+
+What:		/sys/bus/ub/devices/.../vendor
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display Vendor ID of the entity.
+
+What:		/sys/bus/ub/devices/.../msi_irqs/
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		The /sys/bus/ub/devices/.../msi_irqs/ directory contains a
+		variable set of files, with each file being named after a
+		corresponding msi irq vector allocated to that entity.
+
+What:		/sys/bus/ub/devices/.../msi_irqs/<N>
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		This attribute indicates the mode that the irq vector named by
+		the file is in (msi vs. msix)
+
+What:		/sys/bus/ub/devices/.../port<x>/asy_link_width
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Indicates whether the port supports asymmetric link width.
+		Supported only on physical port.
+
+
+What:		/sys/bus/ub/devices/.../port<x>/boundary
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Indicates whether the port is a boundary port.
+
+What:		/sys/bus/ub/devices/.../port<x>/cna
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display the CNA of this port.
+
+What:		/sys/bus/ub/devices/.../port<x>/glb_qdlws
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Write 1 to enable global dynamic lane adjustment,
+		write 0 to disable this function.
+		Supported only on physical port.
+
+What:		/sys/bus/ub/devices/.../port<x>/linkup
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Display whether the port has established a connection.
+
+What:		/sys/bus/ub/devices/.../port<x>/neighbor
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Displays the entity number of the peer entity at the port.
+		If no link is established, it displays "No Neighbor".
+
+What:		/sys/bus/ub/devices/.../port<x>/neighbor_guid
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		If there is a peer entity, display the GUID of the peer entity.
+		Otherwise, display "No Neighbor".
+
+What:		/sys/bus/ub/devices/.../port<x>/neighbor_port_idx
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		If there is a peer entity, the port index of the peer entity is
+		displayed. Otherwise, display "No Neighbor".
+
+What:		/sys/bus/ub/devices/.../port<x>/port_reset
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Supports individual port reset, triggered by writing 1.
+		Supported only on physical port.
+
+What:		/sys/bus/ub/devices/.../port<x>/qdlws_exec_state
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Obtain the hardware execution status of the current dynamically
+		adjustable lane.
+		Supported only on physical port.
+
+What:		/sys/bus/ub/devices/.../port<x>/rx_qdlws
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Enable/Disable dynamic lane adjustment in the RX direction.
+		Supported only on physical port.
+
+What:		/sys/bus/ub/devices/.../port<x>/tx_qdlws
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		Enable/Disable dynamic lane adjustment in the TX direction.
+		Supported only on physical port.
+
+What:		/sys/bus/ub/devices/.../slot<x>/power
+Date:		Oct 2025
+Contact:	Junlong Zheng <zhengjunlong@huawei.com>
+Description:
+		This feature supports hot-plug notification.
+		Display the current slot status, the value can be "on",
+		"poweron", "poweroff", "off" or "unknown state". And can
+		write 1 to enable power on the slot, and write 0 to
+		power it off.
+		This file is supported only by entities that support
+		hot-plug features.
