@@ -7,8 +7,10 @@
 * [slab](slab.md)
 * [slub](slub.md)
 * [slob](slob.md)
-* [cache](cache.md)
 * [buffer](buffer.md)
 * [page fault](pagefault.md)
 * [cow](cow.md)
+* [vmalloc](vmalloc.md)
+* [tlb](tlb.md)
+* [cache](cache.md)
 
