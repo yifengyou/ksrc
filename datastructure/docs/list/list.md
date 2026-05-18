@@ -68,9 +68,24 @@ struct node {
 };
 ```
 
-- `data` 是一个指针，指向另一个内存位置。
+- `data` 是一个指针，指向另一个内存位置。解引用 data 指针去拿业务数据时，由于 data 的内存地址是随机分配的，极大概率不在当前的缓存行中。
 - 遍历链表时，CPU 需要不断跳转到不同内存地址去读取实际数据，导致 **缓存未命中**（cache miss）频繁。
-- 内存访问模式不连续，破坏了空间局部性。
+- 内存访问模式不连续，破坏了空间局部性。触发 Cache Miss（缓存未命中），CPU 必须暂停，花费几百个时钟周期去主存里把数据搬过来
+
+```c
+struct node {
+    int data;
+    struct node *next;
+    struct node *pre;
+};
+```
+
+- 数据与链表强耦合：无法复用。每种数据类型都需要重新定义一个链表结构
+- 无法支持“一对象多链表”。一个对象只能在一个链表中！要加入第二个链表？必须再包装一层，或者复制数据
+- 破坏缓存局部性（Cache Locality）。链表指针（next/pre）可能（分开）和常用字段不在同一个 cache line。
+  - 将 list_head 嵌入到宿主结构体中，确实能从根本上保证链表指针（next/pre）与业务数据在物理内存上的紧密相邻，从而极大提升缓存局部性。
+- 生命周期管理混乱。链表节点和数据是一体的，删除节点 = 释放整个 struct node。但如果这个对象还被其他子系统引用（比如还在另一个哈希表中），直接 free 就会导致 UAF（Use-After-Free）。
+- 不通用。无法使用内核通用链表 API
 
 
 而在 Linux 的侵入式链表中：
@@ -143,6 +158,7 @@ C 语言没有模板，但 Linux 用宏巧妙实现“泛型”链表：
 
 ```c
 struct task_struct {
+    ...
     struct list_head tasks;      // 全局链表
     struct list_head run_list;   // 运行队列
     struct list_head io_wait;    // I/O 等待队列
@@ -286,6 +302,17 @@ task = container_of(p, struct task_struct, tasks);
 
 ## 必须掌握的 API
 
+Linux 内核中的链表支持以下操作：
+- 初始化：LIST_HEAD、LIST_HEAD_INIT、INIT_LIST_HEAD
+- 查询链表：list_is_last、list_empty、list_is_singular、list_entry、list_first_entry、list_last_entry、list_first_entry_or_null、list_next_entry、list_prev_entry
+- 插入元素：__list_add、list_add
+- 删除元素：__list_del、list_del
+- 替换元素：list_replace
+- 遍历链表：list_for_each、list_for_each_prev、list_for_each_entry、list_for_each_entry_reverse、list_prepare_entry、list_for_each_entry_continue、list_for_each_entry_continue_reverse、list_for_each_entry_from、list_for_each_entry_from_reverse
+- 单个链表操作：list_rotate_left、__list_cut_position、list_cut_position
+- 多个链表操作：list_move、list_move_tail、__list_splice、list_splice、list_splice_tail、list_splice_init、list_splice_tail_init
+
+
 ### 1. 初始化
 
 ```c
@@ -327,11 +354,7 @@ list_del()
 list_del_init()
 ```
 
-重点：
-
-list_del 不会清空对象。这是大量 UAF 来源。
-
-6.6 中：
+重点：list_del 不会清空对象。这是大量 UAF 来源。
 
 ```c
 entry->next = LIST_POISON1;
@@ -510,7 +533,7 @@ crash> list task_struct.tasks
 专家应掌握：
 
 ```python
-for task in list_for_each_entry(...):
+    for task in list_for_each_entry(...):
 ```
 
 ---
