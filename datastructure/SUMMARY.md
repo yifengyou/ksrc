@@ -8,4 +8,5 @@
 * [rbtree](docs/rbtree/rbtree.md)
 * [xarray](docs/xarray/xarray.md)
 * [bitmap](docs/bitmap/bitmap.md)
+* [sbitmap](docs/sbitmap/sbitmap.md)
 
