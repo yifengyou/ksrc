@@ -313,18 +313,45 @@ Linux 内核中的链表支持以下操作：
 - 多个链表操作：list_move、list_move_tail、__list_splice、list_splice、list_splice_tail、list_splice_init、list_splice_tail_init
 
 
-### 1. 初始化
+### 1. 初始化 - LIST_HEAD
+
 
 ```c
-INIT_LIST_HEAD()
-LIST_HEAD()
+#define LIST_HEAD(name) \
+    struct list_head name = LIST_HEAD_INIT(name)
 ```
 
-必须知道：
 
-* 静态初始化
-* 动态初始化
-* 未初始化后果
+### 1. 初始化 - LIST_HEAD_INIT
+
+
+```c
+#define LIST_HEAD_INIT(name) { &(name), &(name) }
+```
+
+### 1. 初始化 - INIT_LIST_HEAD
+
+
+```c
+// K:\include\linux\list.h
+/**
+ * INIT_LIST_HEAD - Initialize a list_head structure
+ * @list: list_head structure to be initialized.
+ *
+ * Initializes the list_head to point to itself.  If it is a list header,
+ * the result is an empty list.
+ */
+static inline void INIT_LIST_HEAD(struct list_head *list)
+{
+WRITE_ONCE(list->next, list);
+WRITE_ONCE(list->prev, list);
+}
+```
+
+
+
+
+
 
 ---
 
