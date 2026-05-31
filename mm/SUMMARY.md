@@ -13,4 +13,6 @@
 * [vmalloc](vmalloc.md)
 * [tlb](tlb.md)
 * [cache](cache.md)
+* [hugetlbfs](hugetlbfs.md)
+* [thp](thp.md)
 
