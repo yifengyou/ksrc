@@ -173,7 +173,7 @@ smartctl -A /dev/sda | awk '$1 == "197" && $10 > 0 { exit 1 }'
 ✅ 能设计内核模块或 eBPF 程序安全地采集健康数据（避免频繁 ioctl）
 
 > 📚 **推荐源码阅读**：
+
 > - `smartmontools` 源码中的 `atacmds.cpp`, `scsicmds.cpp`
 > - Linux 内核 `drivers/ata/libata-scsi.c` 中的 `ata_cmd_ioctl` 实现
 
-这才是真正的“专家级”掌握。
