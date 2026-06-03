@@ -31,7 +31,6 @@ def plot_buddy_system_non_recursive(max_level=10, output="buddy.svg"):
         width = min(600, total_size * 0.6)
         height = min(600, max_level + 4)
 
-    print(f"width: {width} , height: {height}")
     fig, ax = plt.subplots(figsize=(width, height))
 
     # 设置绘图范围
@@ -118,4 +117,4 @@ def plot_buddy_system_non_recursive(max_level=10, output="buddy.svg"):
 
 if __name__ == "__main__":
     for i in range(1, 11):
-        plot_buddy_system_non_recursive(max_level=i, output=f"buddy_power_{i}.svg")
+        plot_buddy_system_non_recursive(max_level=i, output=f"buddy_order_{i}.svg")
