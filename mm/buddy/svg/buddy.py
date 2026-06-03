@@ -1,32 +1,111 @@
-# ！/usr/bin/env python3
+#!/usr/bin/env python3
 
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
 
-# 设置画布
-fig, ax = plt.subplots(figsize=(20, 5))
 
-# 假设我们有一个 10 阶 buddy 系统，总大小为 2^10 = 1024 单位
-total_size = 2 ** 10
-block_size = 1  # 最小块大小
+def plot_buddy_system_non_recursive(max_level=10, output="buddy.svg"):
+    """
+    使用循环绘制 Buddy 系统结构图，并在矩形中心添加标签。
+    """
+    total_size = 2 ** max_level
 
-# 模拟 buddy 系统的分配状态（这里简化为全未分配）
-# 可以根据实际需求修改 blocks 列表来表示已分配或空闲块
-blocks = [(i * block_size, block_size) for i in range(total_size)]
+    # 预定义每级的 figsize (width, height)
+    FIGSIZE_CONFIG = {
+        1: (8, 1.5),
+        2: (8, 2),
+        3: (12, 3),
+        4: (24, 3),
+        5: (48, 4),
+        6: (96, 4),
+        7: (192, 5),
+        8: (384, 6),
+        9: (800, 7),
+        10: (1500, 8),
+    }
 
-# 绘制每个块
-for start, size in blocks:
-    rect = Rectangle((start, 0), size, 1, linewidth=0.2, edgecolor='black', facecolor='white')
-    ax.add_patch(rect)
+    # 默认 fallback：如果 level 超出预设，用最大或动态估算
+    if max_level in FIGSIZE_CONFIG:
+        width, height = FIGSIZE_CONFIG[max_level]
+    else:
+        # 安全兜底：不超过 600 英寸
+        width = min(600, total_size * 0.6)
+        height = min(600, max_level + 4)
 
-# 设置坐标轴范围
-ax.set_xlim(0, total_size)
-ax.set_ylim(0, 1)
-ax.set_aspect('equal')
+    print(f"width: {width} , height: {height}")
+    fig, ax = plt.subplots(figsize=(width, height))
 
-# 隐藏坐标轴
-plt.axis('off')
+    # 设置绘图范围
+    ax.set_xlim(0, total_size)
+    ax.set_ylim(0, max_level + 1)
+    ax.set_aspect('auto')
 
-# 保存为 SVG 文件
-plt.savefig("buddy_system.svg", format="svg", bbox_inches='tight')
-plt.show()
+    # 隐藏坐标轴
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    # 循环绘制每一层
+    for level in range(max_level + 1):
+        # 计算当前层的块大小
+        block_size = 2 ** level
+
+        # 循环绘制当前层的每个块
+        for i in range(total_size // block_size):
+            start = i * block_size
+            end = start + block_size
+
+            # 绘制矩形
+            rect = plt.Rectangle((start, level), width=block_size, height=1, linewidth=0.2, edgecolor='black',
+                                 facecolor='none')
+            ax.add_patch(rect)
+
+            # 在矩形中心添加标签
+            if start == end - 1:
+                label = f"PFN: {start}\nSize: {2 ** level * 4}KB(2^{level}*4KB)\nBuddy:{start ^ (1 << level)}"
+            else:
+                label = f"PFN: {start}-{end - 1}\nSize: {2 ** level * 4}KB(2^{level}*4KB)\nBuddy:{start} ^ (1 << {level})={start ^ (1 << level)}"
+            ax.text(start + block_size / 2, level + 0.5, label, ha='center', va='center', color='black', fontsize=8)
+
+    # 添加层标签
+    for i in range(max_level + 1):
+        ax.text(-0.08, i + 0.5, f'Level {i:02}',
+                va='center', ha='right', fontsize=12,
+                clip_on=False)
+    # 标题
+    plt.title(f'Buddy System ({2 ** max_level} Pages, 4KB PerPage, {2 ** max_level * 4}KB Total, {max_level} Levels)',
+              fontsize=14)
+
+    # buddy规则
+    rules = (
+        "Buddy System Rules:\n"
+        "1. Memory is divided into blocks of size 2^n pages (4KB per page).\n"
+        "2. Two blocks are buddies if their addresses differ only in the n-th bit.\n"
+        "3. A block's buddy PFN = PFN XOR (1 << block_order).\n"
+        "4. Free blocks can merge with their free buddy to form a larger block.\n"
+        "5. Allocation splits larger blocks recursively until the required size is met."
+    )
+    ax.text(
+        0.1,
+        -1,
+        rules,
+        ha='left',
+        va='top',
+        fontsize=9,
+        fontfamily='monospace'
+    )
+
+    copyright_text = "© 2026–2066 The Ksrc Project"
+    ax.text(total_size / 2, -0.5,  # 放在图表正下方居中
+            copyright_text,
+            ha='center', va='top', fontsize=10, color='black',
+            style='oblique', clip_on=False)
+
+    # 保存为 SVG 文件
+    # plt.savefig(output, format='svg', bbox_inches=None)
+    plt.savefig(output, format='svg', bbox_inches='tight', dpi=100)
+    plt.close()
+    print(f"{output} saved successfully")
+
+
+if __name__ == "__main__":
+    for i in range(1, 11):
+        plot_buddy_system_non_recursive(max_level=i, output=f"buddy_power_{i}.svg")
