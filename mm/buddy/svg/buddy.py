@@ -77,19 +77,29 @@ def plot_buddy_system_non_recursive(max_level=10, output="buddy.svg"):
     # buddy规则
     rules = (
         "Buddy System Rules:\n"
-        "1. Memory is divided into blocks of size 2^n pages (4KB per page).\n"
-        "2. Two blocks are buddies if their addresses differ only in the n-th bit.\n"
-        "3. A block's buddy PFN = PFN XOR (1 << block_order).\n"
-        "4. Free blocks can merge with their free buddy to form a larger block.\n"
-        "5. Allocation splits larger blocks recursively until the required size is met."
+        "1. Memory divided into blocks of size 2^n pages (4KB per page).\n"
+        "2. n = block order; order 0 = 1 page, order 1 = 2 pages, etc.\n"
+        "3. All blocks must be naturally aligned to their size.\n"
+        "4. Two blocks are buddies: same order, contiguous, PFN differs in n-th bit.\n"
+        "5. Buddy PFN = current PFN XOR (1 << block_order).\n"
+        "6. Buddy relationship is mutual and exclusive for each block.\n"
+        "7. Allocation: split larger free blocks recursively to fit request size.\n"
+        "8. Only free blocks can be split; one order lower per split.\n"
+        "9. Free: check buddy; if free, merge to higher order recursively.\n"
+        "10. Merging only allowed between free buddy blocks of same order.\n"
+        "11. Initial state: one free block of the maximum supported order.\n"
+        "12. Allocated blocks keep their order; no partial changes.\n"
+        "13. Eliminates external fragmentation; internal fragmentation may exist."
     )
+
+
     ax.text(
-        0.1,
+        0,
         -1,
         rules,
         ha='left',
         va='top',
-        fontsize=9,
+        fontsize=10,
         fontfamily='monospace'
     )
 
