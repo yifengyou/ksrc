@@ -1,0 +1,250 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+/*
+ * Lua based LSM
+ *
+ * Copyright (C) 2025 The Alibaba Cloud Linux Authors.
+ */
+
+#ifndef _SECURITY_LUA_LSM_LSM_H
+#define _SECURITY_LUA_LSM_LSM_H
+
+#include <linux/list.h>
+#include <linux/sched.h>
+#include <linux/fs.h>
+#include <linux/msg.h>
+#include <net/sock.h>
+#include <linux/lsm_hooks.h>
+#include <linux/spinlock.h>
+#include <linux/perf_event.h>
+#include <linux/u64_stats_sync.h>
+#include <linux/jump_label.h>
+#include <linux/lua.h>
+#include "bitmap.h"
+#include "kvcache.h"
+
+DECLARE_STATIC_KEY_FALSE(lua_lsm_modules_active);
+
+/* Flag indicating whether initialization completed */
+extern int lua_lsm_initialized __initdata;
+
+#define LUA_LSM_VERSION		1
+
+struct lua_lsm_hook_stat {
+	const char *name;
+	atomic_t nhooks;
+};
+
+extern struct lua_lsm_hook_stat lua_lsm_hook_stats[];
+
+#define LSM_HOOK(RET, DEFAULT, NAME, ...)				\
+	int __prepare_ ## NAME(__VA_ARGS__);				\
+	void __postpone_ ## NAME(__VA_ARGS__);
+
+#include <linux/lsm_hook_defs.h>
+#undef LSM_HOOK
+
+enum {
+	#define LSM_HOOK(RET, DEFAULT, NAME, ...)	__LL_NR_ ## NAME,
+	#include <linux/lsm_hook_defs.h>
+	#undef LSM_HOOK
+	__LL_NR_MAX
+};
+
+static inline bool lua_lsm_hook_supported(unsigned int nr)
+{
+	switch (nr) {
+	case __LL_NR_getprocattr:
+	case __LL_NR_setprocattr:
+#ifdef CONFIG_SECURITY_NETWORK_XFRM
+	case __LL_NR_xfrm_state_pol_flow_match:
+#endif
+		return false;
+	default:
+		return nr < __LL_NR_MAX;
+	}
+}
+
+struct lua_lsm_module_shdict {
+	struct list_head list;
+	struct kvcache_dict dict;
+	char name[];
+};
+
+enum lua_lsm_module_state {
+	LMS_STATE_LIVE,
+	LMS_STATE_COMING,
+	LMS_STATE_GOING,
+	LMS_STATE_ZOMBIE,
+};
+
+struct lua_lsm_module {
+	const char *name;
+	const char *author;
+	const char *description;
+	const char *license;
+	int version;
+	enum lua_lsm_module_state state;
+	struct list_head list;
+
+	__BITMAP_TYPE(, uint32_t, __LL_NR_MAX) hookfuncs;
+	int nhooks;
+	char *chunk;
+	size_t chunk_len;
+	atomic_t nloaded;
+	struct list_head shdicts;
+
+	/* Protects shdicts and shdict_count. */
+	spinlock_t shdict_lock;
+	atomic_t shdict_count;
+	struct list_head kvnodes;
+
+	/* Protects kvnodes and kvnodes_count. */
+	spinlock_t kvnodes_lock;
+	atomic_t kvnodes_count;
+};
+
+extern struct list_head lsm_modules;
+extern struct srcu_struct modules_ss;
+
+#define TABLINE							\
+	"---------------------------------------------"		\
+	"---------------------------------------------"
+
+lua_State *lvm_get(void);
+void lvm_put(lua_State *L);
+
+int lua_lsm_module_register(const char *code, size_t len);
+int lua_lsm_module_unregister(const char *name);
+
+int modules_show(struct seq_file *m, void *v);
+
+#ifdef CONFIG_SECURITY_LUA_LSM_STATS
+void lua_lsm_hook_stats_record(unsigned int nr, u64 delta);
+void lvm_stats_show(struct seq_file *m);
+int lsm_funcs_show(struct seq_file *m, void *v);
+#endif
+
+extern struct lsm_blob_sizes lua_lsm_blob_sizes;
+
+struct lvm_state {
+	lua_State *L;
+	atomic_t refcount;
+	struct lvm_state *next;
+	bool dirty;
+#ifdef CONFIG_SECURITY_LUA_LSM_STATS
+	atomic64_t nalloc;
+	atomic64_t nrealloc;
+	atomic64_t nfree;
+#endif
+};
+
+struct lua_lsm_task {
+	struct lvm_state *lvm;
+	struct kvcache_dict dict;
+};
+
+static inline struct lua_lsm_task *lua_lsm_task(const struct task_struct *task)
+{
+	return task->security + lua_lsm_blob_sizes.lbs_task;
+}
+
+/* common object */
+
+struct lua_lsm_object {
+	struct kvcache_dict dict;
+};
+
+static inline struct lua_lsm_object *lua_lsm_cred(const struct cred *cred)
+{
+	if (unlikely(!cred->security))
+		return NULL;
+	return cred->security + lua_lsm_blob_sizes.lbs_cred;
+}
+
+static inline struct lua_lsm_object *lua_lsm_file(const struct file *file)
+{
+	if (unlikely(!file->f_security))
+		return NULL;
+	return file->f_security + lua_lsm_blob_sizes.lbs_file;
+}
+
+static inline struct lua_lsm_object *lua_lsm_ib(void *ib_sec)
+{
+	return ib_sec + lua_lsm_blob_sizes.lbs_ib;
+}
+
+static inline struct lua_lsm_object *lua_lsm_inode(const struct inode *inode)
+{
+	if (unlikely(!inode->i_security))
+		return NULL;
+	return inode->i_security + lua_lsm_blob_sizes.lbs_inode;
+}
+
+static inline struct lua_lsm_object *lua_lsm_inode_rcu(void *inode_security)
+{
+	if (unlikely(!inode_security))
+		return NULL;
+	return inode_security + lua_lsm_blob_sizes.lbs_inode;
+}
+
+static inline struct lua_lsm_object *lua_lsm_sock(const struct sock *sock)
+{
+	if (unlikely(!sock || !sock->sk_security))
+		return NULL;
+	return sock->sk_security + lua_lsm_blob_sizes.lbs_sock;
+}
+
+static inline struct lua_lsm_object *lua_lsm_superblock(const struct super_block *superblock)
+{
+	if (unlikely(!superblock->s_security))
+		return NULL;
+	return superblock->s_security + lua_lsm_blob_sizes.lbs_superblock;
+}
+
+static inline struct lua_lsm_object *lua_lsm_ipc(const struct kern_ipc_perm *ipc)
+{
+	if (unlikely(!ipc->security))
+		return NULL;
+	return ipc->security + lua_lsm_blob_sizes.lbs_ipc;
+}
+
+static inline struct lua_lsm_object *lua_lsm_key(const struct key *key)
+{
+	return key->security + lua_lsm_blob_sizes.lbs_key;
+}
+
+static inline struct lua_lsm_object *lua_lsm_msgmsg(const struct msg_msg *msg)
+{
+	if (unlikely(!msg->security))
+		return NULL;
+	return msg->security + lua_lsm_blob_sizes.lbs_msg_msg;
+}
+
+static inline struct lua_lsm_object *lua_lsm_perfevent(const struct perf_event *event)
+{
+	return event->security + lua_lsm_blob_sizes.lbs_perf_event;
+}
+
+static inline struct lua_lsm_object *lua_lsm_tun_dev(void *security)
+{
+	return security + lua_lsm_blob_sizes.lbs_tun_dev;
+}
+
+static inline struct lua_lsm_object *lua_lsm_bdev(const struct block_device *bdev)
+{
+	return NULL;
+}
+
+int task_blob_init(struct task_struct *task);
+void task_blob_free(struct task_struct *task);
+
+/* lua C module */
+
+int luaopen_kernel(lua_State *L);
+int luaopen_fs(lua_State *L);
+int luaopen_net(lua_State *L);
+int luaopen_errno(lua_State *L);
+int luaopen_capability(lua_State *L);
+int luaopen_signal(lua_State *L);
+
+#endif  /* ! _SECURITY_LUA_LSM_LSM_H */

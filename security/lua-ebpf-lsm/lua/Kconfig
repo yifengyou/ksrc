@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+config SECURITY_LUA_LSM
+	bool "Lua based LSM Support"
+	depends on SECURITY
+	depends on LUA
+	default n
+	help
+	  This enables the Lua based LSM.
+	  If you are unsure how to answer this question, answer N.
+
+config SECURITY_LUA_LSM_STATS
+	bool "Lua-LSM Statistics"
+	depends on SECURITY_LUA_LSM
+	default n
+	help
+	  This selects the lua-lsm statistics.
+	  If you are unsure how to answer this question, answer N.
+
+config SECURITY_LUA_LSM_DEBUG
+	bool "Lua-LSM kernel debugging support"
+	depends on SECURITY_LUA_LSM
+	default n
+	help
+	  This enables debugging code designed to help Lua-LSM kernel
+	  developers, unless you know what this does in the kernel code you
+	  should leave this disabled.
