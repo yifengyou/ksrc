@@ -12,6 +12,7 @@
 | [04-io 控制器与 cpuset](docs/04-io控制器与cpuset.md) | 四把刀 | io.cost 的 vrate 反馈环、io.latency 的 scale_lat 迟滞、io.max 双级桶、cpuset partition 四态（含 6.6 isolated）与完整隔离栈 |
 | [05-memcg 回收深挖](docs/05-memcg回收深挖.md) | 执行路径 | try_charge 全链（high 罚睡 vs max OOM 双语义）、memcg lruvec 与 MGLRU（walk_mm 扫 PTE 老化）、shrink_folio_list 决策机、MEMCG_AWARE shrinker、memory.reclaim/PSI 观测 |
 | [06-uclamp 深挖](docs/06-uclamp深挖.md) | 组级 effective | 四层来源（任务/组/系统/RT 默认）、uclamp_tg_restrict 的 clamp() 夹逼公式、桶聚合 O(1)（UCLAMP_BUCKETS=5）、sched_uclamp_used 静态键零开销、schedutil/EAS 双消费点 |
+| [07-css_set 深挖](docs/07-css_set深挖.md) | 数据结构 | 组合去重枢纽（同组合任务共享实例）、find_existing 的 template 构造（只换动到的 root）、find_css_set 全函数、put_css_set_locked 释放链与 kfree_rcu、迁移 mg 双链挂点 |
 
 ## 学习路线
 

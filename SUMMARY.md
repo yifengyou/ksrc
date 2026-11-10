@@ -217,6 +217,7 @@
 * [io 控制器与 cpuset](cgroup/docs/04-io控制器与cpuset.md)
 * [memcg 回收深挖](cgroup/docs/05-memcg回收深挖.md)
 * [uclamp 深挖](cgroup/docs/06-uclamp深挖.md)
+* [css_set 深挖](cgroup/docs/07-css_set深挖.md)
 
 ## 二十四、系统调用机制（syscalls）
 
