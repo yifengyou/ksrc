@@ -9,7 +9,8 @@ Linux 内存管理子系统学习笔记。按"物理内存的诞生 → 页分�
 【页分配】  zone/node → page → buddy  ← 物理页的所有者
 【小对象】  slab → slub → slob → kmalloc → vmalloc
 【地址空间】mmu / canonical_address_space（x86 线性空间布局、四/五级页表）
-【缺页】    page fault → cow
+【地址空间】vma（maple tree 时代的 mmap 生命周期）
+【缺页】    page fault → cow → vma（PER_VMA_LOCK 快路径）
 【缓存】    cache（页缓存）→ buffer
 【大页】    hugetlbfs / thp
 【旁路】    tlb（结构与管理）、pagefualt（注意目录名的拼写沿用）
@@ -26,6 +27,8 @@ Linux 内存管理子系统学习笔记。按"物理内存的诞生 → 页分�
 | 内核小内存 | [kmalloc](kmalloc/kmalloc.md) / [vmalloc](vmalloc/vmalloc.md) | 连续 vs 虚拟连续 |
 | 地址空间 | [mmu](mmu/README.md) / [canonical_address_space](canonical_address_space/README.md) | x86 线性空间布局、四级/五级页表 |
 | 缺页与 COW | [pagefault](pagefualt/pagefault.md) / [cow](cow/cow.md) | 匿名/文件缺页、写时复制 |
+| vma 与 mmap 生命周期 | [vma](vma/vma与mmap生命周期.md) | vm_area_struct 新解剖（vm_prev/vm_next 已删）、maple tree 与 VMA_ITERATOR、vma_merge 与两阶段提交、PER_VMA_LOCK |
+| page cache 与 writeback | [pagecache](pagecache/pagecache与writeback.md) | address_space 全字段、folio API 与三枚标签、pos_ratio 节流、write_cache_pages 与 tag-and-write |
 | 页缓存 | [cache](cache/cache.md) / [buffer](buffer/buffer.md) | address_space 与块缓冲 |
 | 大页 | [hugetlbfs](hugetlbfs/hugetlbfs.md) / [thp](thp/thp.md) | 静态预留 vs 透明合并 |
 | TLB | [tlb](tlb/tlb.md) | 页表缓存与 flush 语义 |

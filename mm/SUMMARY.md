@@ -10,6 +10,8 @@
 * [slob](slob/slob.md)
 * [buffer](buffer/buffer.md)
 * [page fault](pagefualt/pagefault.md)
+* [vma 与 mmap 生命周期](vma/vma与mmap生命周期.md)
+* [page cache 与 writeback](pagecache/pagecache与writeback.md)
 * [cow](cow/cow.md)
 * [vmalloc](vmalloc/vmalloc.md)
 * [kmalloc](kmalloc/kmalloc.md)
