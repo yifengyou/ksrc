@@ -24,6 +24,7 @@
 * [调度域与负载均衡](scheduler/docs/06-调度域与负载均衡.md)
 * [实时与 Deadline 调度](scheduler/docs/07-实时与Deadline调度.md)
 * [sched_ext 前瞻（v6.12）](scheduler/docs/08-sched_ext前瞻.md)
+* [PSI 压力失速信息](scheduler/docs/09-PSI压力失速信息.md)
 * [SCHED_BT 离在线混部调度（腾讯）](scheduler/sched-batch/README.md)
 * [xsched 调度实践](scheduler/xsched.md)
 

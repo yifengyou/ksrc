@@ -15,6 +15,7 @@
 | [06-调度域与负载均衡](docs/06-调度域与负载均衡.md) | sched_domain/load_balance | group_type×migration_type、misfit、EAS、NUMA |
 | [07-实时与Deadline调度](docs/07-实时与Deadline调度.md) | FIFO/RR/DL | push/pull、throttling、CBS/GRUB、准入 |
 | [08-sched_ext 前瞻](docs/08-sched_ext前瞻.md) | BPF 可插拔（**基准 v6.12，基线外**） | sched_ext_ops 约 30 回调、DSQ 协议、watchdog 30s+bypass 回退、scx 生态、与 EEVDF 对照 |
+| [09-PSI 压力失速信息](docs/09-PSI压力失速信息.md) | 资源失速量化 | 七态模型（SOME/FULL 分野）、TSK_* 记账与 PSI_ONCPU、memstall 双态（MEMSTALL_RUNNING）、2s 窗三档指数、rtpoll 触发器、/proc/pressure 与 cgroup 联动 |
 
 ## 专题子目录
 
