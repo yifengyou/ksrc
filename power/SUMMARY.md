@@ -1,6 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
+* [一页速查](docs/00-一页速查.md)
 * [电源管理总体框架](docs/01-电源管理总体框架.md)
 * [cpufreq 调频子系统](docs/02-cpufreq.md)
 * [cpuidle 空闲管理](docs/03-cpuidle.md)

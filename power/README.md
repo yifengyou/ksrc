@@ -6,6 +6,7 @@
 
 | 章节 | 主题 | 一句话 |
 | :--- | :--- | :--- |
+| [00-一页速查](docs/00-一页速查.md) | 速查 | 九章地图与各支柱速记 + 观测总表 |
 | [01-电源管理总体框架](docs/01-电源管理总体框架.md) | 版图与骨架 | 五大板块（CPU/设备/平台 PM、QoS、wakeup）、`dev_pm_ops` 回调矩阵、suspend 总流程 |
 | [02-cpufreq](docs/02-cpufreq.md) | 调频子系统 | policy 生命周期、三代驱动接口、schedutil 落点、freq_qos、频率不变性 |
 | [03-cpuidle](docs/03-cpuidle.md) | 空闲管理 | C-state 成本模型、`cpuidle_idle_call` 决策链、menu/teo 预测算法、poll idle |

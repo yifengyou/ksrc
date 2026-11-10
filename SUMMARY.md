@@ -187,6 +187,7 @@
 ## 二十、电源管理（power）
 
 * [电源管理分册导读](power/README.md)
+* [一页速查](power/docs/00-一页速查.md)
 * [电源管理总体框架](power/docs/01-电源管理总体框架.md)
 * [cpufreq 调频子系统](power/docs/02-cpufreq.md)
 * [cpuidle 空闲管理](power/docs/03-cpuidle.md)
