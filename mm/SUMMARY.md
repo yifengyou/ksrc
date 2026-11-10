@@ -1,6 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
+* [一页速查](docs/00-一页速查.md)
 * [bootmem](bootmem/bootmem.md)
 * [memblock](memblock/memblock.md)
 * [buddy](buddy/buddy.md)

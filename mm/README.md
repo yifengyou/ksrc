@@ -5,6 +5,7 @@ Linux 内存管理子系统学习笔记。按"物理内存的诞生 → 页分�
 ## 学习路线
 
 ```
+【速查】    00-一页速查.md（先扫表建索引）
 【启动期】  bootmem → memblock →（移交）→ buddy
 【页分配】  zone/node → page → buddy  ← 物理页的所有者
 【小对象】  slab → slub → slob → kmalloc → vmalloc

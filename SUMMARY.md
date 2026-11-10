@@ -50,6 +50,7 @@
 ## 五、内存管理（mm）
 
 * [内存管理分册导读（含目录）](mm/README.md)
+* [一页速查](mm/docs/00-一页速查.md)
   * bootmem / memblock / buddy / slab / slub / slob / page / zone / node
   * page fault / cow / kmalloc / vmalloc / tlb / cache
   * hugetlbfs / thp / mmu / canonical address space
