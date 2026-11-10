@@ -126,6 +126,8 @@
 ## 十二、虚拟化与体系结构
 
 * [KVM 分册](virt/kvm/README.md)
+  * [vcpu 线程模型与主循环](virt/kvm/docs/01-vcpu线程模型与主循环.md)
+  * [EPT 与内存虚拟化](virt/kvm/docs/02-EPT与内存虚拟化.md)
 * [arm64 MPAM 资源监控](arch/arm64/mpam.md)
 
 ## 十三、存储与外设
