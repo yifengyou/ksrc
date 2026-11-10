@@ -188,6 +188,7 @@
 * [runtime PM 与设备电源管理](power/docs/04-runtime-PM.md)
 * [suspend 与 s2idle 全流程](power/docs/05-suspend与s2idle.md)
 * [thermal 框架](power/docs/06-thermal框架.md)
+* [devfreq 与 pm_qos](power/docs/07-devfreq与pm_qos.md)
 
 ## 二十一、工作队列（workqueue）
 

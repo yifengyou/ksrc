@@ -12,6 +12,7 @@
 | [04-runtime PM](docs/04-runtime-PM.md) | 设备级微睡眠 | usage_count/状态机/pm_wq、rpm_suspend 六道关卡、autosuspend 防抖、device link |
 | [05-suspend 与 s2idle](docs/05-suspend与s2idle.md) | 系统睡眠 | 三级等级全时序、s2idle_loop 唤醒协议、wakeup source 记账、hibernate 概览 |
 | [06-thermal 框架](docs/06-thermal框架.md) | 热管理 | tz/cdev/instance 三件套、trip 越线判定与 hysteresis、step_wise/power_allocator(IPA)、cpufreq_cooling 的 freq_qos clamp、arch_scale_thermal_pressure 与调度 capacity 实时联动 |
+| [07-devfreq 与 pm_qos](docs/07-devfreq与pm_qos.md) | 设备级调频 | devfreq 结构（内嵌 device）、决策环（governor 出价+QoS 区间+target 落地）、五 governor（含 passive 的 cpufreq 跟随）、轮询/事件双触发、dev_pm_qos 设备级聚合与 thermal 联动 |
 
 ## 与其他分册的联动
 
