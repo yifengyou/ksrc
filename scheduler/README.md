@@ -14,6 +14,7 @@
 | [05-PELT与利用率追踪](docs/05-PELT与利用率追踪.md) | load/runnable/util_avg | 几何衰减、util_est、uclamp、schedutil |
 | [06-调度域与负载均衡](docs/06-调度域与负载均衡.md) | sched_domain/load_balance | group_type×migration_type、misfit、EAS、NUMA |
 | [07-实时与Deadline调度](docs/07-实时与Deadline调度.md) | FIFO/RR/DL | push/pull、throttling、CBS/GRUB、准入 |
+| [08-sched_ext 前瞻](docs/08-sched_ext前瞻.md) | BPF 可插拔（**基准 v6.12，基线外**） | sched_ext_ops 约 30 回调、DSQ 协议、watchdog 30s+bypass 回退、scx 生态、与 EEVDF 对照 |
 
 ## 专题子目录
 

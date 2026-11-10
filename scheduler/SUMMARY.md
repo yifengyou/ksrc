@@ -9,3 +9,4 @@
 * [PELT 与利用率追踪](docs/05-PELT与利用率追踪.md)
 * [调度域与负载均衡](docs/06-调度域与负载均衡.md)
 * [实时与 Deadline 调度](docs/07-实时与Deadline调度.md)
+* [sched_ext 前瞻（v6.12）](docs/08-sched_ext前瞻.md)
