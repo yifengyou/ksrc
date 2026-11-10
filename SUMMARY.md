@@ -220,6 +220,7 @@
 ## 二十三、cgroup 资源治理（cgroup）
 
 * [cgroup 分册导读](cgroup/README.md)
+* [一页速查](cgroup/docs/00-一页速查.md)
 * [v2 层级与线程模式](cgroup/docs/01-v2层级与线程模式.md)
 * [cpu 控制器](cgroup/docs/02-cpu控制器.md)
 * [memory 控制器](cgroup/docs/03-memory控制器.md)

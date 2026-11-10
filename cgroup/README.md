@@ -6,6 +6,7 @@
 
 | 章节 | 主题 | 一句话 |
 | :--- | :--- | :--- |
+| [00-一页速查](docs/00-一页速查.md) | 速查 | v2 机制/cpu.weight 范围/memory 双限语义/io+cpuset/uclamp 夹逼/PSI（各章浓缩） |
 | [01-v2 层级与线程模式](docs/01-v2层级与线程模式.md) | 框架底座 | 统一层级动机、cgroup/css/subsys 四层结构、kernfs、线程模式四态、内部进程约束 |
 | [02-cpu 控制器](docs/02-cpu控制器.md) | 比例与硬顶 | weight→shares 换算链、cpu.max 的 quota/period/burst、cpu.idle、throttle 排障、PSI |
 | [03-memory 控制器](docs/03-memory控制器.md) | 四道闸门 | obj_cgroup 两层记账、min/low/high/max 行为差异、memcg 回收与组内 OOM、memory.stat 逐列、stock 批处理 |
