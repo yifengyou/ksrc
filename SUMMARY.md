@@ -238,6 +238,12 @@
 * [printk-ringbuffer](printk/docs/01-printk-ringbuffer.md)
 * [console 驱动模型](printk/docs/02-console驱动模型.md)
 
+## 二十八、内核热补丁（livepatch）
+
+* [livepatch 分册导读](livepatch/README.md)
+* [klp 核心结构与打补丁流](livepatch/docs/01-klp核心结构与打补丁流.md)
+* [一致性模型与 transition](livepatch/docs/02-一致性模型与transition.md)
+
 ---
 
 > 备注：各分册目录下另有对应 `SUMMARY.md` 提供该分册完整目录；大量 `*.rst` 文件为 Linux 内核官方文档镜像，可作原文参考。
