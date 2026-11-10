@@ -244,6 +244,12 @@
 * [klp 核心结构与打补丁流](livepatch/docs/01-klp核心结构与打补丁流.md)
 * [一致性模型与 transition](livepatch/docs/02-一致性模型与transition.md)
 
+## 二十九、热插拔（hotplug）
+
+* [热插拔分册导读](hotplug/README.md)
+* [cpuhp 状态机](hotplug/docs/01-cpuhp状态机.md)
+* [内存热插拔 memhp](hotplug/docs/02-内存热插拔memhp.md)
+
 ---
 
 > 备注：各分册目录下另有对应 `SUMMARY.md` 提供该分册完整目录；大量 `*.rst` 文件为 Linux 内核官方文档镜像，可作原文参考。
