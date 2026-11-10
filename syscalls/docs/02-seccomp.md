@@ -72,7 +72,7 @@ struct seccomp_data {
     │                                      │    （如把宿主侧打开的文件塞给它）
 ```
 
-**TOCTOU 防护**（seccomp 的经典难题）：目标进程可在仲裁期间 `execve` 换身份——`NOTIF_ADDFD/SEND` 用 **notification id** 校验"这条通知还属于当初那个进程"（id 由 pid 与时间戳派生，失效即拒绝 ioctl）。seccomp.c:78 注释块完整描述了这个状态机（已核对）。
+**TOCTOU 防护**（seccomp 的经典难题）：目标进程可在仲裁期间 `execve` 换身份——`NOTIF_ADDFD/SEND` 用 **notification id** 校验"这条通知还属于当初那个进程"（id 为 **per-filter 单调递增计数器**：`seccomp_next_notify_id()` 返回 `filter->notif->next_id++`——第 3 轮复查勘误：原文误称"由 pid 与时间戳派生"；knotif 里另存 `struct pid` 供身份比对，id 失配即拒绝 ioctl）。seccomp.c:78 注释块完整描述了 INIT→SENT→REPLIED 状态机（已核对）。
 
 ---
 
