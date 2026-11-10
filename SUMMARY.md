@@ -79,6 +79,8 @@
 * [net_device 与收发队列](networking/docs/03-net_device与收发队列.md)
 * [收包路径与 NAPI](networking/docs/04-收包路径与NAPI.md)
 * [发包路径与 qdisc](networking/docs/05-发包路径与qdisc.md)
+* [TCP 拥塞控制框架](networking/docs/06-TCP拥塞控制框架.md)
+* [XDP 与 eBPF 数据面](networking/docs/07-XDP与eBPF数据面.md)
 
 ## 八、内核数据结构（datastructure）
 

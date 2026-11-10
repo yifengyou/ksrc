@@ -1,6 +1,6 @@
 # Linux 网络子系统学习笔记
 
-本目录是 Linux 6.6 内核网络子系统的深度学习笔记（GitBook）。笔记以**源码为准**：所有结构体、函数、宏均对照 Linux 6.6 真实源码核对（主要文件：`include/linux/skbuff.h`、`include/linux/netdevice.h`、`net/core/dev.c`、`net/core/skbuff.c`、`net/core/gro.c`、`net/core/page_pool.c`、`net/sched/sch_generic.c`），中文行文、术语保留英文。
+本目录是 Linux 6.6 内核网络子系统的深度学习笔记（GitBook）。笔记以**源码为准**：所有结构体、函数、宏均对照 Linux 6.6 真实源码核对（主要文件：`include/linux/skbuff.h`、`include/linux/netdevice.h`、`net/core/dev.c`、`net/core/skbuff.c`、`net/core/gro.c`、`net/core/page_pool.c`、`net/sched/sch_generic.c`，进阶章另含 `include/net/tcp.h`、`net/ipv4/tcp_cong.c`、`net/ipv4/tcp_cubic.c`、`net/ipv4/tcp_bbr.c`、`include/net/xdp.h`），中文行文、术语保留英文。
 
 目录下同时存有**内核官方文档的镜像**（大量 `.rst` 文件，来自 `Documentation/networking/`），是本笔记的第一手参考资料；笔记与它们互补：`.rst` 讲"接口约定与用法"，本笔记讲"内部实现与数据流"。
 
@@ -25,7 +25,7 @@
            └────────────────────┘      └────────────────────┘
 ```
 
-建议顺序：**01 → 02 → 03 → 04 → 05**。02/03 是数据结构基础（一个讲"包"，一个讲"设备"），04/05 是两条数据面（各自可独立阅读，但互有引用）；每章末尾的思考题用于自检。
+建议顺序：**01 → 02 → 03 → 04 → 05**。02/03 是数据结构基础（一个讲"包"，一个讲"设备"），04/05 是两条数据面（各自可独立阅读，但互有引用）；06 起是进阶专题（传输层拥塞控制、XDP 可编程数据面），可在 04/05 之后任意切入；每章末尾的思考题用于自检。
 
 ### 📖 各章导读
 
@@ -36,6 +36,8 @@
 | net_device 与收发队列 | [03-net_device与收发队列.md](docs/03-net_device与收发队列.md) | 设备抽象全字段、alloc/register_netdevice 注册链路、默认 qdisc 挂载、notifier 与 upper/lower 拓扑、TX 锁模型（_xmit_lock/XOFF）、XPS 选路、carrier/linkwatch 状态机 |
 | 收包路径与 NAPI | [04-收包路径与NAPI.md](docs/04-收包路径与NAPI.md) | 硬中断→软中断全链路、NAPI budget/IRQ 合并/线程化、GRO 深挖、__netif_receive_skb_core 分发、ip_rcv→tcp_v4_rcv 简述、page_pool 全解、RPS/RFS/aRFS、端到端时序与 softnet_stat 逐列解读 |
 | 发包路径与 qdisc | [05-发包路径与qdisc.md](docs/05-发包路径与qdisc.md) | __dev_queue_xmit 全链路、qdisc 双锁模型与回退状态机、默认 qdisc 选择规则、BQL 动态字节上限算法、virtio TX 环模型、软件 TSO 分段与 skb_orphan、XDP TX、观测调优清单 |
+| TCP 拥塞控制框架 | [06-TCP拥塞控制框架.md](docs/06-TCP拥塞控制框架.md) | tcp_congestion_ops（6.6 实为 include/net/tcp.h）、注册与选择链、CA 五态机、rate_sample、CUBIC（beta=717/1024/Hystart 双探测/bictcp_update）、BBR v1（BDP 模型/四态增益/8 相位循环） |
+| XDP 与 eBPF 数据面 | [07-XDP与eBPF数据面.md](docs/07-XDP与eBPF数据面.md) | native/generic/offload 三形态、xdp_buff（6.6 含 txq）、五动作语义、DEVMAP/CPUMAP/XSKMAP redirect 家族、tail call 组合、观测工具箱 |
 
 每章固定结构：**概述 → 机制详解（真实函数名/字段/文件路径）→ ASCII 调用链/内存布局图 → 深挖难点 → 观测与调试 → 思考题（附提示）**。
 
