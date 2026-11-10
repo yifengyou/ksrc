@@ -10,6 +10,7 @@
 | [02-cpu 控制器](docs/02-cpu控制器.md) | 比例与硬顶 | weight→shares 换算链、cpu.max 的 quota/period/burst、cpu.idle、throttle 排障、PSI |
 | [03-memory 控制器](docs/03-memory控制器.md) | 四道闸门 | obj_cgroup 两层记账、min/low/high/max 行为差异、memcg 回收与组内 OOM、memory.stat 逐列、stock 批处理 |
 | [04-io 控制器与 cpuset](docs/04-io控制器与cpuset.md) | 四把刀 | io.cost 的 vrate 反馈环、io.latency 的 scale_lat 迟滞、io.max 双级桶、cpuset partition 四态（含 6.6 isolated）与完整隔离栈 |
+| [05-memcg 回收深挖](docs/05-memcg回收深挖.md) | 执行路径 | try_charge 全链（high 罚睡 vs max OOM 双语义）、memcg lruvec 与 MGLRU（walk_mm 扫 PTE 老化）、shrink_folio_list 决策机、MEMCG_AWARE shrinker、memory.reclaim/PSI 观测 |
 
 ## 学习路线
 
