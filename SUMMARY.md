@@ -231,6 +231,11 @@
 * [vDSO 与 clock_gettime](syscalls/docs/06-vDSO与clock_gettime.md)
 * [seccomp 过滤器与 BPF 验证](syscalls/docs/07-seccomp过滤器与BPF验证.md)
 
+## 三十、Rust for Linux（rust）
+
+* [Rust 分册导读](rust/README.md)
+* [6.6 现状导读](rust/docs/01-RustForLinux现状导读.md)
+
 ## 二十五、模块机制（module）
 
 * [模块分册导读](module/README.md)
