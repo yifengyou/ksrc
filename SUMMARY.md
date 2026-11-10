@@ -176,6 +176,7 @@
 ## 十九、块设备层（block）
 
 * [块层分册导读](block/README.md)
+* [一页速查](block/docs/00-一页速查.md)
 * [块层总体架构](block/docs/01-块层总体架构.md)
 * [bio 与 bio_vec](block/docs/02-bio与bio_vec.md)
 * [blk-mq 多队列框架](block/docs/03-blk-mq多队列框架.md)

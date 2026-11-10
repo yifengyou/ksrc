@@ -6,6 +6,7 @@
 
 | 章节 | 主题 | 一句话 |
 | :--- | :--- | :--- |
+| [00-一页速查](docs/00-一页速查.md) | 速查 | 四件套/提交路径/plug/调度器/完成/数值表（各章浓缩） |
 | [01-块层总体架构](docs/01-块层总体架构.md) | gendisk/bdev/queue、分层全景 | 三大对象的关系与 4.x 弃单队列的因果 |
 | [02-bio与bio_vec](docs/02-bio与bio_vec.md) | bio/bvec/迭代器 | 块层通用货币的编码、克隆、链式完成 |
 | [03-blk-mq多队列框架](docs/03-blk-mq多队列框架.md) | ctx/hctx/tags、dispatch 全链 | 两级队列与双 tag 池、freeze/quiesce |
