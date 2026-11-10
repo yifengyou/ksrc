@@ -12,6 +12,7 @@
 | [04-LSM与安全钩子顺序](docs/04-LSM与安全钩子顺序.md) | 安全时间轴 | 入口顺序（ptrace→seccomp→trace→audit，注释原样核对）、LSM 钩子链与 blob、CONFIG_LSM/LSM_ORDER_* 注册序、seccomp/LSM/landlock 三层对照 |
 | [05-io-wq 与取消状态机](docs/05-iowq与取消状态机.md) | 半阻塞引擎 | 三层结构与 inode hash 64 桶防死锁、BOUND/UNBOUND 双账本、io_uring_cancel_generic 的 inflight 轮询收尾、跨 ring 取消逃逸面 |
 | [06-vDSO 与 clock_gettime](docs/06-vDSO与clock_gettime.md) | 零系统调用读钟 | vdso_data 字段与 seq 协议、do_hres 计算与 clock_mode 分发、timens"卡 seq"重定向、6.6 勘误（x86 无手写汇编）、clocksource 的 vdso_clock_mode 驱动 |
+| [07-seccomp 过滤器与 BPF 验证](docs/07-seccomp过滤器与BPF验证.md) | 加载与验证侧 | attach 全链与 flags、seccomp_check_filter 白名单与指令改写、bpf_check_classic 与 cBPF→eBPF 迁移、prev 链、action_cache 位图快路（5.18+）、TSYNC 传播 NNP、USER_NOTIF 生命周期 |
 
 ## 与其他分册的联系
 

@@ -225,6 +225,7 @@
 * [LSM 与安全钩子顺序](syscalls/docs/04-LSM与安全钩子顺序.md)
 * [io-wq 与取消状态机](syscalls/docs/05-iowq与取消状态机.md)
 * [vDSO 与 clock_gettime](syscalls/docs/06-vDSO与clock_gettime.md)
+* [seccomp 过滤器与 BPF 验证](syscalls/docs/07-seccomp过滤器与BPF验证.md)
 
 ## 二十五、模块机制（module）
 
