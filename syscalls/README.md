@@ -9,6 +9,7 @@
 | [01-系统调用入口与分发](docs/01-系统调用入口与分发.md) | 交接协议 | x86 syscall/sysret 与 arm64 SVC、通用入口层钩子序列、系统调用表、syscall 重启、vDSO |
 | [02-seccomp](docs/02-seccomp.md) | 调用防火墙 | 两种模式、cBPF 字节码、七种处置、TSYNC/USER_NOTIF/no_new_privs |
 | [03-io_uring](docs/03-io_uring.md) | 异步 IO | 三环共享内存协议、SQPOLL/IOPOLL 零系统调用形态、multishot、安全风波与部署现实 |
+| [04-LSM与安全钩子顺序](docs/04-LSM与安全钩子顺序.md) | 安全时间轴 | 入口顺序（ptrace→seccomp→trace→audit，注释原样核对）、LSM 钩子链与 blob、CONFIG_LSM/LSM_ORDER_* 注册序、seccomp/LSM/landlock 三层对照 |
 
 ## 与其他分册的联系
 

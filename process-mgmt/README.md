@@ -29,9 +29,13 @@ fork/exec/exit 是面试与生产排障的最高频主题之一，也是**错误
 05 ptrace 与 coredump            交付：三种 stop 语义（signal-delivery-stop）、
                                   GDB 断点/单步循环还原、do_coredump 安全模型、
                                   core_pattern 格式符全表（按 6.6 逐 case 核对）
+        │
+06 namespace 全景                交付：八类隔离域与 nsproxy 聚合、clone 旗标
+                                  全表（值核对）、user ns 映射与能力降级、
+                                  pid ns 的 for_children 不对称、nsfs ioctl
 ```
 
-**状态**：全部 5 章已交付。04 章由后台子任务完成（其被取消前交付），05 章因该子任务中途取消由主会话接管补写。
+**状态**：全部 6 章已交付。04 章由后台子任务完成（其被取消前交付），05 章因该子任务中途取消由主会话接管补写，06 章为安全增强专题补章。
 
 每章结构：概述 → 机制详解（带真实源码与文件路径）→ ASCII 图 → 深挖难点 → 观测调试 → 思考题（附提示）。
 

@@ -202,6 +202,7 @@
 * [exit 与僵尸孤儿](process-mgmt/docs/03-exit与僵尸孤儿.md)
 * [信号子系统](process-mgmt/docs/04-信号子系统.md)
 * [ptrace 与 coredump](process-mgmt/docs/05-ptrace与coredump.md)
+* [namespace 全景](process-mgmt/docs/06-namespace全景.md)
 
 ## 二十三、cgroup 资源治理（cgroup）
 
@@ -217,6 +218,7 @@
 * [系统调用入口与分发](syscalls/docs/01-系统调用入口与分发.md)
 * [seccomp](syscalls/docs/02-seccomp.md)
 * [io_uring](syscalls/docs/03-io_uring.md)
+* [LSM 与安全钩子顺序](syscalls/docs/04-LSM与安全钩子顺序.md)
 
 ## 二十五、模块机制（module）
 
