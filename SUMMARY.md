@@ -224,6 +224,12 @@
 * [总线-设备-驱动匹配](driver-model/docs/02-总线-设备-驱动匹配.md)
 * [设备树与 ACPI](driver-model/docs/03-设备树与ACPI.md)
 
+## 二十七、printk 子系统（printk）
+
+* [printk 分册导读](printk/README.md)
+* [printk-ringbuffer](printk/docs/01-printk-ringbuffer.md)
+* [console 驱动模型](printk/docs/02-console驱动模型.md)
+
 ---
 
 > 备注：各分册目录下另有对应 `SUMMARY.md` 提供该分册完整目录；大量 `*.rst` 文件为 Linux 内核官方文档镜像，可作原文参考。
