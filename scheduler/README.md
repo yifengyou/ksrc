@@ -6,6 +6,7 @@
 
 | 章节 | 主题 | 一句话 |
 | :--- | :--- | :--- |
+| [00-一页速查](docs/00-一页速查.md) | 速查 | 五件套/调度类链/EEVDF-PELT-RT 速记/sysctl 与观测命令总表（各章浓缩） |
 | [01-调度器演进与总体架构](docs/01-调度器演进与总体架构.md) | O(n)→O(1)→CFS→EEVDF | 调度类的多态框架与五类调度事件全景 |
 | [02-核心数据结构](docs/02-核心数据结构.md) | task_struct/se/rq/cfs_rq/root_domain | 逐字段精读（含 6.6 EEVDF 新字段） |
 | [03-CFS与EEVDF详解](docs/03-CFS与EEVDF详解.md) | vruntime/lag/deadline | 公平与延迟统一模型的逐函数实现 |

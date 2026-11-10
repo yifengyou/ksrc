@@ -15,6 +15,7 @@
 ## 二、进程调度（scheduler）
 
 * [调度分册导读](scheduler/README.md)
+* [一页速查](scheduler/docs/00-一页速查.md)
 * [调度器演进与总体架构](scheduler/docs/01-调度器演进与总体架构.md)
 * [核心数据结构](scheduler/docs/02-核心数据结构.md)
 * [CFS 与 EEVDF 详解](scheduler/docs/03-CFS与EEVDF详解.md)
