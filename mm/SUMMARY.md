@@ -4,6 +4,7 @@
 * [bootmem](bootmem/bootmem.md)
 * [memblock](memblock/memblock.md)
 * [buddy](buddy/buddy.md)
+* [buddy 理论大纲](buddy/理论大纲.md)
 * [slab](slab/slab.md)
 * [slub](slub/slub.md)
 * [slob](slob/slob.md)
