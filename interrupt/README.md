@@ -23,6 +23,8 @@
 
 ## 📚 各章导读
 
+### [00 - 一页速查](docs/00-一页速查.md)
+
 ### [01 - 中断子系统总体架构](docs/01-中断子系统总体架构.md)
 
 分层全景：硬件中断控制器 → 架构入口 → genirq core → 驱动 handler。理解 genirq 最重要的设计决策——**flow handler（流控编排）与 chip callback（芯片操作）的正交分离**；irq_desc 的演进史（静态数组 → SPARSE_IRQ → 6.6 的 maple tree）；中断上下文的四条铁律；`request_irq` 家族 API 的选型决策树。适合反复回看的一章——后面所有细节都挂在这张骨架上。
