@@ -38,6 +38,7 @@
 | 发包路径与 qdisc | [05-发包路径与qdisc.md](docs/05-发包路径与qdisc.md) | __dev_queue_xmit 全链路、qdisc 双锁模型与回退状态机、默认 qdisc 选择规则、BQL 动态字节上限算法、virtio TX 环模型、软件 TSO 分段与 skb_orphan、XDP TX、观测调优清单 |
 | TCP 拥塞控制框架 | [06-TCP拥塞控制框架.md](docs/06-TCP拥塞控制框架.md) | tcp_congestion_ops（6.6 实为 include/net/tcp.h）、注册与选择链、CA 五态机、rate_sample、CUBIC（beta=717/1024/Hystart 双探测/bictcp_update）、BBR v1（BDP 模型/四态增益/8 相位循环） |
 | XDP 与 eBPF 数据面 | [07-XDP与eBPF数据面.md](docs/07-XDP与eBPF数据面.md) | native/generic/offload 三形态、xdp_buff（6.6 含 txq）、五动作语义、DEVMAP/CPUMAP/XSKMAP redirect 家族、tail call 组合、观测工具箱 |
+| netfilter 五钩子与 conntrack | [08-netfilter五钩子与conntrack.md](docs/08-netfilter五钩子与conntrack.md) | 五钩子+INGRESS 与 verdict、nf_hook_entries/nf_hook_slow(_list)、优先级阶梯（-450…225）、struct nf_conn 与正反 tuple、confirm 时机、ctinfo/IPS_* 状态、NAT 寄生与期望连接、表满 GC 与观测 |
 
 每章固定结构：**概述 → 机制详解（真实函数名/字段/文件路径）→ ASCII 调用链/内存布局图 → 深挖难点 → 观测与调试 → 思考题（附提示）**。
 

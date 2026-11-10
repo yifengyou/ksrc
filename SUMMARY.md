@@ -81,6 +81,7 @@
 * [发包路径与 qdisc](networking/docs/05-发包路径与qdisc.md)
 * [TCP 拥塞控制框架](networking/docs/06-TCP拥塞控制框架.md)
 * [XDP 与 eBPF 数据面](networking/docs/07-XDP与eBPF数据面.md)
+* [netfilter 五钩子与 conntrack](networking/docs/08-netfilter五钩子与conntrack.md)
 
 ## 八、内核数据结构（datastructure）
 
