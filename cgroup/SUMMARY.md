@@ -6,3 +6,4 @@
 * [memory 控制器](docs/03-memory控制器.md)
 * [io 控制器与 cpuset](docs/04-io控制器与cpuset.md)
 * [memcg 回收深挖](docs/05-memcg回收深挖.md)
+* [uclamp 深挖](docs/06-uclamp深挖.md)
