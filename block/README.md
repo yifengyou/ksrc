@@ -104,4 +104,4 @@ biolatency -d nullb0 5                      # BCC 直方图
 * 中断子系统（[interrupt/](../interrupt/README.md)）—— MSI-X 亲和即队列映射（第 3 章 §2/§7）
 * cgroup（cgroup 分册，规划中）—— blkcg/io.max/iocost 与 ioprio 传导（第 5 章）
 * 追踪（[trace/](../trace/README.md)）—— blktrace/btt 事件全景（第 6 章 §8）
-* 存储（[storage/](../storage/README.md)）、[scsi/](../scsi/README.md)、[nvme/](../nvme/README.md) —— 驱动侧视角
+* 存储（storage/、scsi/、nvme/ 目录）—— 驱动侧视角

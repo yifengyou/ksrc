@@ -1,6 +1,6 @@
 # 内存热插拔 memhp：block/zone/pgdat 的动态生灭（Linux 6.6）
 
-> 阅读目标：掌握内存热插拔的三层模型（resource → memory block → zone/pgdat）、`add_memory_resource` 的建立链（sparse section + altmap + `move_pfn_range_to_zone`）、**memmap_on_memory 自托管 vmemmap**、`offline_pages` 的完整下线协议（pcp 关闭 → 隔离 → 迁移 → 收缩 → 回滚路径）。前置：[mm 分册 buddy](../mm/buddy/buddy.md)、[hotplug/cpuhp](01-cpuhp状态机.md)。
+> 阅读目标：掌握内存热插拔的三层模型（resource → memory block → zone/pgdat）、`add_memory_resource` 的建立链（sparse section + altmap + `move_pfn_range_to_zone`）、**memmap_on_memory 自托管 vmemmap**、`offline_pages` 的完整下线协议（pcp 关闭 → 隔离 → 迁移 → 收缩 → 回滚路径）。前置：[mm 分册 buddy](../../mm/buddy/buddy.md)、[hotplug/cpuhp](01-cpuhp状态机.md)。
 
 ---
 
@@ -101,4 +101,4 @@ dmesg | grep -e 'memory hotplug' -e 'Offline pages'
 
 ---
 
-> 回看：[cpuhp 状态机](01-cpuhp状态机.md)｜[mm 分册 buddy](../mm/buddy/buddy.md)｜[trace 分册](../trace/README.md)
+> 回看：[cpuhp 状态机](01-cpuhp状态机.md)｜[mm 分册 buddy](../../mm/buddy/buddy.md)｜[trace 分册](../../trace/README.md)

@@ -317,4 +317,4 @@ tools/testing/selftests/timers/alarmtimer-suspend
 
 ---
 
-*上一章：[tick 与 NOHZ](06-tick与NOHZ.md)　|　回到 [分册导读](README.md)。*
+*上一章：[tick 与 NOHZ](06-tick与NOHZ.md)　|　回到 [分册导读](../README.md)。*

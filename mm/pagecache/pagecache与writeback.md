@@ -1,6 +1,6 @@
 # page cache 与 writeback：address_space 的一生（Linux 6.6）
 
-> 阅读目标：掌握文件页缓存的**容器层**（`struct address_space` 全字段、folio 时代的 API、i_pages xarray 与两枚标签）、**脏页节流层**（global/domain 阈值、pos_ratio 比例控制器、`balance_dirty_pages`）与**回写执行层**（`writeback_control`、tag-and-write 防活锁、`write_cache_pages` 主循环）。前置：[cache 页缓存](../cache/cache.md)、[block 分册 bio 章](../../block/docs/02-bio.md)。
+> 阅读目标：掌握文件页缓存的**容器层**（`struct address_space` 全字段、folio 时代的 API、i_pages xarray 与两枚标签）、**脏页节流层**（global/domain 阈值、pos_ratio 比例控制器、`balance_dirty_pages`）与**回写执行层**（`writeback_control`、tag-and-write 防活锁、`write_cache_pages` 主循环）。前置：[cache 页缓存](../cache/cache.md)、[block 分册 bio 章](../../block/docs/02-bio与bio_vec.md)。
 
 ---
 
@@ -118,4 +118,4 @@ tracefs: balance_dirty_pages / writeback_single_inode / writeback_pages_written
 
 ---
 
-> 回看：[vma 与 mmap 生命周期](../vma/vma与mmap生命周期.md)｜[页缓存 cache](../cache/cache.md)｜[block 分册 bio](../../block/docs/02-bio.md)
+> 回看：[vma 与 mmap 生命周期](../vma/vma与mmap生命周期.md)｜[页缓存 cache](../cache/cache.md)｜[block 分册 bio](../../block/docs/02-bio与bio_vec.md)

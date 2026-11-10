@@ -1,6 +1,6 @@
 # kexec 加载与跳转（Linux 6.6）
 
-> 阅读目标：掌握 kexec 的**两阶段语义**（load 可反复覆盖 / execute 一次性）、`struct kimage` 与页链表段模型（IND_* 协议）、`kexec_load` vs `kexec_file_load` 的分野（签名校验 KEXEC_SIG）、x86 `machine_kexec` 的恒等映射跳转机制、以及 crash 镜像与普通镜像的加载差异。前置：[init 分册 rest_init](../../init/docs/03-rest_init到用户态.md)、[process-mgmt 分册 execve](../../process-mgmt/docs/02-execve与mm替换.md)（"整机级 execve"的心智模型）。
+> 阅读目标：掌握 kexec 的**两阶段语义**（load 可反复覆盖 / execute 一次性）、`struct kimage` 与页链表段模型（IND_* 协议）、`kexec_load` vs `kexec_file_load` 的分野（签名校验 KEXEC_SIG）、x86 `machine_kexec` 的恒等映射跳转机制、以及 crash 镜像与普通镜像的加载差异。前置：[init 分册 rest_init](../../../init/docs/03-从rest_init到用户空间.md)、[process-mgmt 分册 execve](../../../process-mgmt/docs/02-execve与mm替换.md)（"整机级 execve"的心智模型）。
 
 ---
 

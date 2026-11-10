@@ -1,6 +1,6 @@
 # vDSO 与 clock_gettime：零系统调用的读钟（Linux 6.6）
 
-> 阅读目标：掌握 vDSO 的时间服务全链——`struct vdso_data` 数据页与更新协议（seq 锁）、读侧的无锁计算（`do_hres` 与硬件计数器分发）、**time namespace 的"卡 seq"重定向技巧**、以及 6.6 的现实勘误：x86 早已没有手写汇编 vDSO。前置：[timers/01-clocksource](../../timers/docs/01-clocksource与clock_event设备.md)、[timers/02-timekeeping](../../timers/docs/02-timekeeping.md)、[namespace 全景](../process-mgmt/docs/06-namespace全景.md)（time ns）。
+> 阅读目标：掌握 vDSO 的时间服务全链——`struct vdso_data` 数据页与更新协议（seq 锁）、读侧的无锁计算（`do_hres` 与硬件计数器分发）、**time namespace 的"卡 seq"重定向技巧**、以及 6.6 的现实勘误：x86 早已没有手写汇编 vDSO。前置：[timers/01-clocksource](../../timers/docs/02-clocksource与时钟硬件.md)、[timers/02-timekeeping](../../timers/docs/03-timekeeping与clock_gettime.md)、[namespace 全景](../../process-mgmt/docs/06-namespace全景.md)（time ns）。
 
 ---
 
@@ -108,4 +108,4 @@ perf stat -e dummy:u 粗测读钟成本（vDSO ~20ns vs syscall ~60ns+）
 
 ---
 
-> 回看：[03-io_uring](03-io_uring.md)｜[05-io-wq 与取消状态机](05-iowq与取消状态机.md)｜timers 分册 [timekeeping](../../timers/docs/02-timekeeping.md)｜[namespace 全景](../process-mgmt/docs/06-namespace全景.md)
+> 回看：[03-io_uring](03-io_uring.md)｜[05-io-wq 与取消状态机](05-iowq与取消状态机.md)｜timers 分册 [timekeeping](../../timers/docs/03-timekeeping与clock_gettime.md)｜[namespace 全景](../../process-mgmt/docs/06-namespace全景.md)

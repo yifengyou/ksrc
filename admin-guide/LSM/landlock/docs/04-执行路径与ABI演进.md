@@ -87,7 +87,7 @@ landlock_init(): add_cred_hooks + add_ptrace_hooks + add_fs_hooks
 集成参考：systemd RestrictFileSystems=（v252+）、Firejail、
   Chrome/Flatpak 沙箱的现实落地
 版本确认：/sys/kernel/security/lsm 里有 landlock（见
-  [syscalls 分册 LSM 章](../../syscalls/docs/04-LSM与安全钩子顺序.md)）
+  [syscalls 分册 LSM 章](../../../../syscalls/docs/04-LSM与安全钩子顺序.md)）
 ```
 
 ## 七、思考题

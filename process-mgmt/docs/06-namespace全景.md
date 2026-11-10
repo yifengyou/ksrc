@@ -1,6 +1,6 @@
 # namespace 全景：八类隔离域与 nsproxy（Linux 6.6）
 
-> 阅读目标：建立 namespace 的**总图**——八类隔离域全景、`struct nsproxy` 的聚合模型、三种创建路径（clone/unshare/setns）、user namespace 的映射语义与能力降级、pid namespace 的 `for_children` 不对称、nsfs 的句柄协议。前置：[01-fork与clone路径全解](01-fork与clone路径全解.md)。容器语境的落点见 [cgroup 分册](../cgroup/README.md)。
+> 阅读目标：建立 namespace 的**总图**——八类隔离域全景、`struct nsproxy` 的聚合模型、三种创建路径（clone/unshare/setns）、user namespace 的映射语义与能力降级、pid namespace 的 `for_children` 不对称、nsfs 的句柄协议。前置：[01-fork与clone路径全解](01-fork与clone路径全解.md)。容器语境的落点见 [cgroup 分册](../../cgroup/README.md)。
 
 ---
 
@@ -115,4 +115,4 @@ cat /proc/<pid>/uid_map                # 映射表（"0 1000 1"=域内0↔全局
 
 ---
 
-> 回看：[01-fork与clone路径全解](01-fork与clone路径全解.md)｜[cgroup 分册](../cgroup/README.md)｜[syscalls 分册 seccomp](../syscalls/docs/02-seccomp.md)
+> 回看：[01-fork与clone路径全解](01-fork与clone路径全解.md)｜[cgroup 分册](../../cgroup/README.md)｜[syscalls 分册 seccomp](../../syscalls/docs/02-seccomp.md)

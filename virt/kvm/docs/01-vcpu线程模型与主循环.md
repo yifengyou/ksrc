@@ -1,6 +1,6 @@
 # KVM vcpu 线程模型与主循环（Linux 6.6）
 
-> 阅读目标：建立 KVM 的执行模型——宿主机视角下 **vcpu 只是一个普通线程**在 `ioctl(KVM_RUN)` 里跑循环；掌握 `vcpu_run` 主循环（`vcpu_enter_guest`/`vcpu_block`）、KVM request 位图协议、自适应 halt 轮询、以及 **Posted Interrupt**（中断免 VM-exit 投递）。与目录内官方镜像 `vcpu-requests.rst`/`halt-polling.rst` 互补。前置：[scheduler 分册](../../scheduler/README.md)（vcpu 就是调度器眼里的任务）、[interrupt 分册](../../interrupt/README.md)。
+> 阅读目标：建立 KVM 的执行模型——宿主机视角下 **vcpu 只是一个普通线程**在 `ioctl(KVM_RUN)` 里跑循环；掌握 `vcpu_run` 主循环（`vcpu_enter_guest`/`vcpu_block`）、KVM request 位图协议、自适应 halt 轮询、以及 **Posted Interrupt**（中断免 VM-exit 投递）。与目录内官方镜像 `vcpu-requests.rst`/`halt-polling.rst` 互补。前置：[scheduler 分册](../../../scheduler/README.md)（vcpu 就是调度器眼里的任务）、[interrupt 分册](../../../interrupt/README.md)。
 
 ---
 

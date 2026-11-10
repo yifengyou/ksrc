@@ -1,6 +1,6 @@
 # crashkernel 预留与 elfcorehdr（Linux 6.6）
 
-> 阅读目标：掌握 kdump 的内存布局（`crashkernel=` 三种语法、crashk_res/crashk_low_res 双预留区）与**证据链构造**（elfcorehdr 的双层构造：load 时 prepare_elf_headers、panic 时 per-CPU notes + VMCOREINFO；6.6 的 crash hotplug）、purgatory 的 sha256 自校验、capture kernel 侧 `/proc/vmcore` 的还原。前置：[kexec 加载与跳转](01-kexec加载与跳转.md)、[printk ringbuffer](../../printk/docs/01-printk-ringbuffer.md)（panic 路径的邻居）。
+> 阅读目标：掌握 kdump 的内存布局（`crashkernel=` 三种语法、crashk_res/crashk_low_res 双预留区）与**证据链构造**（elfcorehdr 的双层构造：load 时 prepare_elf_headers、panic 时 per-CPU notes + VMCOREINFO；6.6 的 crash hotplug）、purgatory 的 sha256 自校验、capture kernel 侧 `/proc/vmcore` 的还原。前置：[kexec 加载与跳转](01-kexec加载与跳转.md)、[printk ringbuffer](../../../printk/docs/01-printk-ringbuffer.md)（panic 路径的邻居）。
 
 ---
 
@@ -112,11 +112,11 @@ vmcore_init()：
 ## 六、思考题
 
 1. VMCOREINFO 里为什么要放 SYMBOL/结构偏移而不是让 crash 工具带符号表？（提示：kdump 机器与工具机内核版本可不同；note 是被 dump 内核的"自我描述"。）
-2. `crashk_low_res` 单独存在的 DMA32 理由在哪些设备上仍然成立？（对照 [block 分册 DMA](../../block/docs/01-块层总体架构.md) 与 swiotlb。）
+2. `crashk_low_res` 单独存在的 DMA32 理由在哪些设备上仍然成立？（对照 [block 分册 DMA](../../../block/docs/01-块层总体架构.md) 与 swiotlb。）
 3. `__crash_kexec` 为什么标 STACK_FRAME_NON_STANDARD？（对照：跳转后栈回溯语义已不存在。）
 4. nmi_shootdown_cpus 抓 PRSTATUS 时，正在持自旋锁的 CPU 会留下什么现场？（推演：crash 工具里 backtrace 卡在某锁的 spin——为什么这恰好是证据。）
 5. 6.6 的 crash hotplug 把"重载镜像"变成"重写 elfcorehdr"——省掉的那次 kexec_file_load 原本要付出什么代价？（提示：镜像段的 hole 搜索与运行系统内存压力。）
 
 ---
 
-> 回看：[kexec 加载与跳转](01-kexec加载与跳转.md)｜mm 分册 [page fault](../../mm/pagefualt/pagefault.md)｜printk 分册 [ringbuffer](../../printk/docs/01-printk-ringbuffer.md)
+> 回看：[kexec 加载与跳转](01-kexec加载与跳转.md)｜mm 分册 [page fault](../../../mm/pagefualt/pagefault.md)｜printk 分册 [ringbuffer](../../../printk/docs/01-printk-ringbuffer.md)

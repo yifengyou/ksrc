@@ -1,6 +1,6 @@
 # livepatch 核心结构与打补丁流（Linux 6.6）
 
-> 阅读目标：掌握 livepatch 的**三层描述结构**（klp_patch → klp_object → klp_func）、`klp_enable_patch` 的完整注册流（重定位/对象加载/ftrace 挂钩）、`klp_ftrace_handler` 的栈式派发与 `transition` 窗口语义。前置：[module 分册](../../module/README.md)（KO 加载与符号解析）、[trace 分册 ftrace](../../trace/docs/05-tracer家族与perf-BPF.md)。
+> 阅读目标：掌握 livepatch 的**三层描述结构**（klp_patch → klp_object → klp_func）、`klp_enable_patch` 的完整注册流（重定位/对象加载/ftrace 挂钩）、`klp_ftrace_handler` 的栈式派发与 `transition` 窗口语义。前置：[module 分册](../../module/README.md)（KO 加载与符号解析）、[trace 分册 ftrace](../../trace/docs/05-tracer家族.md)。
 
 ---
 
@@ -92,7 +92,7 @@ KLP 版权威文档：仓库内 livepatch/*.rst 镜像
 1. `old_sympos` 存在的原因？（对照 module 分册 kallsyms：同名静态符号可多个，地址序未必稳定。）
 2. `klp_ops` 与 `func_stack` 为什么全局缓存而不是每补丁一份 ftrace ops？（提示：ftrace 对同一 ip 的 ops 数量与 IPMODIFY 冲突检查。）
 3. 补丁模块被"隔离"（禁止手动 rmmod）的机制动机？（对照 transition 未完成时 free_work 的引用关系。）
-4. `klp_ftrace_handler` 为什么必须 notrace？（对照 [trace 分册 ftrace](../../trace/docs/05-tracer家族与perf-BPF.md) 的递归路径。）
+4. `klp_ftrace_handler` 为什么必须 notrace？（对照 [trace 分册 ftrace](../../trace/docs/05-tracer家族.md) 的递归路径。）
 5. 对未加载的目标模块（obj->name 有值、mod 为空）补丁如何迟到生效？（对照 module 通知链 KLP 的 coming 分支。）
 
 ---

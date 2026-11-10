@@ -1,6 +1,6 @@
 # thermal 框架：从 trip 到 capacity 缩放（Linux 6.6）
 
-> 阅读目标：掌握 thermal 框架的三件套模型（thermal_zone/cooling_device/instance）、trip 检测协议（越线判定与 hysteresis）、三种 governor（step_wise/power_allocator/user_space）、cpufreq_cooling 的 clamp 机制（freq_qos + thermal pressure），以及**它如何实时改变调度器眼里的 CPU capacity**——这是 power 分册与 scheduler 分册的又一条交叉通道。前置：[02-cpufreq](02-cpufreq调频框架.md)、[scheduler/05-PELT](../../scheduler/docs/05-PELT与利用率追踪.md)（capacity 的消费侧）。
+> 阅读目标：掌握 thermal 框架的三件套模型（thermal_zone/cooling_device/instance）、trip 检测协议（越线判定与 hysteresis）、三种 governor（step_wise/power_allocator/user_space）、cpufreq_cooling 的 clamp 机制（freq_qos + thermal pressure），以及**它如何实时改变调度器眼里的 CPU capacity**——这是 power 分册与 scheduler 分册的又一条交叉通道。前置：[02-cpufreq](02-cpufreq.md)、[scheduler/05-PELT](../../scheduler/docs/05-PELT与利用率追踪.md)（capacity 的消费侧）。
 
 ---
 
@@ -103,7 +103,7 @@ soc 度数异常排查链：temp 源（HWMON/ACPI）→ trips 表 → governor �
 
 ## 八、思考题
 
-1. `freq_qos_update_request` 收紧的是 policy 上限而非直接改频——schedutil 下被 clamp 的核为什么仍可能短时跑高频？（对照 [02-cpufreq](02-cpufreq调频框架.md) 的 QoS 与 util 请求叠加。）
+1. `freq_qos_update_request` 收紧的是 policy 上限而非直接改频——schedutil 下被 clamp 的核为什么仍可能短时跑高频？（对照 [02-cpufreq](02-cpufreq.md) 的 QoS 与 util 请求叠加。）
 2. `hysteresis` 只作用在"回落穿越"方向，为什么不在两个方向对称生效？（提示：升温保护要快、降温恢复要稳——抖动保护的不对称代价。）
 3. power_allocator 需要 cdev 实现 power actor 接口——风扇（只有档位无功耗表）如何参与 IPA？（对照 cdev_is_power_actor 的判定与退路。）
 4. `arch_scale_thermal_pressure` 扣减 capacity 后，`util_avg` 超过缩放 capacity 的核会怎样？（推演：迁移压力与 misfit task 判定。）
@@ -111,4 +111,4 @@ soc 度数异常排查链：temp 源（HWMON/ACPI）→ trips 表 → governor �
 
 ---
 
-> 回看：[02-cpufreq调频框架](02-cpufreq调频框架.md)｜[05-suspend与s2idle](05-suspend与s2idle.md)｜[scheduler/05-PELT](../../scheduler/docs/05-PELT与利用率追踪.md)
+> 回看：[02-cpufreq调频框架](02-cpufreq.md)｜[05-suspend与s2idle](05-suspend与s2idle.md)｜[scheduler/05-PELT](../../scheduler/docs/05-PELT与利用率追踪.md)

@@ -1,6 +1,6 @@
 # EPT 与内存虚拟化（Linux 6.6）
 
-> 阅读目标：掌握 x86 KVM 的两维分页（TDP/EPT）实现——EPT violation 出口到 `direct_page_fault` 的完整链路、`struct kvm_mmu`/`kvm_mmu_page`/tdp_mmu 的分工、宿主侧反向同步（mmu notifier）、以及 shadow paging 与 TDP 的分野。与官方镜像 `locking.rst`/`review-checklist.rst` 互补。前置：[01-vcpu线程模型](01-vcpu线程模型与主循环.md)、[mm 分册 vma](../../mm/vma/vma与mmap生命周期.md)（宿主侧的 mmap 与 memslot）。
+> 阅读目标：掌握 x86 KVM 的两维分页（TDP/EPT）实现——EPT violation 出口到 `direct_page_fault` 的完整链路、`struct kvm_mmu`/`kvm_mmu_page`/tdp_mmu 的分工、宿主侧反向同步（mmu notifier）、以及 shadow paging 与 TDP 的分野。与官方镜像 `locking.rst`/`review-checklist.rst` 互补。前置：[01-vcpu线程模型](01-vcpu线程模型与主循环.md)、[mm 分册 vma](../../../mm/vma/vma与mmap生命周期.md)（宿主侧的 mmap 与 memslot）。
 
 ---
 
@@ -85,8 +85,8 @@ perf -e kvm:kvm_page_fault,kvm:kvm_mmu_page_fault / kvm:kvm_tdp_page_fault
 2. `struct kvm_page_fault` 的 `is_tdp` 由 `page_fault == kvm_tdp_page_fault` 推出（mmu.c 已核对）——为什么不存成字段？（提示：同一 vcpu 可挂两套 mmu，nested/smm 切换。）
 3. EPT 大页（2M/1G）带来什么与什么风险？（对照 nx_huge_page 的存在理由——执行权限与大页的交互侧信道。）
 4. `invalidate_range_start` 若在摘表前让宿主先回收了页，会看到什么？（推演：EPT 指向已释放 pfn 的 UAF 面——KVM 的 zapping 顺序为何必须先于回收。）
-5. tdp_mmu 用 RCU 做无锁读遍历——zap 与缺页并发时谁可能"白干"？（对照 [RCU 分册](../../RCU/README.md) 的宽限期语义。）
+5. tdp_mmu 用 RCU 做无锁读遍历——zap 与缺页并发时谁可能"白干"？（对照 [RCU 分册](../../../RCU/README.md) 的宽限期语义。）
 
 ---
 
-> 回看：[01-vcpu线程模型与主循环](01-vcpu线程模型与主循环.md)｜官方镜像：[vcpu-requests](../vcpu-requests.rst)、[locking](../locking.rst)｜[mm 分册 vma](../../mm/vma/vma与mmap生命周期.md)
+> 回看：[01-vcpu线程模型与主循环](01-vcpu线程模型与主循环.md)｜官方镜像：[vcpu-requests](../vcpu-requests.rst)、[locking](../locking.rst)｜[mm 分册 vma](../../../mm/vma/vma与mmap生命周期.md)

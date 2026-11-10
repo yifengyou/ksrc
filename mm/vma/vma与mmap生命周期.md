@@ -1,6 +1,6 @@
 # vma 与 mmap 生命周期：maple tree 时代（Linux 6.6）
 
-> 阅读目标：掌握 6.6 时代的进程地址空间管理——`vm_area_struct` 新解剖（**勘误：vm_prev/vm_next 链表已删除**）、`mm->mm_mt` maple tree 索引与 `VMA_ITERATOR`、mmap/munmap 的完整生命周期（`vma_merge` 合并规则与 `vma_iter_config→prealloc→store` 两阶段提交）、6.4+ 的 PER_VMA_LOCK 缺页快速路径。前置：`pagefualt/pagefault.md`（缺页视角）、[process-mgmt 分册 fork 章](../../process-mgmt/docs/01-fork与clone.md)（dup_mmap 复制视角）。
+> 阅读目标：掌握 6.6 时代的进程地址空间管理——`vm_area_struct` 新解剖（**勘误：vm_prev/vm_next 链表已删除**）、`mm->mm_mt` maple tree 索引与 `VMA_ITERATOR`、mmap/munmap 的完整生命周期（`vma_merge` 合并规则与 `vma_iter_config→prealloc→store` 两阶段提交）、6.4+ 的 PER_VMA_LOCK 缺页快速路径。前置：`pagefualt/pagefault.md`（缺页视角）、[process-mgmt 分册 fork 章](../../process-mgmt/docs/01-fork与clone路径全解.md)（dup_mmap 复制视角）。
 
 ---
 
