@@ -59,6 +59,7 @@
 * [page fault](mm/pagefualt/pagefault.md)
 * [vma 与 mmap 生命周期](mm/vma/vma与mmap生命周期.md)
 * [page cache 与 writeback](mm/pagecache/pagecache与writeback.md)
+* [ksm 与 zswap](mm/ksm/ksm与zswap.md)
 * [kmalloc](mm/kmalloc/kmalloc.md)
 * [vmalloc](mm/vmalloc/vmalloc.md)
 * [thp 透明大页](mm/thp/thp.md)

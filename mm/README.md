@@ -29,6 +29,7 @@ Linux 内存管理子系统学习笔记。按"物理内存的诞生 → 页分�
 | 缺页与 COW | [pagefault](pagefualt/pagefault.md) / [cow](cow/cow.md) | 匿名/文件缺页、写时复制 |
 | vma 与 mmap 生命周期 | [vma](vma/vma与mmap生命周期.md) | vm_area_struct 新解剖（vm_prev/vm_next 已删）、maple tree 与 VMA_ITERATOR、vma_merge 与两阶段提交、PER_VMA_LOCK |
 | page cache 与 writeback | [pagecache](pagecache/pagecache与writeback.md) | address_space 全字段、folio API 与三枚标签、pos_ratio 节流、write_cache_pages 与 tag-and-write |
+| ksm 与 zswap | [ksm](ksm/ksm与zswap.md) | 双树去重协议与 COW 解合并、same-filled 直存、32 路 zpool 分流、限额回写 |
 | 页缓存 | [cache](cache/cache.md) / [buffer](buffer/buffer.md) | address_space 与块缓冲 |
 | 大页 | [hugetlbfs](hugetlbfs/hugetlbfs.md) / [thp](thp/thp.md) | 静态预留 vs 透明合并 |
 | TLB | [tlb](tlb/tlb.md) | 页表缓存与 flush 语义 |
