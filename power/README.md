@@ -11,6 +11,7 @@
 | [03-cpuidle](docs/03-cpuidle.md) | 空闲管理 | C-state 成本模型、`cpuidle_idle_call` 决策链、menu/teo 预测算法、poll idle |
 | [04-runtime PM](docs/04-runtime-PM.md) | 设备级微睡眠 | usage_count/状态机/pm_wq、rpm_suspend 六道关卡、autosuspend 防抖、device link |
 | [05-suspend 与 s2idle](docs/05-suspend与s2idle.md) | 系统睡眠 | 三级等级全时序、s2idle_loop 唤醒协议、wakeup source 记账、hibernate 概览 |
+| [06-thermal 框架](docs/06-thermal框架.md) | 热管理 | tz/cdev/instance 三件套、trip 越线判定与 hysteresis、step_wise/power_allocator(IPA)、cpufreq_cooling 的 freq_qos clamp、arch_scale_thermal_pressure 与调度 capacity 实时联动 |
 
 ## 与其他分册的联动
 

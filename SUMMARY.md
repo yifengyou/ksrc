@@ -185,6 +185,7 @@
 * [cpuidle 空闲管理](power/docs/03-cpuidle.md)
 * [runtime PM 与设备电源管理](power/docs/04-runtime-PM.md)
 * [suspend 与 s2idle 全流程](power/docs/05-suspend与s2idle.md)
+* [thermal 框架](power/docs/06-thermal框架.md)
 
 ## 二十一、工作队列（workqueue）
 
