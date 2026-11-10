@@ -232,6 +232,7 @@
 ## 二十四、系统调用机制（syscalls）
 
 * [系统调用分册导读](syscalls/README.md)
+* [一页速查](syscalls/docs/00-一页速查.md)
 * [系统调用入口与分发](syscalls/docs/01-系统调用入口与分发.md)
 * [seccomp](syscalls/docs/02-seccomp.md)
 * [io_uring](syscalls/docs/03-io_uring.md)

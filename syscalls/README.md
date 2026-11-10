@@ -6,6 +6,7 @@
 
 | 章节 | 主题 | 一句话 |
 | :--- | :--- | :--- |
+| [00-一页速查](docs/00-一页速查.md) | 速查 | 入口协议/安全时间轴/seccomp 八值/io_uring 三环/io-wq/vDSO/观测与调用号表（各章浓缩） |
 | [01-系统调用入口与分发](docs/01-系统调用入口与分发.md) | 交接协议 | x86 syscall/sysret 与 arm64 SVC、通用入口层钩子序列、系统调用表、syscall 重启、vDSO |
 | [02-seccomp](docs/02-seccomp.md) | 调用防火墙 | 两种模式、cBPF 字节码、七种处置、TSYNC/USER_NOTIF/no_new_privs |
 | [03-io_uring](docs/03-io_uring.md) | 异步 IO | 三环共享内存协议、SQPOLL/IOPOLL 零系统调用形态、multishot、安全风波与部署现实 |
