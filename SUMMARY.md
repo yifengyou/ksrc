@@ -223,6 +223,7 @@
 * [seccomp](syscalls/docs/02-seccomp.md)
 * [io_uring](syscalls/docs/03-io_uring.md)
 * [LSM 与安全钩子顺序](syscalls/docs/04-LSM与安全钩子顺序.md)
+* [io-wq 与取消状态机](syscalls/docs/05-iowq与取消状态机.md)
 
 ## 二十五、模块机制（module）
 
