@@ -10,6 +10,7 @@
 
 | 章 | 标题 | 回答的核心问题 |
 | :--- | :--- | :--- |
+| [00](docs/00-一页速查.md) | 一页速查 | 五件套/三层 API 梯度/轮 9×6bit/8 基 hrtimer/NOHZ/观测（各章浓缩） |
 | [01](docs/01-时间子系统总体架构.md) | 时间子系统总体架构 | 分层地图、start_kernel 初始化顺序、gettimeofday/nanosleep 全路径、几条时间轴 |
 | [02](docs/02-clocksource与时钟硬件.md) | clocksource 与时钟硬件 | `struct clocksource` 逐字段、mult/shift 定点数学、watchdog 降级链、x86 TSC vs arm64 通用定时器 |
 | [03](docs/03-timekeeping与clock_gettime.md) | timekeeping 与 clock_gettime | `struct timekeeper`、shadow/tk_fast 双缓冲、update_wall_time、NTP 修正、vDSO 数据协议、jiffies 维护 |

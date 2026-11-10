@@ -153,6 +153,7 @@
 ## 十七、时间子系统（timers）
 
 * [时间分册导读](timers/README.md)
+* [一页速查](timers/docs/00-一页速查.md)
 * [时间子系统总体架构](timers/docs/01-时间子系统总体架构.md)
 * [clocksource 与时钟硬件](timers/docs/02-clocksource与时钟硬件.md)
 * [timekeeping 与 clock_gettime](timers/docs/03-timekeeping与clock_gettime.md)
