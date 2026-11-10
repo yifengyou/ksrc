@@ -33,8 +33,10 @@ io 控制器全部构建在 blkcg（block cgroup）上：每个 (cgroup × 块�
     missed_ppm（超时比例）、rq_wait_pct（排队比例）
     → vrate_adj_pct[] 查表得到修正百分比（blk-iocost.c:651 的分档表）
     → vrate（虚拟速率）上调/下调——预算的发放速度随之缩放
-  6.6 加持 AUTOMATE（io.cost.qos 的 automate=1）：观测设备实际能力
-    自动校准 model 参数（免手工建模）
+  ★第 5 轮复查勘误：6.6 **没有** AUTOMATE（io.cost.qos 无 automate=
+  参数，blk-iocost.c 全文零命中——该特性为后续版本合入）；
+  6.6 的 ctrl=auto 语义仅是"使用内核静态默认值"（ioc->
+  user_qos_params ? "user" : "auto"），不涉及设备能力自动校准
 ```
 
 接口（io.cost.qos）：`enable=1 rpct=.. wpct=.. rl=.. wl=..`（读/写各占设备的百分比与延迟目标，单位见文档）；`io.cost.model`：`ctrl=auto/user` + 模型参数。**特性级总开关**在 `/sys/fs/cgroup/io.cost.qos` 根上配。
@@ -47,7 +49,9 @@ io 控制器全部构建在 blkcg（block cgroup）上：每个 (cgroup × 块�
 
 ```
 io.cost.model（每设备成本模型）：
-  [model] 的默认值由 AUTOMATE 校准，也可手工：ctrl=user
+  [model] 的默认值为**内核静态默认**（DFT_ 常量的线性模型），
+  可手工覆盖：ctrl=user（★勘误：原"AUTOMATE 校准"表述不实，
+  见上文复查注）
   每请求成本 = scan成本 + size × 每字节成本
   → ioc->vtime 的推进速率基准：1 credit 的"时间价值"由此定
 
@@ -59,8 +63,10 @@ io.cost.qos（服务质量）：
 反馈环（ioc_timer_fn 周期评估，blk-iocost.c:1002 一带）：
   missed_ppm（超时万分比）、rq_wait_pct（在组内排队占比）
     → 查 vrate_adj_pct[] 分档表（:651）得修正百分比
-    → ioc->vrate ∈ [DFT_VRATE_MIN=500, DFT_VRATE_MAX=10000]/100
-       （即基准的 5 倍降速 ~ 100 倍加速之间）
+    → ioc->vrate ∈ [ioc->vrate_min, ioc->vrate_max]——两者由 QOS_MIN/
+       QOS_MAX ppm 派生（默认 VRATE_MIN_PPM=10000 即 1%、
+       VRATE_MAX_PPM=100000000 即 10000%，blk-iocost.c:255-256/
+       :943-945；★勘误：原文"DFT_VRATE_MIN=500..10000/100"有误）
     → 组内 credit 的发放速率随 vrate 同步缩放
   效果：设备超载时全组按比例减速，不过载时逐步回升——
        "用 vrate 一个标量吸收模型误差"
