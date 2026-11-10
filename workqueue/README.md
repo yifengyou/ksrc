@@ -9,6 +9,8 @@ workqueue 的特殊地位在于它是**多个子系统的交汇点**：中断下
 ## 学习路线
 
 ```
+00 一页速查                     全部浓缩：三件套/flags/数值/观测（含
+                                 ★6.6 无 workqueue debugfs 勘误）
 01 CMWQ 设计与 worker pool      机制地基：四件套结构、worker 主循环、
    ★ 必读                       并发管理算法、worker 生死、与调度器共生
         │
