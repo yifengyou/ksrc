@@ -190,6 +190,7 @@
 * [thermal 框架](power/docs/06-thermal框架.md)
 * [devfreq 与 pm_qos](power/docs/07-devfreq与pm_qos.md)
 * [HWP 与 EPP 调优](power/docs/08-HWP与EPP调优.md)
+* [idle 注入与 powerclamp](power/docs/09-idle注入与powerclamp.md)
 
 ## 二十一、工作队列（workqueue）
 
