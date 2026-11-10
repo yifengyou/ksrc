@@ -11,3 +11,4 @@
 * [实时与 Deadline 调度](docs/07-实时与Deadline调度.md)
 * [sched_ext 前瞻（v6.12）](docs/08-sched_ext前瞻.md)
 * [PSI 压力失速信息](docs/09-PSI压力失速信息.md)
+* [NUMA balancing](docs/10-NUMA_balancing.md)

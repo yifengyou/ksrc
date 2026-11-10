@@ -16,6 +16,7 @@
 | [07-实时与Deadline调度](docs/07-实时与Deadline调度.md) | FIFO/RR/DL | push/pull、throttling、CBS/GRUB、准入 |
 | [08-sched_ext 前瞻](docs/08-sched_ext前瞻.md) | BPF 可插拔（**基准 v6.12，基线外**） | sched_ext_ops 约 30 回调、DSQ 协议、watchdog 30s+bypass 回退、scx 生态、与 EEVDF 对照 |
 | [09-PSI 压力失速信息](docs/09-PSI压力失速信息.md) | 资源失速量化 | 七态模型（SOME/FULL 分野）、TSK_* 记账与 PSI_ONCPU、memstall 双态（MEMSTALL_RUNNING）、2s 窗三档指数、rtpoll 触发器、/proc/pressure 与 cgroup 联动 |
+| [10-NUMA balancing](docs/10-NUMA_balancing.md) | NUMA 亲和自维护 | 三步协议（PTE 陷阱/缺页记账/迁移决策）、scan 参数四值与 NUMA_PERIOD_SLOTS 自适应、memory tiering 模式、vmstat 四计数器与开关时机 |
 
 ## 专题子目录
 
