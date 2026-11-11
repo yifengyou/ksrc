@@ -33,6 +33,11 @@ fork/exec/exit 是面试与生产排障的最高频主题之一，也是**错误
 06 namespace 全景                交付：八类隔离域与 nsproxy 聚合、clone 旗标
                                   全表（值核对）、user ns 映射与能力降级、
                                   pid ns 的 for_children 不对称、nsfs ioctl
+        │
+07 信号深入                      交付：legacy 位图 vs RT 链表双轨、
+                                  __send_signal_locked 与 sigqueue 分配、
+                                  消费三通道（deliver/sigtimedwait/
+                                  signalfd）同源协议、si_pid 命名空间翻译
 ```
 
 **状态**：全部 6 章已交付。04 章由后台子任务完成（其被取消前交付），05 章因该子任务中途取消由主会话接管补写，06 章为安全增强专题补章。

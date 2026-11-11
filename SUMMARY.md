@@ -219,6 +219,7 @@
 * [信号子系统](process-mgmt/docs/04-信号子系统.md)
 * [ptrace 与 coredump](process-mgmt/docs/05-ptrace与coredump.md)
 * [namespace 全景](process-mgmt/docs/06-namespace全景.md)
+* [信号深入](process-mgmt/docs/07-信号深入.md)
 
 ## 二十三、cgroup 资源治理（cgroup）
 
