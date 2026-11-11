@@ -26,6 +26,7 @@
 * [sched_ext 前瞻（v6.12）](scheduler/docs/08-sched_ext前瞻.md)
 * [PSI 压力失速信息](scheduler/docs/09-PSI压力失速信息.md)
 * [NUMA balancing](scheduler/docs/10-NUMA_balancing.md)
+* [NUMA 统计接口](scheduler/docs/11-NUMA统计接口.md)
 * [SCHED_BT 离在线混部调度（腾讯）](scheduler/sched-batch/README.md)
 * [xsched 调度实践](scheduler/xsched.md)
 
