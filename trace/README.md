@@ -15,6 +15,7 @@
 | [05-tracer 家族](docs/05-tracer家族.md) | function（dyn ftrace 补丁）、function_graph（返回栈）、irqsoff/preemptoff、wakeup 三兄弟、hwlat、osnoise/timerlat、stack tracer、延迟定位实战 | trace_functions*.c / fgraph.c / trace_irqsoff.c / trace_sched_wakeup.c / trace_hwlat.c / trace_osnoise.c / trace_stack.c |
 | [06-perf 与 BPF 观测](docs/06-perf与BPF观测.md) | perf_event/pmu 内幕、PEBS、采样管线、tracepoint 并入 perf、BPF 三挂载、map 生态、bpftrace 一行流、生产选型 | events/core.c / perf.h / bpf_trace.c |
 | [07-procfs 观测索引](docs/07-procfs观测索引.md) | /proc 文件→源全表（proc_create 逐一对源）、per-PID 族、★/proc/sched_debug 移除勘误（5.15 起）、与 sysctl/debugfs 的边界 | fs/proc/* + 各子系统注册点 |
+| [08-sysctl 调参索引](docs/08-sysctl调参索引.md) | /proc/sys → 注册表全表（kernel.* 12 项+vm.* 7 项逐一对源）、register_sysctl 去中心化机制、★sched_base_slice_ns/migration_cost_ns 幻影勘误 | 各子系统 *_sysctls 表 |
 
 ## 学习路线
 
