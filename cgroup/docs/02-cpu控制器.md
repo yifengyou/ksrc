@@ -86,6 +86,11 @@ cpu.stat（6.6，两段 seq_show 拼合，已核对输出列）：
   nr_throttled           被掐断的周期数
   throttled_usec         累计被掐时长
   nr_bursts / burst_usec 突发消耗统计
+  （★第 45 轮字段审计补注：前两行出自 kernel/cgroup/rstat.c:515-517
+   的主体段，nr_periods 起的带宽字段出自 kernel/sched/core.c 的
+   cpu_extra_stat_show（:11275-11296，CONFIG_CFS_BANDWIDTH 块），
+   两者拼合；burst 字段实名 nr_burst/burst_usec（:11294-11296）；
+   CONFIG_SCHED_CORE 时另有 core_sched.force_idle_usec）
 ```
 
 **"CPU 使用率只有 50% 却大量 throttle"** ——最高频的容器之谜，三步破案：
