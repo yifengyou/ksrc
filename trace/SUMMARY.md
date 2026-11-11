@@ -10,3 +10,4 @@
 * [procfs 观测索引](docs/07-procfs观测索引.md)
 * [sysctl 调参索引](docs/08-sysctl调参索引.md)
 * [debugfs 全景索引](docs/09-debugfs全景索引.md)
+* [eBPF 验证器入门](docs/10-eBPF验证器入门.md)

@@ -17,6 +17,7 @@
 | [07-procfs 观测索引](docs/07-procfs观测索引.md) | /proc 文件→源全表（proc_create 逐一对源）、per-PID 族、★/proc/sched_debug 移除勘误（5.15 起）、与 sysctl/debugfs 的边界 | fs/proc/* + 各子系统注册点 |
 | [08-sysctl 调参索引](docs/08-sysctl调参索引.md) | /proc/sys → 注册表全表（kernel.* 12 项+vm.* 7 项逐一对源）、register_sysctl 去中心化机制、★sched_base_slice_ns/migration_cost_ns 幻影勘误 | 各子系统 *_sysctls 表 |
 | [09-debugfs 全景索引](docs/09-debugfs全景索引.md) | /sys/kernel/debug → 创建点全表（sched/zswap/shrinker/extfrag/bdi/wakeup_sources/kvm/clk 逐一对源）、★tracing 实为 tracefs 独立文件系统、workqueue 无 debugfs 勘误、四文件系统象限 | 各子系统 debugfs_create_* |
+| [10-eBPF 验证器入门](docs/10-eBPF验证器入门.md) | bpf_check 两遍验证（DAG 检查+全路径下降）、branches 状态树回溯协议、is_state_visited 剪枝、复杂度三层上限（1M 步/8192 跳转/64 状态）、循环真实政策（loop_ok && bpf_capable 放行有界循环）、★全部报错消息逐字对源、PTR_MAYBE_NULL 类型标志位（6.0 重构）、程序长度特权分级（syscall.c:2586） | verifier.c / bpf_verifier.h / include/linux/bpf.h |
 
 ## 学习路线
 
@@ -49,7 +50,8 @@
 
 * **scheduler 分册**：第 5 章 wakeup tracer 与 wakeup_rt/dl 依赖调度器的 prio/rt_task/dl_task 语义；sched:* tracepoint 是调度分册各章的观测出口；
 * **interrupt 分册**：irqsoff/osnoise 挂钩的 `irq:irq_handler_entry/exit` tracepoint 正是中断分册的 flow handler 路径埋点；
-* **locking 分册**：lockdep 是观测族谱里的"检测器"分支（本分册只做定位与开销量级对比，机制细节见 locking 分册）。
+* **locking 分册**：lockdep 是观测族谱里的"检测器"分支（本分册只做定位与开销量级对比，机制细节见 locking 分册）；
+* **syscalls/networking 分册**：第 10 章 verifier 的类型系统与 PTR_MAYBE_NULL 判空协议，是 seccomp cBPF 校验（syscalls/07）与 XDP 数据面（networking/07）背后共同的"证明安全"思想——eBPF 侧的完整机制在本章。
 
 ## 建议的动手环境
 
@@ -110,6 +112,8 @@ mount -t tracefs nodev /sys/kernel/tracing
 | 偶发高延迟的归因 | 05 章实战三步法 + rtla |
 | CPU 在干什么（profiling） | 06 章 perf 采样管线 |
 | 生产常驻的低开销指标 | 06 章 BPF 聚合与选型表 |
+| eBPF 程序被 verifier 拒了怎么读日志 | 10 章第五节（真实报错消息对照） |
+| eBPF 程序最多多少条指令/多少个 map/能不能写循环 | 10 章第四节（上限表）+ 第七节（循环政策） |
 
 ## 全局约定
 

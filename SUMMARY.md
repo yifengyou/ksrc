@@ -183,6 +183,7 @@
 * [procfs 观测索引](trace/docs/07-procfs观测索引.md)
 * [sysctl 调参索引](trace/docs/08-sysctl调参索引.md)
 * [debugfs 全景索引](trace/docs/09-debugfs全景索引.md)
+* [eBPF 验证器入门](trace/docs/10-eBPF验证器入门.md)
 
 ## 十九、块设备层（block）
 
