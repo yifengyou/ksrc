@@ -483,7 +483,7 @@ fair 类的公平树可承载 `task_group` 层级（`CONFIG_FAIR_GROUP_SCHED`，
    6.6 中 B 的每次醒来不应出现"追赶期"（对比 /proc/PID/sched 的 vruntime 差）
 ```
 
-`/proc/<pid>/sched` 的关键字段速查（6.6）：`vruntime`（换算成 ms 的虚拟时刻）、`slice`（当前请求）、`sum_exec_runtime`、`nr_migrations`；`/proc/sched_debug` 的 cfs_rq 段可看 `avg_vruntime`、`min_vruntime`、`.deadline`（树内最左实体的截止期）。
+`/proc/<pid>/sched` 的关键字段速查（6.6）：`vruntime`（换算成 ms 的虚拟时刻）、`slice`（当前请求）、`sum_exec_runtime`、`nr_migrations`；`/sys/kernel/debug/sched/debug` 的 cfs_rq 段可看 `avg_vruntime`、`min_vruntime`、`.deadline`（树内最左实体的截止期；★/proc/sched_debug 已移除——见 13 章勘误）。
 
 ---
 

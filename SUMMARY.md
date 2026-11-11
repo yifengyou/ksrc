@@ -179,6 +179,7 @@
 * [kprobes 与 uprobes](trace/docs/04-kprobes与uprobes.md)
 * [tracer 家族](trace/docs/05-tracer家族.md)
 * [perf 与 BPF 观测](trace/docs/06-perf与BPF观测.md)
+* [procfs 观测索引](trace/docs/07-procfs观测索引.md)
 
 ## 十九、块设备层（block）
 

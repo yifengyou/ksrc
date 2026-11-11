@@ -7,3 +7,4 @@
 * [kprobes 与 uprobes](docs/04-kprobes与uprobes.md)
 * [tracer 家族](docs/05-tracer家族.md)
 * [perf 与 BPF 观测](docs/06-perf与BPF观测.md)
+* [procfs 观测索引](docs/07-procfs观测索引.md)

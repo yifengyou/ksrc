@@ -19,7 +19,7 @@
 | [10-NUMA balancing](docs/10-NUMA_balancing.md) | NUMA 亲和自维护 | 三步协议（PTE 陷阱/缺页记账/迁移决策）、scan 参数四值与 NUMA_PERIOD_SLOTS 自适应、memory tiering 模式、vmstat 四计数器与开关时机 |
 | [11-NUMA 统计接口](docs/11-NUMA统计接口.md) | 观测落地 | 三层统计源（sched 的四象限 numa_faults/numa_maps 条件字段族与 N%d=/numastat 六计数器注释原样）、组合排障矩阵 |
 | [12-psi 触发器实践](docs/12-psi触发器实践.md) | 触发器纵深 | sscanf 谓词与四条校验（含非特权 2s 整倍窗）、EPOLLPRI 边沿消费（cmpxchg 原句）、rtpoll worker 与 UPDATES_PER_WINDOW=10、oomd 集成框架、avg 轮询对比表 |
-| [13-调度器 debugfs 全景](docs/13-调度器debugfs全景.md) | 观测中枢 | /sys/kernel/debug/sched 全文件表（:342-375 逐项）、动态抢占三模式、★numa 第五参数 hot_threshold_ms 补漏、domains/ 子树、与 /proc/sched_debug 分工 |
+| [13-调度器 debugfs 全景](docs/13-调度器debugfs全景.md) | 观测中枢 | /sys/kernel/debug/sched 全文件表（:342-375 逐项）、动态抢占三模式、★numa 第五参数 hot_threshold_ms 补漏、domains/ 子树、★/proc/sched_debug 幻影勘误（5.15 起已移除） |
 
 ## 专题子目录
 

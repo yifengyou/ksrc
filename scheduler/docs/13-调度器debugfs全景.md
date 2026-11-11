@@ -1,6 +1,6 @@
 # 调度器 debugfs 全景（Linux 6.6）
 
-> 定位：scheduler 分册的观测中枢章——/sys/kernel/debug/sched/ 的**全部文件清单**（含 root domain 的 domains/ 子树）、动态抢占（preempt 文件三模式）、SCHED_FEAT 开关面、以及与 /proc/sched_debug 的分工。前置：[00-一页速查](00-一页速查.md)、[04-调度时机与上下文切换](04-调度时机与上下文切换.md)。
+> 定位：scheduler 分册的观测中枢章——/sys/kernel/debug/sched/ 的**全部文件清单**（含 root domain 的 domains/ 子树）、动态抢占（preempt 文件三模式）、SCHED_FEAT 开关面、以及 ★/proc/sched_debug 移除勘误（§五）。前置：[00-一页速查](00-一页速查.md)、[04-调度时机与上下文切换](04-调度时机与上下文切换.md)。
 
 ---
 
@@ -22,7 +22,8 @@
 │   ├── scan_delay_ms / scan_period_min_ms / scan_period_max_ms
 │   ├── scan_size_mb
 │   └── hot_threshold_ms  ★ch10 补漏的第五参数（§三）
-├── debug             0444  全量 dump（等价 /proc/sched_debug）
+├── debug             0444  全量 dump（★原 /proc/sched_debug 的
+│                           现役等价物——见 §五勘误）
 └── domains/                调度域树镜像（§四）
 ```
 
@@ -62,15 +63,17 @@ tiering 的 demote 门槛 def_th——"热到什么程度才值得升回快层"
   是否真的没建域——cpuset partition root 的现场验证）
 ```
 
-## 五、与 /proc/sched_debug 的分工
+## 五、★勘误：/proc/sched_debug 已不存在（本轮复查发现）
 
 ```
-/proc/sched_debug（CONFIG_SCHED_DEBUG 门控）：文本全量 dump
-  （runqueue/任务树/域树）——一次性观察
-debugfs/sched/*：逐参数可写（运行期调优）+ domains 的机器
-  可读镜像——交互调优
-等价物：debugfs 的 "debug" 文件（0444）与 /proc/sched_debug
-  同源输出
+旧命令 /proc/sched_debug（老资料/教程仍在用）已于 **v5.15 前后
+被移除**（v5.10 的 kernel/sched/debug.c 尚有 proc_create，
+v5.15 起为零——本轮按 tag 逐版本核实的删除时间线）。
+6.6 的唯一等价物：本目录的 "debug" 文件（0444，§一全表）——
+同样输出 runqueue/任务树/域树全量 dump，仅位置从 /proc 挪到
+debugfs（ CONFIG_SCHED_DEBUG 门控不变）。
+全仓相关引用已随本轮一并勘误（scheduler 00/01/02/03/07、
+init/03、README——共 9 处）。
 ```
 
 ## 六、观测速查

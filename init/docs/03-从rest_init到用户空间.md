@@ -436,7 +436,7 @@ static int run_init_process(const char *init_filename)
 * **多核拉起**：`dmesg | grep -i "smpboot\|CPU"`；x86 侧 `smpboot: CPU N: ...`、arm64 侧 `CPUx: Booted secondary processor`。
 * **initramfs 体检**：`lsinitrd`、`initramfs_async` 参数（解包与 initcall 并行）；解包失败会 `Initramfs unpacking failed:` 直白报错。
 * **init 失败三板斧**：`init=/bin/sh`（跳过发行版 init）、`rdinit=/bin/sh`（卡在 initramfs 内）、`panic("No working init found")` 时读引导参数是否被 grub 截断。
-* **验证三进程**：`ps -o pid,ppid,comm -p 1 2`；0 号不可见（idle 不在进程列表，`cat /proc/sched_debug` 可见 swapper/0）。
+* **验证三进程**：`ps -o pid,ppid,comm -p 1 2`；0 号不可见（idle 不在进程列表，`cat /sys/kernel/debug/sched/debug` 可见 swapper/0——★/proc/sched_debug 旧命令已于 5.15 前后移除）。
 
 ---
 

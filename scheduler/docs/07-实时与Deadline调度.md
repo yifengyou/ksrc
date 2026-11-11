@@ -177,7 +177,7 @@ sched_setscheduler → __setscheduler_parameters → …
     超了 → 拒绝（EBUSY 或 EPERM 视 flags.SCHED_FLAG_SCAPE... 6.6: -1 表示 CLAMP？）
 ```
 
-观测：`/sys/kernel/debug/sched/deadline*/`（root domain 的 `dl_bw`）、`/proc/sched_debug` 的 `dl_rq` 段（`running_bw`/`this_bw`）。
+观测：`/sys/kernel/debug/sched/deadline*/`（root domain 的 `dl_bw`）、`/sys/kernel/debug/sched/debug` 的 `dl_rq` 段（`running_bw`/`this_bw`）。
 
 ### 4.4 GRUB：把没花完的预算借出去
 
@@ -226,7 +226,7 @@ pull 对应 dlo_mask（本 CPU 有 ≥2 个可运行 DL）
       chrt -d --sched-runtime 10000000 --sched-deadline 30000000 \
               --sched-period 30000000 -p 0 <pid>    # DL 合同 10/30ms
 
-监控：/proc/sched_debug  → 每核 rt_rq/dl_rq 段（nr_running、throttled、
+监控：cat /sys/kernel/debug/sched/debug  → 每核 rt_rq/dl_rq 段（nr_running、throttled、
                             running_bw、earliest_dl.curr/next）
       tracepoint:sched:sched_stat_runtime / sched_switch 的 next prio
       /proc/sys/kernel/sched_rt_runtime_us、sched_rr_timeslice_ms
