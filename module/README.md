@@ -9,6 +9,7 @@
 | [01-模块布局与加载器](docs/01-模块布局与加载器.md) | .ko 与加载 | ELF 专用段、`load_module` 十四段流水线、签名校验、W^X 执行域、init 段一次性生命周期 |
 | [02-符号解析与 kallsyms](docs/02-符号解析与kallsyms.md) | 符号世界 | EXPORT_SYMBOL 落盘、GPL-only 判定链、symbol namespace、kallsyms 压缩与 kptr_restrict |
 | [03-KO 构建与 BTF](docs/03-KO构建与BTF.md) | 工具链 | modpost/sign-file 流水线、vermagic 与 MODVERSIONS、BTF 与 CO-RE、模块参数 |
+| [04-模块签名链](docs/04-模块签名链.md) | 信任链 | 四道开关（sig_enforce 的 bool_enable_only）、.ko 尾部签名布局、mod_verify_sig→PKCS#7 验证链、三密钥环、lockdown 三级别与 Secure Boot 联动 |
 
 ## 与其他分册的联系
 
