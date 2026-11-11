@@ -127,6 +127,7 @@
 * [kdump](ras/kdump/README.md)
   * [kexec 加载与跳转](ras/kdump/docs/01-kexec加载与跳转.md)
   * [crashkernel 预留与 elfcorehdr](ras/kdump/docs/02-crashkernel预留与elfcorehdr.md)
+* [kexec 签名与 lockdown 联动](ras/kdump/docs/03-kexec签名与lockdown.md)
 * [OOM](ras/oom/README.md)
 
 ## 十二、虚拟化与体系结构

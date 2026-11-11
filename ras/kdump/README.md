@@ -8,6 +8,7 @@
 | :--- | :--- | :--- |
 | kexec 加载与跳转 | [01-kexec加载与跳转](docs/01-kexec加载与跳转.md) | 两阶段语义（load/execute）、struct kimage 与 IND_* 页链表、kexec_load(246) vs kexec_file_load(320) 与 KEXEC_SIG 签名、x86 relocate_kernel 恒等映射跳转、kexec jump |
 | crashkernel 预留与 elfcorehdr | [02-crashkernel预留与elfcorehdr](docs/02-crashkernel预留与elfcorehdr.md) | crashkernel= 三种语法、crashk_res/crashk_low_res、elfcorehdr 双层构造（load 骨架 + panic 血肉）、VMCOREINFO 契约、6.6 crash hotplug、purgatory sha256、/proc/vmcore |
+| kexec 签名与 lockdown 联动 | [03-kexec签名与lockdown](docs/03-kexec签名与lockdown.md) | 信任链交叉：老 kexec_load 封锁注释原句、KEXEC_SIG/FORCE 语义、PE 验签双密钥环回退、IMA 豁免三通道矩阵 |
 
 ## 与其他分册的联系
 
