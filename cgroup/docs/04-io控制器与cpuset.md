@@ -13,7 +13,7 @@ io 控制器全部构建在 blkcg（block cgroup）上：每个 (cgroup × 块�
 | `io.cost.*` | iocost | **前馈成本模型 + 反馈速率修正** | `blkcg_policy_iocost` |
 | `io.latency` | iolatency | **目标延迟反馈**（收缩并发窗口） | `blkcg_policy_iolatency` |
 | `io.max` | blk-throttle | 绝对速率上限（token） | `blkcg_policy_throttle` |
-| `io.weight` | bfq 权重 | 比例仲裁（仅 bfq 生效） | `blkcg_policy_bfq` |
+| `io.weight` | iocost / bfq | 比例仲裁（iocost 的 hweight 归一化传播——`weight_updated`→`propagate_weights`；bfq 权重） | `blkcg_policy_iocost` / `blkcg_policy_bfq`（★第 6 轮复查勘误：原"仅 bfq 生效"不实） |
 
 四把刀解决四类问题：**确定性预算**（io.cost）、**延迟 SLO**（io.latency）、**硬隔离**（io.max）、**相对优先级**（io.weight）。
 
