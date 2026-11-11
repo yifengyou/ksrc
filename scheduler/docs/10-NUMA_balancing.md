@@ -54,9 +54,10 @@ sysctl kernel.numa_balancing：
   0=关 / 1=开 / 2+ = memory tiering 模式
   （sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING——
   6.6 现役的分层内存联动，fair.c:1850）
-debugfs（/sys/kernel/debug/sched/numa/，debug.c:368-371）：
+debugfs（/sys/kernel/debug/sched/numa_balancing/，debug.c:368-372）：
   scan_delay_ms / scan_period_min_ms / scan_period_max_ms /
-  scan_size_mb —— 四参数运行期可调
+  scan_size_mb + ★hot_threshold_ms（第五参数，ch13 补漏：
+  memory tiering 的升回门槛，默认 1000ms——fair.c:1381）
 ```
 
 ## 五、观测

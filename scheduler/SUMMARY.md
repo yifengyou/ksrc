@@ -14,3 +14,4 @@
 * [NUMA balancing](docs/10-NUMA_balancing.md)
 * [NUMA 统计接口](docs/11-NUMA统计接口.md)
 * [psi 触发器实践](docs/12-psi触发器实践.md)
+* [调度器 debugfs 全景](docs/13-调度器debugfs全景.md)
