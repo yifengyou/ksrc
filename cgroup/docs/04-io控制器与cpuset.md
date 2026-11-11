@@ -79,12 +79,16 @@ io.cost.qos（服务质量）：
 ```
 每次完成：lat = 完成 - 提交 → 按线性桶（LAT_BUCKETS=64? 常量表）累计
 周期评估（iolatency_timer_fn）：
-  计算百分位（io.latency.percentile 读出的即此）——默认看 50th? 可配
+  计算百分位（★第 9 轮复查勘误：6.6 的 iolatency **没有独立的
+  "io.latency.percentile" 文件**——blk-iolatency.c 仅有
+  cftype "latency"（:1043）；内部用 percentile_stats 结构做
+  分桶（:127/:134），但无独立 percentile 配置文件——老资料
+  常引此名）
   target 未达 → inflight 窗口收紧（组的提交排队）
   达标且余裕 → 缓慢放宽（迟滞，见 scale_lat 单调逻辑 :576-581）
 ```
 
-`io.latency` 文件写法：`"8:16 target=5"`（ms 单位接口）；`io.latency.percentile` 配观测分位。与 iocost 的分工：**iolatency 管的是"别让我的完成延迟超线"**（防御型），iocost 管的是"把设备能力按比例分掉"（分配型）——两者可同树并存但通常二选一（反馈变量都是延迟，叠加易互扰）。
+`io.latency` 文件写法：`"8:16 target=5"`（ms 单位接口；★第 9 轮复查勘误：6.6 的 iolatency **没有独立的 "io.latency.percentile" 文件**——blk-iolatency.c 的 cftype 表仅注册 `io.latency` 一个文件 :1043，percentile 是内部统计结构 percentile_stats :127-134，通过读 io.latency 的输出行（avg_lat/depth/win）观测，不提供独立分位配置接口）；与 iocost 的分工：**iolatency 管的是"别让我的完成延迟超线"**（防御型），iocost 管的是"把设备能力按比例分掉"（分配型）——两者可同树并存但通常二选一（反馈变量都是延迟，叠加易互扰）。
 
 ## 二点七、blk-throttle 的两级执行
 
