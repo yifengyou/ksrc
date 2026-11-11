@@ -16,6 +16,7 @@
 | [06-perf 与 BPF 观测](docs/06-perf与BPF观测.md) | perf_event/pmu 内幕、PEBS、采样管线、tracepoint 并入 perf、BPF 三挂载、map 生态、bpftrace 一行流、生产选型 | events/core.c / perf.h / bpf_trace.c |
 | [07-procfs 观测索引](docs/07-procfs观测索引.md) | /proc 文件→源全表（proc_create 逐一对源）、per-PID 族、★/proc/sched_debug 移除勘误（5.15 起）、与 sysctl/debugfs 的边界 | fs/proc/* + 各子系统注册点 |
 | [08-sysctl 调参索引](docs/08-sysctl调参索引.md) | /proc/sys → 注册表全表（kernel.* 12 项+vm.* 7 项逐一对源）、register_sysctl 去中心化机制、★sched_base_slice_ns/migration_cost_ns 幻影勘误 | 各子系统 *_sysctls 表 |
+| [09-debugfs 全景索引](docs/09-debugfs全景索引.md) | /sys/kernel/debug → 创建点全表（sched/zswap/shrinker/extfrag/bdi/wakeup_sources/kvm/clk 逐一对源）、★tracing 实为 tracefs 独立文件系统、workqueue 无 debugfs 勘误、四文件系统象限 | 各子系统 debugfs_create_* |
 
 ## 学习路线
 
