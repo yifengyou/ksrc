@@ -10,3 +10,4 @@
 * [uclamp 深挖](docs/06-uclamp深挖.md)
 * [css_set 深挖](docs/07-css_set深挖.md)
 * [v1 淘汰史](docs/08-v1淘汰史.md)
+* [v1 到 v2 迁移手册](docs/09-v1到v2迁移手册.md)

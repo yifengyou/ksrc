@@ -15,6 +15,7 @@
 | [06-uclamp 深挖](docs/06-uclamp深挖.md) | 组级 effective | 四层来源（任务/组/系统/RT 默认）、uclamp_tg_restrict 的 clamp() 夹逼公式、桶聚合 O(1)（UCLAMP_BUCKETS=5）、sched_uclamp_used 静态键零开销、schedutil/EAS 双消费点 |
 | [07-css_set 深挖](docs/07-css_set深挖.md) | 数据结构 | 组合去重枢纽（同组合任务共享实例）、find_existing 的 template 构造（只换动到的 root）、find_css_set 全函数、put_css_set_locked 释放链与 kfree_rcu、迁移 mg 双链挂点 |
 | [08-v1 淘汰史](docs/08-v1淘汰史.md) | 历史纵深 | v1 多挂载树模型、6.6 兼容层 1308 行盘点（release_agent/CVE-2022-0492/clone_children/cgroup_no_v1）、v2 砍除对照表（devices→BPF；net_cls/net_prio 冻结勘误）、淘汰节奏 |
+| [09-v1 到 v2 迁移手册](docs/09-v1到v2迁移手册.md) | 实操桥 | 控制器文件映射全表、五个语义陷阱（soft→low 反转/memsw 拆分/use_hierarchy 隐含/无内部进程/tasks 限制）、cgroup2 挂载四选项（★memory_recursiveprot 实名）、systemd 对照、七步 playbook |
 
 ## 学习路线
 
