@@ -7,7 +7,7 @@
 | 章 | 文件 | 一句话 |
 | :--- | :--- | :--- |
 | 6.6 现状导读 | [01-RustForLinux现状导读](docs/01-RustForLinux现状导读.md) | 基座完备生态为零（drivers/ 零 Rust 目录核对）、rust/ 树布局（alloc/bindings/macros/kernel）、sync 原语与 pin-init 宏系统、CONFIG_RUST 依赖表（!MODVERSIONS 等）、module! 样例、与 C 的边界 |
-
+| 抽象层深挖 | [02-抽象层深挖](docs/02-抽象层深挖.md) | KernelAllocator 的 krealloc 桥（pad_to_align/对齐超限扩 size）、Error 的 errno 封装与 to_result、pr_* → _printk、Task/current! 的 Deref 借用、kunit 集成、ScopeGuard/AlwaysRefCounted |
 ## 与其他分册的联系
 
 - **module 分册**：KO 加载的两栖对照（C 与 Rust 模块同一基础设施）

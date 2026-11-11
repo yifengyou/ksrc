@@ -257,6 +257,7 @@
 
 * [Rust 分册导读](rust/README.md)
 * [6.6 现状导读](rust/docs/01-RustForLinux现状导读.md)
+* [Rust 抽象层深挖](rust/docs/02-抽象层深挖.md)
 
 ## 二十五、模块机制（module）
 
