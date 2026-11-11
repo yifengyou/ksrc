@@ -9,3 +9,4 @@
 * [memcg 回收深挖](docs/05-memcg回收深挖.md)
 * [uclamp 深挖](docs/06-uclamp深挖.md)
 * [css_set 深挖](docs/07-css_set深挖.md)
+* [v1 淘汰史](docs/08-v1淘汰史.md)

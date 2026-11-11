@@ -232,6 +232,7 @@
 * [memcg 回收深挖](cgroup/docs/05-memcg回收深挖.md)
 * [uclamp 深挖](cgroup/docs/06-uclamp深挖.md)
 * [css_set 深挖](cgroup/docs/07-css_set深挖.md)
+* [v1 淘汰史](cgroup/docs/08-v1淘汰史.md)
 
 ## 二十四、系统调用机制（syscalls）
 
