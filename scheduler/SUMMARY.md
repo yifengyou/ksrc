@@ -13,3 +13,4 @@
 * [PSI 压力失速信息](docs/09-PSI压力失速信息.md)
 * [NUMA balancing](docs/10-NUMA_balancing.md)
 * [NUMA 统计接口](docs/11-NUMA统计接口.md)
+* [psi 触发器实践](docs/12-psi触发器实践.md)
