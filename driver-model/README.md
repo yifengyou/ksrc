@@ -11,6 +11,7 @@
 | [03-设备树与 ACPI](docs/03-设备树与ACPI.md) | 固件描述 | DTB 布局与 unflatten、of_ API 与 phandle、AML 与 _CRS、两条世界线汇入总线模型 |
 | [04-firmware 加载与 request_firmware 生命周期](docs/04-firmware加载与request_firmware生命周期.md) | 固件补给线 | 五级搜索路径、builtin/缓存/在途三级快路径、override_creds 安全设计、sysfs fallback 的 loading/data 协议与 LSM 钩子、suspend 固件缓存、fw_upload 反向通道 |
 | [05-devres 设备资源管理](docs/05-devres设备资源管理.md) | probe 解药 | 三结构两把锁、FIFO 入队/LIFO 释放、★group 两遍染色算法（"wholly contained" 注释）、devm_kmalloc 的 noop release 设计、devm_action 泛型族、三消费方案例（fw magic 匹配/IRQ 双元组/pcim）、devres_log tracepoint |
+| [06-pcim 与 PCI 管理资源](docs/06-pcim与PCI管理资源.md) | PCI 方言 | ★基础函数接管设计（pci_request_region/pci_intx 在 managed 设备自动记账——find_pci_dr 的 NULL 语义）、总账本 pci_devres 五位一 mask 与逆序清单、pin 逃生门（"won't be disabled on driver detach"）、pcim_iomap 表模式（一张 devres 记全部 BAR）与 "duplicate mappings not allowed"、request_all 的掩码补集 |
 
 ## 与其他分册的联系
 

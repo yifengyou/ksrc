@@ -289,6 +289,7 @@
 * [设备树与 ACPI](driver-model/docs/03-设备树与ACPI.md)
 * [firmware 加载与 request_firmware 生命周期](driver-model/docs/04-firmware加载与request_firmware生命周期.md)
 * [devres 设备资源管理](driver-model/docs/05-devres设备资源管理.md)
+* [pcim 与 PCI 管理资源](driver-model/docs/06-pcim与PCI管理资源.md)
 
 ## 二十七、printk 子系统（printk）
 
