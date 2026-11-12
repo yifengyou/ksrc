@@ -15,6 +15,7 @@
 * [ww_rt_mutex RT 变体](ww-rt-mutex.md)
 * [dma-resv GPU 预约](dma-resv.md)
 * [seqcount_latch 双缓冲](seqcount-latch.md)
+* [PREEMPT_RT 替换矩阵](preempt-rt-matrix.md)
 
 ## 内核官方文档镜像（本目录 .rst）
 
