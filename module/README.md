@@ -10,6 +10,7 @@
 | [02-符号解析与 kallsyms](docs/02-符号解析与kallsyms.md) | 符号世界 | EXPORT_SYMBOL 落盘、GPL-only 判定链、symbol namespace、kallsyms 压缩与 kptr_restrict |
 | [03-KO 构建与 BTF](docs/03-KO构建与BTF.md) | 工具链 | modpost/sign-file 流水线、vermagic 与 MODVERSIONS、BTF 与 CO-RE、模块参数 |
 | [04-模块签名链](docs/04-模块签名链.md) | 信任链 | 四道开关（sig_enforce 的 bool_enable_only）、.ko 尾部签名布局、mod_verify_sig→PKCS#7 验证链、三密钥环、lockdown 三级别与 Secure Boot 联动 |
+| [05-kernel_read_file 加载基础设施](docs/05-kernel_read_file加载基础设施.md) | 统一管道 | module/firmware/kexec/IMA-policy+x509 四方共用的读文件族、ID 枚举 X-macro 双表与 LOADING_* 平行零漂移、★deny_write_access 与 exec 同源 ETXTBSY、双 LSM 门 whole_file 配对契约、from_path_initns 三变体、IMA read_idmap 与 X509 豁免 |
 
 ## 与其他分册的联系
 
@@ -17,6 +18,7 @@
 * **trace/bpf 分册**：kallsyms 的按名注册、BTF 与 CO-RE 的消费端
 * **ras 分册**：oops 的符号还原依赖 kallsyms
 * **locking 分册**：模块参数与 cmdline 参数的同源机制
+* **driver-model / ras 分册**：第 5 章的统一管道横贯两分册——firmware 的 from_path_initns（driver-model/04）与 kexec 镜像加载（ras/kdump/01）都是 kernel_read_file 家族的消费者
 
 ## 源码索引（Linux 6.6）
 

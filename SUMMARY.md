@@ -273,6 +273,7 @@
 * [符号解析与 kallsyms](module/docs/02-符号解析与kallsyms.md)
 * [KO 构建与 BTF](module/docs/03-KO构建与BTF.md)
 * [模块签名链](module/docs/04-模块签名链.md)
+* [kernel_read_file 加载基础设施](module/docs/05-kernel_read_file加载基础设施.md)
 
 ## 二十六、设备模型（driver-model）
 
