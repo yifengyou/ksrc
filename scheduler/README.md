@@ -22,6 +22,7 @@
 | [13-调度器 debugfs 全景](docs/13-调度器debugfs全景.md) | 观测中枢 | /sys/kernel/debug/sched 全文件表（:342-375 逐项）、动态抢占三模式、★numa 第五参数 hot_threshold_ms 补漏、domains/ 子树、★/proc/sched_debug 幻影勘误（5.15 起已移除） |
 | [14-调度器统计纵深 schedstat](docs/14-调度器统计纵深schedstat.md) | 两本账 | SCHED_INFO 轻量时间戳账 vs SCHEDSTATS 全量计数、/proc/schedstat cpu 行 10 槽（★第 3 槽字面量 0 的 v2.6.32 考古：实为 rq->sched_switch）+ domain 行 36 字段、ttwu_stat 的 static-key 提升、sched_stat_* tracepoint 五件套、KVM steal time 依赖 sched_info_on |
 | [15-任务延迟统计 delayacct](docs/15-任务延迟统计delayacct.md) | 等待归因 | 七族延迟账（blkio/swapin/freepages/thrashing/compact/wpcopy/irq）、blkio 的"睡眠起表↔唤醒收账"跨上下文闭环（★"cannot rely on current"注释）、★/proc/<pid>/delay 幻影勘误（主线从未存在，唯一出口 taskstats netlink）、taskstats 溢出契约、per-CPU 监听者广播、getdelays 工具 |
+| [16-观测扇出模式](docs/16-观测扇出模式.md) | 横切规律 | 一份采集多本账的四案例（enqueue_sleeper 四账本+精度梯子 ns/μs/ms、__schedule 六连扇出、irq 双账本、sched_info 双出口）、开关独立设计（采集点常驻每支自门控）、单一采集点的一致性/增量成本/失败隔离三收益、发现新扇出点的方法 |
 
 ## 专题子目录
 

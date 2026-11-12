@@ -17,3 +17,4 @@
 * [调度器 debugfs 全景](docs/13-调度器debugfs全景.md)
 * [调度器统计纵深 schedstat](docs/14-调度器统计纵深schedstat.md)
 * [任务延迟统计 delayacct](docs/15-任务延迟统计delayacct.md)
+* [观测扇出模式](docs/16-观测扇出模式.md)

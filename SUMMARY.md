@@ -32,6 +32,7 @@
 * [调度器 debugfs 全景](scheduler/docs/13-调度器debugfs全景.md)
 * [调度器统计纵深 schedstat](scheduler/docs/14-调度器统计纵深schedstat.md)
 * [任务延迟统计 delayacct](scheduler/docs/15-任务延迟统计delayacct.md)
+* [观测扇出模式](scheduler/docs/16-观测扇出模式.md)
 * [SCHED_BT 离在线混部调度（腾讯）](scheduler/sched-batch/README.md)
 * [xsched 调度实践](scheduler/xsched.md)
 
