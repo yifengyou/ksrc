@@ -12,6 +12,7 @@
 * [rcu_sync 宽限期合并器](rcu-sync.md)
 * [内核中的模算术](modular-arithmetic.md)
 * [三巨头 sanitizers](sanitizers.md)
+* [ww_rt_mutex RT 变体](ww-rt-mutex.md)
 
 ## 内核官方文档镜像（本目录 .rst）
 
