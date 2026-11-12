@@ -202,6 +202,7 @@
 * [perf 上下文切换](trace/docs/15-perf上下文切换.md)
 * [bpf_struct_ops](trace/docs/16-bpf_struct_ops.md)
 * [ftrace direct 共享地基](trace/docs/17-ftrace_direct共享地基.md)
+* [ftrace 汇编层 DIRECT 分派](trace/docs/18-ftrace汇编层DIRECT分派.md)
 
 ## 十九、块设备层（block）
 

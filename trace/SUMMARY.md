@@ -18,3 +18,4 @@
 * [perf 上下文切换](docs/15-perf上下文切换.md)
 * [bpf_struct_ops](docs/16-bpf_struct_ops.md)
 * [ftrace direct 共享地基](docs/17-ftrace_direct共享地基.md)
+* [ftrace 汇编层 DIRECT 分派](docs/18-ftrace汇编层DIRECT分派.md)
