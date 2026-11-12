@@ -16,3 +16,4 @@
 * [内核代码生成惯用法](docs/13-内核代码生成惯用法.md)
 * [BPF trampoline](docs/14-BPFtrampoline.md)
 * [perf 上下文切换](docs/15-perf上下文切换.md)
+* [bpf_struct_ops](docs/16-bpf_struct_ops.md)

@@ -23,6 +23,7 @@
 | [13-内核代码生成惯用法](docs/13-内核代码生成惯用法.md) | 横切地图：一份清单多种产物的六形态——极简式（kernel_read_file_id 一宏三表）/隔空共定义（LSM_HOOK 251 条三家消费）/多重包含本家（TRACE_EVENT 七阶段 + TRACE_HEADER_MULTI_READ）/BPF 双例（uapi MAPPER 的中间层重排·btf.c 三重包含教科书）/BTF_ID 远亲/对照组（syscall 表为何用脚本）+ 签名法找新成员 | kernel_read_file.h / lsm_hook_defs.h / define_trace.h / bpf.h / bpf_types.h |
 | [14-BPF trampoline](docs/14-BPFtrampoline.md) | 函数边界插桩：按目标现场生成机器码的三层模型（trampoline 账本/tramp_image 的 percpu_ref 生命周期与 ip_after_call 探测点/38 链×~50B 预算）、x86 生成器流程、BPF_TRAMP_F_* 七标志组装语义、★BPF LSM 闭环（lsm_hook_defs 的 noinline nop 锚点——逻辑位置与物理插桩分离） | trampoline.c / bpf.h / bpf_jit_comp.c / hooks.c / bpf_lsm.c |
 | [15-perf 上下文切换](docs/15-perf上下文切换.md) | 扇出最重一支：sched_out/in 的三件事、ctx 账本（pinned/flexible 两组分野）、★克隆快速路径的上下文整体交换（零 PMU 编程）、sched_in 的四级优先级协议（"cpu pinned, task pinned, cpu flexible, task flexible" 注释原话）、perf_sched_cb_usages 的 PMU 侧门、无事件≈1-2ns 成本画像 | kernel/events/core.c / include/linux/perf_event.h |
+| [16-bpf_struct_ops](docs/16-bpf_struct_ops.md) | 反向用法：BPF 程序成为内核 ops 的函数指针——BTF 驱动注册（types.h 的 X-macro 清单）、struct_ops map 的双视图（uvalue=kprog_id/kvalue=trampoline 地址）、★update 全流程（逐成员 prepare_trampoline + orig_call=NULL + set_memory_rox W^X）、tcp_congestion_ops 唯一实战端、BPF_TRAMP_F_RET_FENTRY_RET 独占用户 | bpf_struct_ops.c / bpf.h / bpf_tcp_ca.c |
 
 ## 学习路线
 

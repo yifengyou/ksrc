@@ -195,6 +195,7 @@
 * [内核代码生成惯用法](trace/docs/13-内核代码生成惯用法.md)
 * [BPF trampoline](trace/docs/14-BPFtrampoline.md)
 * [perf 上下文切换](trace/docs/15-perf上下文切换.md)
+* [bpf_struct_ops](trace/docs/16-bpf_struct_ops.md)
 
 ## 十九、块设备层（block）
 
