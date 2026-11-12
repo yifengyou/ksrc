@@ -31,7 +31,10 @@ struct xdp_buff {
 				   递给 tc/协议栈——bpf_xdp_adjust_meta） */
 	void	*data_hard_start;	/* 页/帧起点（bpf_xdp_adjust_head 界限） */
 	struct xdp_rxq_info	*rxq;	/* 收包队列身份（队列 id/设备） */
-	struct xdp_txq_info	*txq;	/* 6.6 新增：XDP_TX 的发送队列描述 */
+	struct xdp_txq_info	*txq;	/* XDP_TX 的发送队列描述（★v5.9 引入
+				   ——commit "xdp: Add xdp_txq_info to
+				   xdp_buff" 2020-05；原稿误记"6.6 新增"
+				   已勘） */
 	u32	frame_sz;	u32	flags;
 };
 ```

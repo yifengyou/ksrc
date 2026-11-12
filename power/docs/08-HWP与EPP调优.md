@@ -7,7 +7,8 @@
 ## 一、HWP：把调频决策搬进硬件
 
 ```
-开启：写 MSR_IA32_PM_ENABLE 后，硬件在 [min,max] 区间内自选
+开启：写 MSR_PM_ENABLE（msr-index.h:468——★无 IA32 前缀，勘误：原稿误写
+  MSR_IA32_PM_ENABLE）后，硬件在 [min,max] 区间内自选
   P-state——OS 从"命令者"降级为"建议者"（区间 + 偏好）
 请求字（MSR_HWP_REQUEST 位域，arch/x86/include/asm/msr-index.h 已核对）：
   bits  0-7  HWP_MIN_PERF      区间下限
@@ -27,7 +28,10 @@ CPUID 旗标：X86_FEATURE_HWP/HWP_NOTIFY/HWP_ACT_WINDOW/HWP_EPP
 energy_perf_strings[]（sysfs 可写值）   raw 值（msr-index.h）
   performance            0x00   性能优先（功耗上限内尽力提频）
   balance_performance    0x80   默认档的常见值——偏性能的平衡
-  balance_powersave      0xC0   偏节能的平衡
+  balance_power          0xC0   偏节能的平衡（★sysfs 字符串是
+                                balance_power 而非枚举名
+                                EPP_INDEX_BALANCE_POWERSAVE——原稿
+                                误写 balance_powersave，勘误已注）
   power                  0xFF   节能优先（最低满足负载的频率）
   default                ——    跟随策略/policy 推导
 读回路径：intel_pstate_get_energy_pref_index 把 MSR/缓存里的
@@ -67,7 +71,7 @@ passive 模式：governor（schedutil）出 desired；HWP 在区间内兜底
 | :--- | :--- | :--- |
 | 计算/编译 | `performance` 或 policy=performance（min=max） | 拉满吞吐 |
 | 交互桌面 | `balance_performance` + hwp_dynamic_boost | 响应优先 |
-| 长时稳态服务 | `balance_powersave` | 能效曲线最优段 |
+| 长时稳态服务 | `balance_power` | 能效曲线最优段 |
 | 电池/静音 | `power` + max 限制 | 压 turbo |
 | 混合负载（cpufreq+thermal） | EPP + thermal 的 max clamp（[06 章](06-thermal框架.md)） | 偏好与区间分层 |
 

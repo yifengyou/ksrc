@@ -130,9 +130,14 @@ iolat（每组每设备）：
 
 ---
 
-## 五、io.weight：bfq 专享
+## 五、io.weight：iocost 与 bfq 的双轨权重
 
-`io.weight`（1~10000，默认 100）只在设备用 **bfq 调度器**时生效（bfq-cgroup 的 `bfq_group_sched` 注册；`BFQ_WEIGHT_CONVERSION` 把 cgroup weight 折算为 bfq 内部权重）。6.6 现实约束：NVMe（默认 none/mq-deadline）上 io.weight **无效**——机械盘 + bfq 的桌面/单盘场景才是它的主场。多队列时代的权重仲裁事实上由 io.cost 接棒。
+`io.weight`（1~10000，默认 100）有**两条生效轨**（★第 6 轮复查勘误的完整版：原"仅 bfq 生效"不实，本节原稿同表述已在第 12 轮复查补正）：
+
+* **iocost 轨**：`weight_updated` → `propagate_weights` 的 hweight 归一化传播（blk-iocost.c）——在 iocost 挂载的设备上按权重比例分预算；
+* **bfq 轨**：`bfq_group_sched` 注册的 bfq-cgroup 权重（`BFQ_WEIGHT_CONVERSION` 把 cgroup weight 折算为 bfq 内部权重）。
+
+6.6 现实约束：NVMe（默认 none/mq-deadline 且未挂 iocost）上 io.weight **两条轨都不在**——要么换 bfq、要么启用 iocost（`io.cost.qos` 写入即激活），它才生效。机械盘 + bfq 的桌面/单盘与 iocost 接管的多队列盘是它的两个主场。
 
 ---
 
