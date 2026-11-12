@@ -277,6 +277,7 @@
 * [模块签名链](module/docs/04-模块签名链.md)
 * [kernel_read_file 加载基础设施](module/docs/05-kernel_read_file加载基础设施.md)
 * [usermodehelper 机制](module/docs/06-usermodehelper机制.md)
+* [idempotent 模块加载](module/docs/07-idempotent模块加载.md)
 
 ## 二十六、设备模型（driver-model）
 

@@ -121,7 +121,7 @@ if (whole_file) {
 | `..._from_path_initns`（:147） | `task_lock(&init_task); get_fs_root(init_task.fs); file_open_root`（krf.c:159-163） | **init 的**根——不受调用者 nsview 影响 | 固件加载（fw main.c:548，[driver-model/04](../../driver-model/docs/04-firmware加载与request_firmware生命周期.md) 的 :547 注释回响） |
 | `..._from_fd`（:174） | `fdget`（:178）+ `FMODE_READ` 检查（:181，失败 -EBADF） | 用户态递来的 fd | kexec_file.c:199（KEXEC_IMAGE）/:220（KEXEC_INITRAMFS）、finit_module 链 |
 
-module 侧的完整链（已核对 6.6）：`SYSCALL_DEFINE3(finit_module)`（main.c:3169）→ `may_init_module` → `fdget(fd)`（:3185）→ **`idempotent_init_module`**（:3186——6.6 的重复加载去重层）→ `init_module_from_file`（:3123）→ `kernel_read_file(f, 0, &buf, INT_MAX, NULL, READING_MODULE)`（:3129）——之后才进入 module/01 章的十四段流水线与 module/04 章的签名验证。
+module 侧的完整链（已核对 6.6）：`SYSCALL_DEFINE3(finit_module)`（main.c:3169）→ `may_init_module` → `fdget(fd)`（:3185）→ **`idempotent_init_module`**（:3186——并发去重层，**v6.5 引入**（commit 9b9879fc0327，merge-base 实证；详见 [07 章](07-idempotent模块加载.md)））→ `init_module_from_file`（:3123）→ `kernel_read_file(f, 0, &buf, INT_MAX, NULL, READING_MODULE)`（:3129）——之后才进入 module/01 章的十四段流水线与 module/04 章的签名验证。
 
 ## 五、双 LSM 门的分发与 IMA 直连（security.c:3048-3085）
 
