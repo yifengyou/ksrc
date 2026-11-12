@@ -61,6 +61,14 @@
 * `__init` 段生命周期与 `free_initmem()`；模块为何必须"各自释放"（`init_free_wq`）；
 * deferred probe（`-EPROBE_DEFER`）与 `devices_deferred` 观测。
 
+### [async 异步基础设施](docs/05-async异步基础设施.md)
+
+* sequence cookie 协议：u64 单调计数 + 双链表 + `wait_event` 不等式实现"乱序执行、顺序退休"（async.c:10-40 设计注释原话，含乱序 CPU 类比）；
+* 调度/汇合/域三件套：`async_schedule*` 家族（NUMA 就近 + GFP_ATOMIC + ★MAX_WORK=32768 过载回落同步执行）、`async_synchronize_*` 四马甲归一、`ASYNC_DOMAIN(_EXCLUSIVE)` 的 registered 位与 fw_cache_domain 实例闭环；
+* initcall 层级编排：`s` 段链接序机关（vmlinux.lds.h:908-911 同层殿后）、`main.c:1439` 总闸门的深层理由（`.init` 内存回收时序约束）；
+* 异步探测三层开关（`probe_type` 三值 / `driver_async_probe=` cmdline / 模块 `async_probe=1`）与设备侧·驱动侧两路分发；
+* ★`current_is_async()` 死锁警戒线：async 上下文禁止同步 `request_module`（kmod.c:143-148 死锁环原注释）。
+
 ## 🖥️ 双架构视角说明
 
 本系列所有架构相关内容都同时给出 x86_64 与 arm64 两条线，理由有三：
