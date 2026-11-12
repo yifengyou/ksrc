@@ -21,6 +21,7 @@
 | [12-psi 触发器实践](docs/12-psi触发器实践.md) | 触发器纵深 | sscanf 谓词与四条校验（含非特权 2s 整倍窗）、EPOLLPRI 边沿消费（cmpxchg 原句）、rtpoll worker 与 UPDATES_PER_WINDOW=10、oomd 集成框架、avg 轮询对比表 |
 | [13-调度器 debugfs 全景](docs/13-调度器debugfs全景.md) | 观测中枢 | /sys/kernel/debug/sched 全文件表（:342-375 逐项）、动态抢占三模式、★numa 第五参数 hot_threshold_ms 补漏、domains/ 子树、★/proc/sched_debug 幻影勘误（5.15 起已移除） |
 | [14-调度器统计纵深 schedstat](docs/14-调度器统计纵深schedstat.md) | 两本账 | SCHED_INFO 轻量时间戳账 vs SCHEDSTATS 全量计数、/proc/schedstat cpu 行 10 槽（★第 3 槽字面量 0 的 v2.6.32 考古：实为 rq->sched_switch）+ domain 行 36 字段、ttwu_stat 的 static-key 提升、sched_stat_* tracepoint 五件套、KVM steal time 依赖 sched_info_on |
+| [15-任务延迟统计 delayacct](docs/15-任务延迟统计delayacct.md) | 等待归因 | 七族延迟账（blkio/swapin/freepages/thrashing/compact/wpcopy/irq）、blkio 的"睡眠起表↔唤醒收账"跨上下文闭环（★"cannot rely on current"注释）、★/proc/<pid>/delay 幻影勘误（主线从未存在，唯一出口 taskstats netlink）、taskstats 溢出契约、per-CPU 监听者广播、getdelays 工具 |
 
 ## 专题子目录
 
