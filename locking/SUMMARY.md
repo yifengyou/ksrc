@@ -5,6 +5,7 @@
 * [seqlock](seqlock.md)
 * [mutex](mutex.md)
 * [rwsem](rwsem.md)
+* [让步模式 concession](concession.md)
 
 ## 内核官方文档镜像（本目录 .rst）
 

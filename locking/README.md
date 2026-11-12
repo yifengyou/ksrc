@@ -10,6 +10,7 @@
 | [seqlock.md](seqlock.md) | 乐观读锁与 seqcount 家族 | 关联锁变体、内存序、latch 双缓冲（NMI 安全时钟） |
 | [mutex.md](mutex.md) | 互斥体 | owner 标志位复用、osq 乐观自旋、handoff 防偷锁、ww_mutex、rt_mutex |
 | [rwsem.md](rwsem.md) | 读写信号量 | count 位编码、读者批量唤醒、写者 handoff、RT 差异 |
+| [concession.md](concession.md) | 排序让步家族 | 三形态：新来者让老等待者（mutex 两级纪律+handoff 位反偷锁）/读者让写者（seqlock 乐观重试——"no writer starvation" 注释）/首战者让同伴（kmod_dup 的 "let duplicates suffer" 一跳）；★rwsem 的 4ms 超时触发（先纵后擒）；公平与吞吐的兑换率 |
 
 ## 横向选型速记
 

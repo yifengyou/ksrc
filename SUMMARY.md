@@ -54,6 +54,7 @@
 * [seqlock](locking/seqlock.md)
 * [mutex](locking/mutex.md)
 * [rwsem](locking/rwsem.md)
+* [让步模式 concession](locking/concession.md)
 * [内存屏障（官方镜像 memory-barriers.txt）](memory-barriers.txt)
 * [atomic_t（官方镜像）](atomic_t.txt)
 
