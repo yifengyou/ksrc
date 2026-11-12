@@ -21,7 +21,7 @@ struct idle_inject_device { hrtimer timer, idle_duration_us,
   run_duration_us, cpumask, update 回调 }
 执行单元：per-CPU kthread（idle_inject_thread { task_struct,
   should_run }）周期到达 → play_idle_precise(duration_ns,
-  latency_ns)（include/linux/cpu.h:189——受 latency 上限保护的
+  latency_ns)（include/linux/cpu.h:200——受 latency 上限保护的
   强制 idle：调度器视角 = 本 CPU 上一个"不可运行"的普通任务）
 节拍：hrtimer 每 (idle + run) 一个周期；下一周期的时长由
   idle_inject_set_duration() 调整——update 回调在每周期边界
