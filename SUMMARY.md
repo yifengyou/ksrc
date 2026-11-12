@@ -60,6 +60,7 @@
 * [ww_mutex 事务序让步](locking/ww-mutex.md)
 * [rcu_sync 宽限期合并器](locking/rcu-sync.md)
 * [内核中的模算术](locking/modular-arithmetic.md)
+* [三巨头 sanitizers](locking/sanitizers.md)
 * [内存屏障（官方镜像 memory-barriers.txt）](memory-barriers.txt)
 * [atomic_t（官方镜像）](atomic_t.txt)
 

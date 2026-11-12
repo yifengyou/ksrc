@@ -16,6 +16,7 @@
 | [ww-mutex.md](ww-mutex.md) | 事务序让步（第四形态） | Wound-Wait（老者 wound 新者→新者释放全部）与 Wait-Die（新者碰老者→新者自杀）的对称反转；ww_acquire_ctx 的 stamp 分配；__ww_mutex_add_waiter 的 stamp 序入队（"waking up waiters that must kill themselves" 注释原话）；check_kill 判定链；-EDEADLK 回退重做协议与 concession 三形态对照 |
 | [rcu-sync.md](rcu-sync.md) | 宽限期合并器 | 五态状态机（GP_IDLE/ENTER/PASSED/EXIT/★REPLAY 的追赶延迟）、gp_count 引用计数式 GP 共享（"closely spaced calls can optimize away the grace-period wait" 注释原话）、首写者的 synchronize_rcu 快路径、★GP_REPLAY 的"上次 GP 白等了"追赶语义、与 percpu_ref 每次 call_rcu 的对照（N 个 GP→1 个 GP） |
 | [modular-arithmetic.md](modular-arithmetic.md) | 模算术横切 | 五案例：percpu-rwsem 的 modular sum（"求和等价"注释原话——读者进出配对的正确性论证）/percpu_ref 的 BIAS 偏置（2^63 防碰零）/time_after 的带符号差判序（圆环序比较）/seqcount 奇偶语义（模 2 周期编码写入状态）/percpu_counter 的分层近似（全局精确+percpu 缓冲）；共同哲学："让数学代替锁做正确性保证" |
+| [sanitizers.md](sanitizers.md) | KASAN/KFENCE/KCSAN | 三模式 KASAN（shadow memory 映射与标签族/hw_tags ARM64 MTE）/KFENCE 的采样 guard page（Kconfig 原话"negligible cost...production"/canary pattern 0xAA^addr&7）/KCSAN 的 watchpoint 竞态检测（CHECK_ADJACENT=1 + NUM_SLOTS=3）；★插桩 vs 检查的分野与分工矩阵（开销×覆盖×生产可用×误报率） |
 
 ## 横向选型速记
 
