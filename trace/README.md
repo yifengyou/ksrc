@@ -17,7 +17,8 @@
 | [07-procfs 观测索引](docs/07-procfs观测索引.md) | /proc 文件→源全表（proc_create 逐一对源）、per-PID 族、★/proc/sched_debug 移除勘误（5.15 起）、与 sysctl/debugfs 的边界 | fs/proc/* + 各子系统注册点 |
 | [08-sysctl 调参索引](docs/08-sysctl调参索引.md) | /proc/sys → 注册表全表（kernel.* 12 项+vm.* 7 项逐一对源）、register_sysctl 去中心化机制、★sched_base_slice_ns/migration_cost_ns 幻影勘误 | 各子系统 *_sysctls 表 |
 | [09-debugfs 全景索引](docs/09-debugfs全景索引.md) | /sys/kernel/debug → 创建点全表（sched/zswap/shrinker/extfrag/bdi/wakeup_sources/kvm/clk 逐一对源）、★tracing 实为 tracefs 独立文件系统、workqueue 无 debugfs 勘误、四文件系统象限 | 各子系统 debugfs_create_* |
-| [10-eBPF 验证器入门](docs/10-eBPF验证器入门.md) | bpf_check 两遍验证（DAG 检查+全路径下降）、branches 状态树回溯协议、is_state_visited 剪枝、复杂度三层上限（1M 步/8192 跳转/64 状态）、循环真实政策（loop_ok && bpf_capable 放行有界循环）、★全部报错消息逐字对源、PTR_MAYBE_NULL 类型标志位（6.0 重构）、程序长度特权分级（syscall.c:2586） | verifier.c / bpf_verifier.h / include/linux/bpf.h |
+| [10-eBPF 验证器入门](docs/10-eBPF验证器入门.md) | bpf_check 两遍验证（DAG 检查+全路径下降）、branches 状态树回溯协议、is_state_visited 剪枝、复杂度三层上限（1M 步/8192 跳转/64 状态）、循环真实政策（loop_ok && bpf_capable 放行有界循环）、★全部报错消息逐字对源、PTR_MAYBE_NULL 类型标志位（5.17 重构，v5.16/17 双标签实证）、程序长度特权分级（syscall.c:2586） | verifier.c / bpf_verifier.h / include/linux/bpf.h |
+| [11-tnum 三值数](docs/11-tnum三值数.md) | 数学底座：三态位知识代数（value/mask 不变式）、tnum_add 的进位携带 chi、tnum_range 过逼近诚实注释（含幻影 3 示例）、AND/OR/XOR 三公式精度阶梯、★tnum_mul 注释引 arXiv 2105.05398、var_off→smin/smax 的符号位技巧派生、★DIV/MOD 落 default 分支 mark_reg_unknown（一次除法清零全部位知识） | tnum.h / kernel/bpf/tnum.c / verifier.c |
 
 ## 学习路线
 
@@ -114,6 +115,8 @@ mount -t tracefs nodev /sys/kernel/tracing
 | 生产常驻的低开销指标 | 06 章 BPF 聚合与选型表 |
 | eBPF 程序被 verifier 拒了怎么读日志 | 10 章第五节（真实报错消息对照） |
 | eBPF 程序最多多少条指令/多少个 map/能不能写循环 | 10 章第四节（上限表）+ 第七节（循环政策） |
+| verifier 日志里 var_off=(0x0; 0xffff...) 怎么读 | 11 章第七节（tnum_strn 格式与知识演化录像） |
+| 为什么一次 DIV 之后 verifier 变"笨"了 | 11 章第五节分派表（default 分支 mark_reg_unknown） |
 
 ## 全局约定
 
