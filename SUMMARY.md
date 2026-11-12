@@ -204,6 +204,7 @@
 * [bpf_struct_ops](trace/docs/16-bpf_struct_ops.md)
 * [ftrace direct 共享地基](trace/docs/17-ftrace_direct共享地基.md)
 * [ftrace 汇编层 DIRECT 分派](trace/docs/18-ftrace汇编层DIRECT分派.md)
+* [text_poke_bp 家族](trace/docs/19-text_poke_bp家族.md)
 
 ## 十九、块设备层（block）
 
