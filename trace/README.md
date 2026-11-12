@@ -20,6 +20,7 @@
 | [10-eBPF 验证器入门](docs/10-eBPF验证器入门.md) | bpf_check 两遍验证（DAG 检查+全路径下降）、branches 状态树回溯协议、is_state_visited 剪枝、复杂度三层上限（1M 步/8192 跳转/64 状态）、循环真实政策（loop_ok && bpf_capable 放行有界循环）、★全部报错消息逐字对源、PTR_MAYBE_NULL 类型标志位（5.17 重构，v5.16/17 双标签实证）、程序长度特权分级（syscall.c:2586） | verifier.c / bpf_verifier.h / include/linux/bpf.h |
 | [11-tnum 三值数](docs/11-tnum三值数.md) | 数学底座：三态位知识代数（value/mask 不变式）、tnum_add 的进位携带 chi、tnum_range 过逼近诚实注释（含幻影 3 示例）、AND/OR/XOR 三公式精度阶梯、★tnum_mul 注释引 arXiv 2105.05398、var_off→smin/smax 的符号位技巧派生、★DIV/MOD 落 default 分支 mark_reg_unknown（一次除法清零全部位知识） | tnum.h / kernel/bpf/tnum.c / verifier.c |
 | [12-profile 与 latencytop](docs/12-profile与latencytop.md) | 两件活化石：profile 的四模式与 cmdline/双哈希表翻转防 timer 中断活锁（2004 摊销计数原作）/proc/profile 格式与 readprofile（util-linux）；latencytop 的"内核替你睡"设计注释（含格式图）/回溯为 key 的定容账本/inter>5000μs 自愿睡过滤/★三套账目一个入口（与 schedstat/delayacct 的三向纠缠表）/force_schedstat_enabled 三调用方闭环 | profile.c / latencytop.c / sched/stats.c |
+| [13-内核代码生成惯用法](docs/13-内核代码生成惯用法.md) | 横切地图：一份清单多种产物的六形态——极简式（kernel_read_file_id 一宏三表）/隔空共定义（LSM_HOOK 251 条三家消费）/多重包含本家（TRACE_EVENT 七阶段 + TRACE_HEADER_MULTI_READ）/BPF 双例（uapi MAPPER 的中间层重排·btf.c 三重包含教科书）/BTF_ID 远亲/对照组（syscall 表为何用脚本）+ 签名法找新成员 | kernel_read_file.h / lsm_hook_defs.h / define_trace.h / bpf.h / bpf_types.h |
 
 ## 学习路线
 
