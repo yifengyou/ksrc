@@ -7,6 +7,7 @@
 * [rwsem](rwsem.md)
 * [让步模式 concession](concession.md)
 * [percpu_ref 深挖](percpu-refcount.md)
+* [上刑测试特性](debug-adversarial.md)
 
 ## 内核官方文档镜像（本目录 .rst）
 
