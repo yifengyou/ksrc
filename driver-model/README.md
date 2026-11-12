@@ -12,6 +12,7 @@
 | [04-firmware 加载与 request_firmware 生命周期](docs/04-firmware加载与request_firmware生命周期.md) | 固件补给线 | 五级搜索路径、builtin/缓存/在途三级快路径、override_creds 安全设计、sysfs fallback 的 loading/data 协议与 LSM 钩子、suspend 固件缓存、fw_upload 反向通道 |
 | [05-devres 设备资源管理](docs/05-devres设备资源管理.md) | probe 解药 | 三结构两把锁、FIFO 入队/LIFO 释放、★group 两遍染色算法（"wholly contained" 注释）、devm_kmalloc 的 noop release 设计、devm_action 泛型族、三消费方案例（fw magic 匹配/IRQ 双元组/pcim）、devres_log tracepoint |
 | [06-pcim 与 PCI 管理资源](docs/06-pcim与PCI管理资源.md) | PCI 方言 | ★基础函数接管设计（pci_request_region/pci_intx 在 managed 设备自动记账——find_pci_dr 的 NULL 语义）、总账本 pci_devres 五位一 mask 与逆序清单、pin 逃生门（"won't be disabled on driver detach"）、pcim_iomap 表模式（一张 devres 记全部 BAR）与 "duplicate mappings not allowed"、request_all 的掩码补集 |
+| [07-资源生命周期三模式](docs/07-资源生命周期三模式.md) | 生命周期地图 | 计数（kref：不可直传 kfree 规则/put_lock 锁转移/unless_zero 与查找表难题的 RCU 注释）/挂靠（devres·devm_action）/宽限期（kfree_rcu 一页批量+5s·1jiffy 自适应排空）三模式对照与选型口诀；明星混合形态：kobject 的 DEBUG 随机延迟清理（测试武器）与 percpu_ref 的 kill 切原子两阶段（PERCPU_COUNT_BIAS） |
 
 ## 与其他分册的联系
 
