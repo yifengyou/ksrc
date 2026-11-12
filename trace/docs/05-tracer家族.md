@@ -80,15 +80,17 @@ register_ftrace_function(ops)（ops 入链，全 CPU stop_machine 无需——
   └─ ftrace_update_code → ftrace_make_call(rec, ftrace_caller)：
        text_poke_bp 把 5 字节 nop 换成 call ftrace_caller（x86）
   └─ ftrace_update_ftrace_func(func)：把 ftrace_caller 内部的
-       call ftrace_call（ftrace.c:186 附近）也用 text_poke_bp 改成
-       调用"当前生效的分发函数"
+       call ftrace_call 改成调用"当前生效的分发函数"——★该函数为架构
+       特定实现（arch/x86/kernel/ftrace.c，声明 include/linux/ftrace.h:689；
+       ftrace_call 标签在 arch/x86/kernel/ftrace_64.S 汇编体内——原稿
+       "ftrace.c:186 附近" 引用有误已勘）
 ```
 
 **多 ops 分发**：`ftrace_caller`（汇编）push 伪 regs 后调用 `ftrace_call`——其目标是 `ftrace_ops_list_func`（遍历 ops 链逐个调用，检查各自 hash）或"单 ops 优化"直接跳该 ops 的回调（`ftrace_ops_get_func`）。`FTRACE_OPS_FL_DIRECT` 时（BPF trampoline/livepatch）甚至旁路 ops 链，`direct_call` 地址直接写进调用点——零分发开销。
 
 ### 2.3 回调与记录
 
-function tracer 的 ops 回调（trace_functions.c:171）：
+function tracer 的 ops 回调（trace_functions.c:25，四变体 :25/:31/:34 之基础版）：
 
 ```c
 // kernel/trace/trace_functions.c (v6.6, 节选)

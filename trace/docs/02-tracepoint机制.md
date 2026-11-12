@@ -184,7 +184,7 @@ static void tracepoint_update_call(struct tracepoint *tp,
 }
 ```
 
-> 💡 这是 5.18 引入的优化（之前是清一色 indirect call 走数组）。单消费者（绝大多数生产场景：一个 ftrace 实例或一个 BPF 程序）从"读指针数组+循环"降为"一条 call 指令"，热路径 tracepoint 开销下降约 40%。
+> 💡 这是 5.10 引入的优化（commit d25e37d89dd2 "tracepoint: Optimize using static_call()"，2020-08；本仓 git log -S + tag --contains 实证；此前是清一色 indirect call 走数组）。单消费者（绝大多数生产场景：一个 ftrace 实例或一个 BPF 程序）从"读指针数组+循环"降为"一条 call 指令"。
 
 ---
 
