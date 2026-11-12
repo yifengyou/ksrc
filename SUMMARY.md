@@ -29,6 +29,7 @@
 * [NUMA 统计接口](scheduler/docs/11-NUMA统计接口.md)
 * [psi 触发器实践](scheduler/docs/12-psi触发器实践.md)
 * [调度器 debugfs 全景](scheduler/docs/13-调度器debugfs全景.md)
+* [调度器统计纵深 schedstat](scheduler/docs/14-调度器统计纵深schedstat.md)
 * [SCHED_BT 离在线混部调度（腾讯）](scheduler/sched-batch/README.md)
 * [xsched 调度实践](scheduler/xsched.md)
 
