@@ -10,6 +10,7 @@
 | [02-总线-设备-驱动匹配](docs/02-总线-设备-驱动匹配.md) | 绑定机器 | bus/device/driver 三层、match→probe 全链（`really_probe` 已核对）、-EPROBE_DEFER、device link |
 | [03-设备树与 ACPI](docs/03-设备树与ACPI.md) | 固件描述 | DTB 布局与 unflatten、of_ API 与 phandle、AML 与 _CRS、两条世界线汇入总线模型 |
 | [04-firmware 加载与 request_firmware 生命周期](docs/04-firmware加载与request_firmware生命周期.md) | 固件补给线 | 五级搜索路径、builtin/缓存/在途三级快路径、override_creds 安全设计、sysfs fallback 的 loading/data 协议与 LSM 钩子、suspend 固件缓存、fw_upload 反向通道 |
+| [05-devres 设备资源管理](docs/05-devres设备资源管理.md) | probe 解药 | 三结构两把锁、FIFO 入队/LIFO 释放、★group 两遍染色算法（"wholly contained" 注释）、devm_kmalloc 的 noop release 设计、devm_action 泛型族、三消费方案例（fw magic 匹配/IRQ 双元组/pcim）、devres_log tracepoint |
 
 ## 与其他分册的联系
 
