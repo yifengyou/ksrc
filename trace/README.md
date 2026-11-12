@@ -24,6 +24,7 @@
 | [14-BPF trampoline](docs/14-BPFtrampoline.md) | 函数边界插桩：按目标现场生成机器码的三层模型（trampoline 账本/tramp_image 的 percpu_ref 生命周期与 ip_after_call 探测点/38 链×~50B 预算）、x86 生成器流程、BPF_TRAMP_F_* 七标志组装语义、★BPF LSM 闭环（lsm_hook_defs 的 noinline nop 锚点——逻辑位置与物理插桩分离） | trampoline.c / bpf.h / bpf_jit_comp.c / hooks.c / bpf_lsm.c |
 | [15-perf 上下文切换](docs/15-perf上下文切换.md) | 扇出最重一支：sched_out/in 的三件事、ctx 账本（pinned/flexible 两组分野）、★克隆快速路径的上下文整体交换（零 PMU 编程）、sched_in 的四级优先级协议（"cpu pinned, task pinned, cpu flexible, task flexible" 注释原话）、perf_sched_cb_usages 的 PMU 侧门、无事件≈1-2ns 成本画像 | kernel/events/core.c / include/linux/perf_event.h |
 | [16-bpf_struct_ops](docs/16-bpf_struct_ops.md) | 反向用法：BPF 程序成为内核 ops 的函数指针——BTF 驱动注册（types.h 的 X-macro 清单）、struct_ops map 的双视图（uvalue=kprog_id/kvalue=trampoline 地址）、★update 全流程（逐成员 prepare_trampoline + orig_call=NULL + set_memory_rox W^X）、tcp_congestion_ops 唯一实战端、BPF_TRAMP_F_RET_FENTRY_RET 独占用户 | bpf_struct_ops.c / bpf.h / bpf_tcp_ca.c |
+| [17-ftrace direct 共享地基](docs/17-ftrace_direct共享地基.md) | 桥接章：DIRECT 通道（register_ftrace_direct/call_direct_funcs 占位/direct_functions 哈希）与 livepatch 的 IPMODIFY（klp_ftrace_handler 的 func_stack+transition）的★协调协议（prepare_direct_functions_for_ipmodify 的通知-协商-重试三步 + bpf_tramp_ftrace_ops_func 的 -EAGAIN 信号与锁序）；DIRECT vs IPMODIFY 本质区别对照表（零间接 vs IP 改写） | ftrace.c / ftrace.h / livepatch/patch.c / bpf/trampoline.c |
 
 ## 学习路线
 

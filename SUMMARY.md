@@ -197,6 +197,7 @@
 * [BPF trampoline](trace/docs/14-BPFtrampoline.md)
 * [perf 上下文切换](trace/docs/15-perf上下文切换.md)
 * [bpf_struct_ops](trace/docs/16-bpf_struct_ops.md)
+* [ftrace direct 共享地基](trace/docs/17-ftrace_direct共享地基.md)
 
 ## 十九、块设备层（block）
 
