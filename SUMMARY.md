@@ -58,6 +58,7 @@
 * [percpu_ref 深挖](locking/percpu-refcount.md)
 * [上刑测试特性](locking/debug-adversarial.md)
 * [ww_mutex 事务序让步](locking/ww-mutex.md)
+* [rcu_sync 宽限期合并器](locking/rcu-sync.md)
 * [内存屏障（官方镜像 memory-barriers.txt）](memory-barriers.txt)
 * [atomic_t（官方镜像）](atomic_t.txt)
 
