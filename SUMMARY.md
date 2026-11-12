@@ -188,6 +188,7 @@
 * [debugfs 全景索引](trace/docs/09-debugfs全景索引.md)
 * [eBPF 验证器入门](trace/docs/10-eBPF验证器入门.md)
 * [tnum 三值数](trace/docs/11-tnum三值数.md)
+* [profile 与 latencytop](trace/docs/12-profile与latencytop.md)
 
 ## 十九、块设备层（block）
 
