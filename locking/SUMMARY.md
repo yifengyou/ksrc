@@ -6,6 +6,7 @@
 * [mutex](mutex.md)
 * [rwsem](rwsem.md)
 * [让步模式 concession](concession.md)
+* [percpu_ref 深挖](percpu-refcount.md)
 
 ## 内核官方文档镜像（本目录 .rst）
 

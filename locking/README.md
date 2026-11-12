@@ -11,6 +11,7 @@
 | [mutex.md](mutex.md) | 互斥体 | owner 标志位复用、osq 乐观自旋、handoff 防偷锁、ww_mutex、rt_mutex |
 | [rwsem.md](rwsem.md) | 读写信号量 | count 位编码、读者批量唤醒、写者 handoff、RT 差异 |
 | [concession.md](concession.md) | 排序让步家族 | 三形态：新来者让老等待者（mutex 两级纪律+handoff 位反偷锁）/读者让写者（seqlock 乐观重试——"no writer starvation" 注释）/首战者让同伴（kmod_dup 的 "let duplicates suffer" 一跳）；★rwsem 的 4ms 超时触发（先纵后擒）；公平与吞吐的兑换率 |
+| [percpu-refcount.md](percpu-refcount.md) | percpu 引用计数 | 热路径本地 inc/dec 零原子、★kill 的模切换协议（PERCPU_COUNT_BIAS=2^63 防归零偏置+RCU 宽限期收拢+confirm_switch 回调）、resurrect/reinit 的 smp_store_release 反向切换、blk-mq q_usage_counter freeze/unfreeze 与 percpu-rwsem read_count/block 双消费端对照 |
 
 ## 横向选型速记
 
