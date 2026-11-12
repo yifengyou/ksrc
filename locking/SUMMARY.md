@@ -10,6 +10,7 @@
 * [上刑测试特性](debug-adversarial.md)
 * [ww_mutex 事务序让步](ww-mutex.md)
 * [rcu_sync 宽限期合并器](rcu-sync.md)
+* [内核中的模算术](modular-arithmetic.md)
 
 ## 内核官方文档镜像（本目录 .rst）
 
