@@ -274,6 +274,7 @@
 * [KO 构建与 BTF](module/docs/03-KO构建与BTF.md)
 * [模块签名链](module/docs/04-模块签名链.md)
 * [kernel_read_file 加载基础设施](module/docs/05-kernel_read_file加载基础设施.md)
+* [usermodehelper 机制](module/docs/06-usermodehelper机制.md)
 
 ## 二十六、设备模型（driver-model）
 

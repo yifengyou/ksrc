@@ -11,6 +11,7 @@
 | [03-KO 构建与 BTF](docs/03-KO构建与BTF.md) | 工具链 | modpost/sign-file 流水线、vermagic 与 MODVERSIONS、BTF 与 CO-RE、模块参数 |
 | [04-模块签名链](docs/04-模块签名链.md) | 信任链 | 四道开关（sig_enforce 的 bool_enable_only）、.ko 尾部签名布局、mod_verify_sig→PKCS#7 验证链、三密钥环、lockdown 三级别与 Secure Boot 联动 |
 | [05-kernel_read_file 加载基础设施](docs/05-kernel_read_file加载基础设施.md) | 统一管道 | module/firmware/kexec/IMA-policy+x509 四方共用的读文件族、ID 枚举 X-macro 双表与 LOADING_* 平行零漂移、★deny_write_access 与 exec 同源 ETXTBSY、双 LSM 门 whole_file 配对契约、from_path_initns 三变体、IMA read_idmap 与 X509 豁免 |
+| [06-usermodehelper 机制](docs/06-usermodehelper机制.md) | 内核→用户态通道 | 三难问题（rootfs/凭证/冻结）、两段式 API 与 subprocess_info、三执行形态（prepare_kernel_cred 凭证工程/SIGCHLD 舞步/CLONE_PARENT 转投 kthreadd）、★五等待标志的 xchg 所有权协议（umh_complete 二象性）、三态深度与 initramfs·freeze 双端时序、kmod 的 50 并发闸与 5s 依赖环检测、STATIC_USERMODEHELPER 的 ""=静默成功语义 |
 
 ## 与其他分册的联系
 
