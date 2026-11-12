@@ -14,6 +14,7 @@
 ├── base_slice_ns     0644  直接绑 sysctl_sched_base_slice（EEVDF
 │                           基准片——00 速查同名项）
 ├── latency_warn_ms   0644  重调度延迟告警阈值（配 latency_warn_once）
+├── latency_warn_once 0644  告警风暴抑制（只报一次；:353）
 ├── tunable_scaling   0644  lognone/logarithmic/linear（负载越重
 │                           片越长的缩放模式）
 ├── migration_cost_ns 0644  唤醒粘滞窗（00 速查同名）
@@ -37,7 +38,7 @@ cat preempt 输出（当前模式加括号）：
   voluntary 主动抢占点（传统 voluntary）
   full      全抢占（桌面/低延迟）
 运行期可写切换（0644）——切换的是 preempt_schedule 与
-  preempt_schedule_notthunk?（静态调用/静态键改道——04 章
+  preempt_schedule_notrace（core.c:6928，静态调用/静态键改道——04 章
   的抢占模型在运行时"换插槽"）
 ```
 
