@@ -8,3 +8,4 @@
 * [devres 设备资源管理](docs/05-devres设备资源管理.md)
 * [pcim 与 PCI 管理资源](docs/06-pcim与PCI管理资源.md)
 * [资源生命周期三模式](docs/07-资源生命周期三模式.md)
+* [内核私有挂载家族](docs/08-内核私有挂载家族.md)

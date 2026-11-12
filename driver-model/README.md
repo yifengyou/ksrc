@@ -13,6 +13,7 @@
 | [05-devres 设备资源管理](docs/05-devres设备资源管理.md) | probe 解药 | 三结构两把锁、FIFO 入队/LIFO 释放、★group 两遍染色算法（"wholly contained" 注释）、devm_kmalloc 的 noop release 设计、devm_action 泛型族、三消费方案例（fw magic 匹配/IRQ 双元组/pcim）、devres_log tracepoint |
 | [06-pcim 与 PCI 管理资源](docs/06-pcim与PCI管理资源.md) | PCI 方言 | ★基础函数接管设计（pci_request_region/pci_intx 在 managed 设备自动记账——find_pci_dr 的 NULL 语义）、总账本 pci_devres 五位一 mask 与逆序清单、pin 逃生门（"won't be disabled on driver detach"）、pcim_iomap 表模式（一张 devres 记全部 BAR）与 "duplicate mappings not allowed"、request_all 的掩码补集 |
 | [07-资源生命周期三模式](docs/07-资源生命周期三模式.md) | 生命周期地图 | 计数（kref：不可直传 kfree 规则/put_lock 锁转移/unless_zero 与查找表难题的 RCU 注释）/挂靠（devres·devm_action）/宽限期（kfree_rcu 一页批量+5s·1jiffy 自适应排空）三模式对照与选型口诀；明星混合形态：kobject 的 DEBUG 随机延迟清理（测试武器）与 percpu_ref 的 kill 切原子两阶段（PERCPU_COUNT_BIAS） |
+| [08-内核私有挂载家族](docs/08-内核私有挂载家族.md) | 隐形挂载 | kern_mount 机制（SB_KERNMOUNT 位+MNT_NS_INTERNAL 归属）、六成员普查（pipefs/sockfs/aio/anon_inodes/mqueue/UMD tmpfs）、伪 dname（pipe:[%lu] 的 d_path 改写）、与 kernfs 可见挂载的对照、"给 VFS 载体但不给路径"的设计动机 |
 
 ## 与其他分册的联系
 

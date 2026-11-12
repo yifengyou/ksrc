@@ -293,6 +293,7 @@
 * [devres 设备资源管理](driver-model/docs/05-devres设备资源管理.md)
 * [pcim 与 PCI 管理资源](driver-model/docs/06-pcim与PCI管理资源.md)
 * [资源生命周期三模式](driver-model/docs/07-资源生命周期三模式.md)
+* [内核私有挂载家族](driver-model/docs/08-内核私有挂载家族.md)
 
 ## 二十七、printk 子系统（printk）
 
