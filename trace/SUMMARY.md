@@ -14,3 +14,4 @@
 * [tnum 三值数](docs/11-tnum三值数.md)
 * [profile 与 latencytop](docs/12-profile与latencytop.md)
 * [内核代码生成惯用法](docs/13-内核代码生成惯用法.md)
+* [BPF trampoline](docs/14-BPFtrampoline.md)
