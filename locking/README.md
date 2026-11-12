@@ -18,6 +18,7 @@
 | [modular-arithmetic.md](modular-arithmetic.md) | 模算术横切 | 五案例：percpu-rwsem 的 modular sum（"求和等价"注释原话——读者进出配对的正确性论证）/percpu_ref 的 BIAS 偏置（2^63 防碰零）/time_after 的带符号差判序（圆环序比较）/seqcount 奇偶语义（模 2 周期编码写入状态）/percpu_counter 的分层近似（全局精确+percpu 缓冲）；共同哲学："让数学代替锁做正确性保证" |
 | [sanitizers.md](sanitizers.md) | KASAN/KFENCE/KCSAN | 三模式 KASAN（shadow memory 映射与标签族/hw_tags ARM64 MTE）/KFENCE 的采样 guard page（Kconfig 原话"negligible cost...production"/canary pattern 0xAA^addr&7）/KCSAN 的 watchpoint 竞态检测（CHECK_ADJACENT=1 + NUM_SLOTS=3）；★插桩 vs 检查的分野与分工矩阵（开销×覆盖×生产可用×误报率） |
 | [ww-rt-mutex.md](ww-rt-mutex.md) | PREEMPT_RT 变体 | WW_MUTEX_BASE 条件编译（mutex ↔ rt_mutex 底座替换）、★rtmutex.c 的四重多重包含（rtmutex_api/ww_rt_mutex/spinlock_rt/rwbase_rt——trace/13 惯用法在 locking 的应用）、build_ww_mutex() 编译期分派（死代码消除零开销）、PI 链与 wound/wait 的共存（boosting 加速 wound 者释放）、RT spinlock 家族对照 |
+| [dma-resv.md](dma-resv.md) | GPU 预约协议 | ww_mutex 最大消费者：预约 = ww_mutex + fence 列表双层结构、四档 USAGE 偏序（KERNEL<WRITE<READ<BOOKKEEP 的 fence 查询与升格）、-EDEADLK 的 unlock_all+lock_slow+retry 标准模式、reserve_fences 的 "cannot fail" 契约、RCU 迭代器的 restarted 检测、与 ww-mutex 的对照消费链 |
 
 ## 横向选型速记
 

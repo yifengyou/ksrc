@@ -11,8 +11,9 @@
 * [ww_mutex 事务序让步](ww-mutex.md)
 * [rcu_sync 宽限期合并器](rcu-sync.md)
 * [内核中的模算术](modular-arithmetic.md)
-* [三巨头 sanitizers](sanitizers.md)
+* [static_call](sanitizers.md)
 * [ww_rt_mutex RT 变体](ww-rt-mutex.md)
+* [dma-resv GPU 预约](dma-resv.md)
 
 ## 内核官方文档镜像（本目录 .rst）
 

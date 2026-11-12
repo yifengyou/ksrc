@@ -62,6 +62,7 @@
 * [内核中的模算术](locking/modular-arithmetic.md)
 * [三巨头 sanitizers](locking/sanitizers.md)
 * [ww_rt_mutex RT 变体](locking/ww-rt-mutex.md)
+* [dma-resv GPU 预约](locking/dma-resv.md)
 * [内存屏障（官方镜像 memory-barriers.txt）](memory-barriers.txt)
 * [atomic_t（官方镜像）](atomic_t.txt)
 
