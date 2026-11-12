@@ -1,6 +1,6 @@
 # Rust for Linux：6.6 现状导读（Linux 6.6）
 
-> 阅读目标：建立 Rust-in-kernel 的准确坐标系——6.1 合入的"基座"在 6.6 长成了什么样（**答案：抽象层完备、驱动生态为零**，`drivers/` 下无任何 Rust 目录，samples 仅 3 个——均 ls-tree 核对）；代码布局、同步原语与 pin-init 系统、构建依赖链、与 C 的边界。目录内 `.rst`（quick-start/coding-guidelines 等）是官方镜像，本导读讲"树里实际有什么"。
+> 阅读目标：建立 Rust-in-kernel 的准确坐标系——6.1 合入的"基座"在 6.6 长成了什么样（**答案：抽象层完备、驱动生态为零**，`drivers/` 下无任何 Rust 目录，samples 仅 **2 个** .rs 示例（rust_minimal/rust_print）+ hostprogs 子目录——ls-tree 核对，第 13 轮复查勘误：原写"仅 3 个"计入 hostprogs 不当）；代码布局、同步原语与 pin-init 系统、构建依赖链、与 C 的边界。目录内 `.rst`（quick-start/coding-guidelines 等）是官方镜像，本导读讲"树里实际有什么"。
 
 ---
 
@@ -13,7 +13,7 @@
   ★注意：无 workqueue.rs、无 device/driver.rs（后续版本才长出，
     对照 [workqueue 分册](../../workqueue/README.md) 的 C 世界）
   drivers/：0 个 Rust 目录（ls-tree 核对）——"第一个内核驱动"
-    尚未发生；samples/ 仅 3 个示例
+    尚未发生；samples/ 仅 2 个 .rs 示例（+hostprogs 工具目录）
 ```
 
 ## 二、代码布局（rust/ 树，已核对 6.6）
@@ -23,7 +23,9 @@ rust/
 ├── alloc/            引入的 Rust alloc 库副本（内核化改造）
 ├── bindings/         bindgen 从 C 头生成的 extern 声明（自动）
 ├── uapi/             uapi 头的绑定（同样生成）
-├── macros/           proc-macro crate（module!/devres 等宏）
+├── macros/           proc-macro crate（module!/pin_data!/
+│                     pinned_drop!/vtable!/Zeroable 等宏——ls-tree 全核对；
+│                     ★devres 宏在 6.6 的 rust/macros 中不存在）
 ├── helpers.c         ★手写 C 胶水（bindgen 表达不了的 inline/宏）
 ├── exports.c         符号导出桥
 ├── compiler_builtins.rs / build_error.rs
