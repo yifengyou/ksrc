@@ -27,6 +27,7 @@
 | [17-ftrace direct 共享地基](docs/17-ftrace_direct共享地基.md) | 桥接章：DIRECT 通道（register_ftrace_direct/call_direct_funcs 占位/direct_functions 哈希）与 livepatch 的 IPMODIFY（klp_ftrace_handler 的 func_stack+transition）的★协调协议（prepare_direct_functions_for_ipmodify 的通知-协商-重试三步 + bpf_tramp_ftrace_ops_func 的 -EAGAIN 信号与锁序）；DIRECT vs IPMODIFY 本质区别对照表（零间接 vs IP 改写） | ftrace.c / ftrace.h / livepatch/patch.c / bpf/trampoline.c |
 | [18-ftrace 汇编层 DIRECT 分派](docs/18-ftrace汇编层DIRECT分派.md) | 汇编收官：ftrace_caller/regs_caller 的栈布局与 ftrace_call 标签 text_poke/★create_trampoline 模板拷贝法（"think twice" 注释）/★DIRECT 的 orig_ax 征用（零 text_poke 函数替换）/RSB 重平衡（Spectre-RSB 防护）/三级调用路径成本对比 | ftrace_64.S / arch/x86/kernel/ftrace.c / asm/ftrace.h |
 | [19-text_poke_bp 家族](docs/19-text_poke_bp家族.md) | 安全原语：三步打补丁协议（INT3→尾部→首字节 + 每步 sync_core）、poke_int3_handler 的仿真执行、★完全避免 stop_machine（"We completely avoid stop_machine() here" 注释原话）、批量模式 text_poke_finish、全树消费方清点（ftrace/optprobe/static_key/static_call/livepatch/BPF trampoline 共享一个原语） | alternative.c :2155-2330 |
+| [20-static_call](docs/20-static_call.md) | 运行时改目标的直接调用：双层机制（trampoline 模式一处补丁 vs inline 模式 objtool 扫 .static_call_sites 逐 site 补丁）、key/site/tramp 三角、五种指令变换（CALL/NOP/JMP/RET/JCC）、★xor5rax 技巧（5 字节清寄存器替代 call+ret）、tracepoint 的 __DO_TRACE_CALL 消费端 | static_call.h / arch/x86/kernel/static_call.c |
 
 ## 学习路线
 

@@ -20,3 +20,4 @@
 * [ftrace direct 共享地基](docs/17-ftrace_direct共享地基.md)
 * [ftrace 汇编层 DIRECT 分派](docs/18-ftrace汇编层DIRECT分派.md)
 * [text_poke_bp 家族](docs/19-text_poke_bp家族.md)
+* [static_call](docs/20-static_call.md)
