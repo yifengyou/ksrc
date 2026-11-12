@@ -193,6 +193,7 @@
 * [profile 与 latencytop](trace/docs/12-profile与latencytop.md)
 * [内核代码生成惯用法](trace/docs/13-内核代码生成惯用法.md)
 * [BPF trampoline](trace/docs/14-BPFtrampoline.md)
+* [perf 上下文切换](trace/docs/15-perf上下文切换.md)
 
 ## 十九、块设备层（block）
 

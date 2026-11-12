@@ -22,6 +22,7 @@
 | [12-profile 与 latencytop](docs/12-profile与latencytop.md) | 两件活化石：profile 的四模式与 cmdline/双哈希表翻转防 timer 中断活锁（2004 摊销计数原作）/proc/profile 格式与 readprofile（util-linux）；latencytop 的"内核替你睡"设计注释（含格式图）/回溯为 key 的定容账本/inter>5000μs 自愿睡过滤/★三套账目一个入口（与 schedstat/delayacct 的三向纠缠表）/force_schedstat_enabled 三调用方闭环 | profile.c / latencytop.c / sched/stats.c |
 | [13-内核代码生成惯用法](docs/13-内核代码生成惯用法.md) | 横切地图：一份清单多种产物的六形态——极简式（kernel_read_file_id 一宏三表）/隔空共定义（LSM_HOOK 251 条三家消费）/多重包含本家（TRACE_EVENT 七阶段 + TRACE_HEADER_MULTI_READ）/BPF 双例（uapi MAPPER 的中间层重排·btf.c 三重包含教科书）/BTF_ID 远亲/对照组（syscall 表为何用脚本）+ 签名法找新成员 | kernel_read_file.h / lsm_hook_defs.h / define_trace.h / bpf.h / bpf_types.h |
 | [14-BPF trampoline](docs/14-BPFtrampoline.md) | 函数边界插桩：按目标现场生成机器码的三层模型（trampoline 账本/tramp_image 的 percpu_ref 生命周期与 ip_after_call 探测点/38 链×~50B 预算）、x86 生成器流程、BPF_TRAMP_F_* 七标志组装语义、★BPF LSM 闭环（lsm_hook_defs 的 noinline nop 锚点——逻辑位置与物理插桩分离） | trampoline.c / bpf.h / bpf_jit_comp.c / hooks.c / bpf_lsm.c |
+| [15-perf 上下文切换](docs/15-perf上下文切换.md) | 扇出最重一支：sched_out/in 的三件事、ctx 账本（pinned/flexible 两组分野）、★克隆快速路径的上下文整体交换（零 PMU 编程）、sched_in 的四级优先级协议（"cpu pinned, task pinned, cpu flexible, task flexible" 注释原话）、perf_sched_cb_usages 的 PMU 侧门、无事件≈1-2ns 成本画像 | kernel/events/core.c / include/linux/perf_event.h |
 
 ## 学习路线
 
