@@ -31,6 +31,7 @@ Linux 内存管理子系统学习笔记。按"物理内存的诞生 → 页分�
 | 地址空间 | [mmu](mmu/README.md) / [canonical_address_space](canonical_address_space/README.md) | x86 线性空间布局、四级/五级页表 |
 | 缺页与 COW | [pagefault](pagefualt/pagefault.md) / [cow](cow/cow.md) | 匿名/文件缺页、写时复制 |
 | vma 与 mmap 生命周期 | [vma](vma/vma与mmap生命周期.md) | vm_area_struct 新解剖（vm_prev/vm_next 已删）、maple tree 与 VMA_ITERATOR、vma_merge 与两阶段提交、PER_VMA_LOCK |
+| mmap_lock 表锁 | [mmap_lock](mmap_lock/mmap_lock.md) | 地址空间读写不对称、三 tracepoint 零开销门控、★per-VMA lock 联动协议（两段式乐观检+溢出论证+四道校验）、0x120 偏移 cacheline 论证、mmap_sem→mmap_lock 改名考古（v5.8 Lespinasse）与 per-VMA 落地（v6.4）、争用缓解谱（handoff/RT/range lock 未合入） |
 | page cache 与 writeback | [pagecache](pagecache/pagecache与writeback.md) | address_space 全字段、folio API 与三枚标签、pos_ratio 节流、write_cache_pages 与 tag-and-write |
 | ksm 与 zswap | [ksm](ksm/ksm与zswap.md) | 双树去重协议与 COW 解合并、same-filled 直存、32 路 zpool 分流、限额回写 |
 | 页缓存 | [cache](cache/cache.md) / [buffer](buffer/buffer.md) | address_space 与块缓冲 |
@@ -49,6 +50,7 @@ Linux 内存管理子系统学习笔记。按"物理内存的诞生 → 页分�
 mm/memblock.c  mm/page_alloc.c  mm/slab.c  mm/slub.c  mm/kmalloc? (slub 内)
 mm/memory.c（缺页/COW）  mm/mmap.c  mm/hugetlb.c  mm/khugepaged.c  mm/vmalloc.c
 mm/compaction.c  mm/vmscan.c  arch/x86/mm/*  arch/arm64/mm/*
+mm/mmap_lock.c  mm/memory.c（lock_vma_under_rcu）（mmap_lock/per-VMA）
 mm/kasan/shadow.c  mm/kasan/hw_tags.c  lib/Kconfig.kasan（KASAN_VMALLOC）
 arch/arm64/kernel/mte.c  arch/x86/kernel/process_64.c（LAM 使能）（MTE/LAM）
 include/linux/mmzone.h（zone/free_area/page）  include/linux/mm_types.h

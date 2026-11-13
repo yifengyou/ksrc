@@ -12,6 +12,7 @@
 * [buffer](buffer/buffer.md)
 * [page fault](pagefualt/pagefault.md)
 * [vma 与 mmap 生命周期](vma/vma与mmap生命周期.md)
+* [mmap_lock 表锁](mmap_lock/mmap_lock.md)
 * [page cache 与 writeback](pagecache/pagecache与writeback.md)
 * [ksm 与 zswap](ksm/ksm与zswap.md)
 * [cow](cow/cow.md)

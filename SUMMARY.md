@@ -89,6 +89,7 @@
 * [slub](mm/slub/slub.md)
 * [page fault](mm/pagefualt/pagefault.md)
 * [vma 与 mmap 生命周期](mm/vma/vma与mmap生命周期.md)
+* [mmap_lock 表锁](mm/mmap_lock/mmap_lock.md)
 * [page cache 与 writeback](mm/pagecache/pagecache与writeback.md)
 * [ksm 与 zswap](mm/ksm/ksm与zswap.md)
 * [kmalloc](mm/kmalloc/kmalloc.md)
