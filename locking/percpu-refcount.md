@@ -127,28 +127,32 @@ void percpu_ref_resurrect(struct percpu_ref *ref)   /* 死→活 */
 }
 ```
 
-## 四、消费端一：blk-mq 的 q_usage_counter（block/blk-mq.c）
+## 四、消费端一：blk-mq 的 q_usage_counter（block/blk-core.c + block/blk-mq.c）
 
 ```
-初始化（blk_mq_init_queue 系列）：
+初始化（blk-core.c:437-439，含 "See blk_register_queue() for details." 注释）：
   percpu_ref_init(&q->q_usage_counter, blk_queue_usage_counter_release,
                   PERCPU_REF_INIT_ATOMIC, GFP_KERNEL)
   ★以原子模式起步——注册前（register 之前）快速安全
   blk_register_queue 后调 percpu_ref_switch_to_percpu 转入 percpu 模式
 
-freeze（blk_mq_freeze_queue，:128-150）：
+freeze（blk_mq_freeze_queue，blk-mq.c:128-150）：
   percpu_ref_kill(&q->q_usage_counter)   /* 冻结 = kill */
-  wait_event(q->mq_freeze_wq, percpu_ref_is_zero(...))
-  /* 等所有在途 request 完成（__blk_mq_free_request → blk_queue_exit
-     → percpu_ref_put_many :1072） */
+  wait_event(q->mq_freeze_wq, percpu_ref_is_zero(...))   /* :140 */
 
-unfreeze（blk_mq_unfreeze_queue，:188）：
+unfreeze（blk_mq_unfreeze_queue，blk-mq.c:188）：
   percpu_ref_resurrect(&q->q_usage_counter)  /* 复活 */
   + percpu_ref_switch_to_percpu
 
-每次 request 入队（blk_queue_enter → percpu_ref_get_many :430）
-每次完成（blk_queue_exit → percpu_ref_put_many :1072）
-→ freeze 期间新请求 blk_queue_enter 失败（-EIO）或等待
+每次请求入队（blk_queue_enter blk-core.c:311 → blk_try_enter_queue
+  block/blk.h:40 → ★percpu_ref_tryget_live_rcu——RCU 读锁内试拿；
+  freeze 后立即失败 → 回退到 wait_event / -EAGAIN·-ENODEV）
+每次完成（blk_queue_exit blk-core.c:372-374 → percpu_ref_put）
+归零回调（blk_queue_usage_counter_release :377——wake_up_all(mq_freeze_wq)）
+★批量路径另有 get/put_many（blk-mq.c）：:430 的 get_many(nr-1)
+  （blk_mq_get_new_requests——一个请求覆盖多个 bio 时补差）与
+  :1072 的 put_many(nr_tags)（blk_mq_put_tags——TAG_COMP_BATCH=32
+  :1057 的 tag 批量归还时一次放队列引用）
 ```
 
 ## 五、消费端二：percpu-rwsem（kernel/locking/percpu-rwsem.c）
@@ -163,18 +167,22 @@ unfreeze（blk_mq_unfreeze_queue，:188）：
       atomic_t          block;         /* ★写者屏障位 */
   };
 
-读路径（__percpu_down_read :167-183）：
-  this_cpu_inc(*sem->read_count);      /* ★本地 inc，零原子 */
+读路径（__percpu_down_read_trylock，percpu-rwsem.c:48-70）：
+  this_cpu_inc(*sem->read_count);      /* :50 ★本地 inc，零原子 */
   if (unlikely(atomic_read(&sem->block))) {  /* 写者在场？*/
       this_cpu_dec(*sem->read_count);  /* 回退 */
       ... 等待 / 返回 false
   }
 
-写路径（percpu_down_write :237-282）：
-  ① atomic_xchg(&sem->block, 1)     /* ★置屏障——新读者见到即回退 */
-  ② rcu_sync_enter(&sem->rss)       /* 等 GP——旧读者全部退出 */
-  ③ for_each_possible_cpu 求和 read_count == 0 ?  /* 全清？ */
-     （readers_active_check :215-230——同 percpu_ref 的求和模式）
+写路径（percpu_down_write :224 起）：
+  ① rcu_sync_enter(&sem->rss)         /* :231 等 GP——先通知读者走慢路径 */
+  ② atomic_xchg(&sem->block, 1)       /* :89 __percpu_down_write_trylock
+                                         置屏障——写者互斥+新读者退场 */
+  ③ rcuwait_wait_event(&sem->writer,
+        readers_active_check(sem), ...)   /* :249 */
+     （readers_active_check :209——"Return true if the modular sum of
+        the sem->read_count per-CPU variable is zero" :202 注释开头
+        ——同 percpu_ref 的求和模式）
 ```
 
 ★与 percpu_ref 的对照：percpu-rwsem 的 `block` 位相当于 percpu_ref 的 `ATOMIC` 位——**写者置屏障**让新读者退场，然后等 GP 收拢旧读者。不同的是 rwsem 切换是**暂态**的（up_write 后清 block 恢复），而 percpu_ref 的 kill 是**单向**的（resurrect 才恢复）。
@@ -188,7 +196,7 @@ unfreeze（blk_mq_unfreeze_queue，:188）：
 | 切换同步 | RCU 宽限期 + confirm 回调 | rcu_sync（可多写者重用 GP） |
 | 归零后 | release 回调（释放队列资源） | N/A（rwsem 不释放） |
 | 恢复 | resurrect + switch_to_percpu | clear block（即恢复） |
-| 溢出保护 | BIAS 偏置 | 无（读者计数是**模和**，不判零——"modular sum"注释 :204-208） |
+| 溢出保护 | BIAS 偏置 | 无（读者计数是**模和**，不判零——"modular sum"注释 :202-208） |
 
 ## 七、观测实战
 
