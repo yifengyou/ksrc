@@ -20,6 +20,7 @@
 * [latch vs RCU 对比](latch-vs-rcu.md)
 * [rwbase_rt RT 基座](rwbase-rt.md)
 * [KCSAN encoding](kcsan-encoding.md)
+* [KCSAN 插桩面](kcsan-instrumentation.md)
 * [lockdep chains：依赖链·BFS·wait-context](lockdep-chains.md)
 * [sync_file 与 drm_sched](sync-file-drm-sched.md)
 * [cacheline 打包](cacheline-packing.md)
