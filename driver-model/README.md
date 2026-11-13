@@ -14,6 +14,7 @@
 | [06-pcim 与 PCI 管理资源](docs/06-pcim与PCI管理资源.md) | PCI 方言 | ★基础函数接管设计（pci_request_region/pci_intx 在 managed 设备自动记账——find_pci_dr 的 NULL 语义）、总账本 pci_devres 五位一 mask 与逆序清单、pin 逃生门（"won't be disabled on driver detach"）、pcim_iomap 表模式（一张 devres 记全部 BAR）与 "duplicate mappings not allowed"、request_all 的掩码补集 |
 | [07-资源生命周期三模式](docs/07-资源生命周期三模式.md) | 生命周期地图 | 计数（kref：不可直传 kfree 规则/put_lock 锁转移/unless_zero 与查找表难题的 RCU 注释）/挂靠（devres·devm_action）/宽限期（kfree_rcu 一页批量+5s·1jiffy 自适应排空）三模式对照与选型口诀；明星混合形态：kobject 的 DEBUG 随机延迟清理（测试武器）与 percpu_ref 的 kill 切原子两阶段（PERCPU_COUNT_BIAS） |
 | [08-内核私有挂载家族](docs/08-内核私有挂载家族.md) | 隐形挂载 | kern_mount 机制（SB_KERNMOUNT 位+MNT_NS_INTERNAL 归属）、六成员普查（pipefs/sockfs/aio/anon_inodes/mqueue/UMD tmpfs）、伪 dname（pipe:[%lu] 的 d_path 改写）、与 kernfs 可见挂载的对照、"给 VFS 载体但不给路径"的设计动机 |
+| [09-dma-buf跨设备缓冲共享](docs/09-dma-buf跨设备缓冲共享.md) | 共享内存框架 | 三重困难对策表（地址翻译/生命周期/同步）、dma_buf 逐字段（resv 可注入/poll cb_in·cb_out）、★exporter 锁协议三组约定（dma-buf.c:839-860 原文）、★隐式同步规则 kernel-doc（READ/WRITE usage+"may just always add a write fence" 允许多报/v4l 零 fence 例外）、move_notify 动态免钉、用户态三件（IOCTL_SYNC 括号/dma_heap/udmabuf memfd 路线）、TTM 衔接（ttm_bo_validate 持锁断言+ttm_pool 页池+drm_gem_prime_export 桥——TTM→GEM→dma-buf 三层各司其职） |
 
 ## 与其他分册的联系
 
