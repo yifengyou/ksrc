@@ -21,3 +21,4 @@
 * [ftrace 汇编层 DIRECT 分派](docs/18-ftrace汇编层DIRECT分派.md)
 * [text_poke_bp 家族](docs/19-text_poke_bp家族.md)
 * [static_call](docs/20-static_call.md)
+* [sync_core](docs/21-sync_core.md)

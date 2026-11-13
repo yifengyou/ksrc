@@ -28,6 +28,7 @@
 | [18-ftrace 汇编层 DIRECT 分派](docs/18-ftrace汇编层DIRECT分派.md) | 汇编收官：ftrace_caller/regs_caller 的栈布局与 ftrace_call 标签 text_poke/★create_trampoline 模板拷贝法（"think twice" 注释）/★DIRECT 的 orig_ax 征用（零 text_poke 函数替换）/RSB 重平衡（Spectre-RSB 防护）/三级调用路径成本对比 | ftrace_64.S / arch/x86/kernel/ftrace.c / asm/ftrace.h |
 | [19-text_poke_bp 家族](docs/19-text_poke_bp家族.md) | 安全原语：三步打补丁协议（INT3→尾部→首字节 + 每步 sync_core）、poke_int3_handler 的仿真执行、★完全避免 stop_machine（"We completely avoid stop_machine() here" 注释原话）、批量模式 text_poke_finish、全树消费方清点（ftrace/optprobe/static_key/static_call/livepatch/BPF trampoline 共享一个原语） | alternative.c :2155-2330 |
 | [20-static_call](docs/20-static_call.md) | 运行时改目标的直接调用：双层机制（trampoline 模式一处补丁 vs inline 模式 objtool 扫 .static_call_sites 逐 site 补丁）、key/site/tramp 三角、五种指令变换（CALL/NOP/JMP/RET/JCC）、★xor5rax 技巧（5 字节清寄存器替代 call+ret）、tracepoint 的 __DO_TRACE_CALL 消费端 | static_call.h / arch/x86/kernel/static_call.c |
+| [21-sync_core](docs/21-sync_core.md) | 流水线清空原语：三种实现取舍（SERIALIZE/IRET-to-self "works on every CPU, at any CPL...but it's a bit slow...unmasks NMIs"/CPUID "nasty...exits to a hypervisor" 注释原话）、IRET-to-self 的手工栈帧构造、★PTI 联动（CR3 切换本身序列化——sync_core_before_usermode 变空）、在 text_poke_bp 三步协议中的 on_each_cpu 全核 IPI 角色、消费者清单（text_poke/membarrier/stop_machine/jump_label） | asm/sync_core.h 111 行 |
 
 ## 学习路线
 
