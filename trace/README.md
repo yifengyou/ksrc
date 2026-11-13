@@ -31,6 +31,7 @@
 | [21-sync_core](docs/21-sync_core.md) | 流水线清空原语：三种实现取舍（SERIALIZE/IRET-to-self "works on every CPU, at any CPL...but it's a bit slow...unmasks NMIs"/CPUID "nasty...exits to a hypervisor" 注释原话）、IRET-to-self 的手工栈帧构造、★PTI 联动（CR3 切换本身序列化——sync_core_before_usermode 变空）、在 text_poke_bp 三步协议中的 on_each_cpu 全核 IPI 角色、消费者清单（text_poke/membarrier/stop_machine/jump_label） | asm/sync_core.h 111 行 |
 | [22-CALL_DEPTH_ACCOUNT](docs/22-CALL_DEPTH_ACCOUNT.md) | retbleed 缓解：Intel Skylake CVE-2022-29900/29901 的 call depth tracking 方案、★sarq $5 算术移位同时做计数与比较（一条指令替代 inc+cmp 的极致微优化）、三组配套宏（RESET/CREDIT/INCREMENT）、ALTERNATIVE 运行时可裁剪、UNTRAIN_RET 三选一 runtime 分派、ftrace 汇编中的插入点分析 | nospec-branch.h |
 | [23-Spectre缓解矩阵](docs/23-Spectre缓解矩阵.md) | 推测执行防御全景：13 漏洞 sysfs 总表（cpu.c:583-598）、spectre_v2 七模式+12 cmdline 选项（bugs.c:1367-1382 原表）、retbleed 六法（含 Stuffing）、★SRSO 五策（v6.6 新入——safe-ret 默认/ibpb-vmexit 虚拟化特化）、GDS 的 microcode/AVX-disable 双路、cpufeatures 位系（RETPOLINE/RETHUNK/UNRET/ENTRY_IBPB/CALL_DEPTH/SRSO）、prctl 进程粒度、决策树 | bugs.c/cpu.c/nospec-branch.h |
+| [24-ALTERNATIVE深挖](docs/24-ALTERNATIVE深挖.md) | boot 期批量 text_poke：三层图（声明/决策/执行——与 text_poke_bp/static_key 的分工）、struct alt_instr 的 ft_flags 双域、★661-665 标号体系与负数 .skip 填充戏法、ALT_NOT 与 TERNARY 借 ALWAYS 位、★apply_alternatives 主循环（双取反 XOR 判定式/0x90 垫/apply_relocation/KASAN 的 LA57 假阳注释/扫描序敏感）、optimize_nops 的"跳转+NOP 压单条"与 noinline 刷 I$ 论证、boot 五步序列（stop_nmi 但留 MCE 的权衡/paravirt→fineibt→retpoline→alternatives 次序协议原文）、模块 finalize 链 | alternative.h/alternative.c |
 
 ## 学习路线
 

@@ -224,6 +224,7 @@
 * [sync_core](trace/docs/21-sync_core.md)
 * [CALL_DEPTH_ACCOUNT](trace/docs/22-CALL_DEPTH_ACCOUNT.md)
 * [Spectre 缓解矩阵](trace/docs/23-Spectre缓解矩阵.md)
+* [ALTERNATIVE 深挖](trace/docs/24-ALTERNATIVE深挖.md)
 
 ## 十九、块设备层（block）
 

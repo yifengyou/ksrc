@@ -24,3 +24,4 @@
 * [sync_core](docs/21-sync_core.md)
 * [CALL_DEPTH_ACCOUNT](docs/22-CALL_DEPTH_ACCOUNT.md)
 * [Spectre 缓解矩阵](docs/23-Spectre缓解矩阵.md)
+* [ALTERNATIVE 深挖](docs/24-ALTERNATIVE深挖.md)
