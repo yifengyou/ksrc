@@ -67,6 +67,7 @@
 * [PREEMPT_RT 替换矩阵](locking/preempt-rt-matrix.md)
 * [dma_fence 异步完成](locking/dma-fence.md)
 * [latch vs RCU 对比](locking/latch-vs-rcu.md)
+* [rwbase_rt RT 基座](locking/rwbase-rt.md)
 * [内存屏障（官方镜像 memory-barriers.txt）](memory-barriers.txt)
 * [atomic_t（官方镜像）](atomic_t.txt)
 
