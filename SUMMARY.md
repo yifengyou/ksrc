@@ -89,6 +89,7 @@
 * [ksm 与 zswap](mm/ksm/ksm与zswap.md)
 * [kmalloc](mm/kmalloc/kmalloc.md)
 * [vmalloc](mm/vmalloc/vmalloc.md)
+* [KASAN_VMALLOC](mm/kasan/kasan-vmalloc.md)
 * [thp 透明大页](mm/thp/thp.md)
 
 ## 六、RCU

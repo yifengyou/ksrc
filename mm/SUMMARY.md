@@ -16,6 +16,7 @@
 * [ksm 与 zswap](ksm/ksm与zswap.md)
 * [cow](cow/cow.md)
 * [vmalloc](vmalloc/vmalloc.md)
+* [KASAN_VMALLOC](kasan/kasan-vmalloc.md)
 * [kmalloc](kmalloc/kmalloc.md)
 * [tlb](tlb/tlb.md)
 * [cache](cache/cache.md)
