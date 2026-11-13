@@ -209,10 +209,10 @@ config ADDRESS_MASKING
 | 层 | 定义 | 位置 |
 | :--- | :--- | :--- |
 | 通用桩 | `#define untagged_addr(addr) (addr)` | include/linux/uaccess.h:25 |
-| arm64 | `__untagged_addr(addr) = sign_extend64(addr, 55)` | arch/arm64/include/asm/memory.h:240-247 |
+| arm64 | `__untagged_addr(addr) = sign_extend64(addr, 55)` | arch/arm64/include/asm/memory.h:240-247（原语层恒剥 byte 7；**ABI 层的 access_ok 有 TIF_TAGGED_ADDR 门**——见 [tagged-addr-prctl](tagged-addr-prctl.md)） |
 | x86（LAM） | `and %gs:tlbstate_untag_mask`（§3.4） | arch/x86/include/asm/uaccess_64.h:14-29 |
 
-arm64 版注释："When dealing with data aborts, watchpoints, or instruction traps we may end up with a tagged userland pointer. Clear the tag to get a sane pointer to pass on to access_ok(), for instance."——`sign_extend64(…, 55)` 把 bits 63:56 整字节剥掉并正确符号扩展（比 x86 的"掩多少看 mm"更激进：**arm64 的拆法与进程无关**，永远剥 byte 7）。
+arm64 版注释："When dealing with data aborts, watchpoints, or instruction traps we may end up with a tagged userland pointer. Clear the tag to get a sane pointer to pass on to access_ok(), for instance."——`sign_extend64(…, 55)` 把 bits 63:56 整字节剥掉并正确符号扩展（**原语与进程无关**，永远剥 byte 7；但"是否对用户指针应用它"由 access_ok 的 TIF_TAGGED_ADDR 门决定——opt-in ABI，见 [tagged-addr-prctl 章](tagged-addr-prctl.md) §一）。
 
 ### 2. arm64 的标签三宏（asm/memory.h:252-265）
 
