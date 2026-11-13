@@ -17,6 +17,7 @@
 * [cow](cow/cow.md)
 * [vmalloc](vmalloc/vmalloc.md)
 * [KASAN_VMALLOC](kasan/kasan-vmalloc.md)
+* [MTE 与 LAM](kasan/mte-lam.md)
 * [kmalloc](kmalloc/kmalloc.md)
 * [tlb](tlb/tlb.md)
 * [cache](cache/cache.md)

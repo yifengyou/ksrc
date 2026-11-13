@@ -27,6 +27,7 @@ Linux 内存管理子系统学习笔记。按"物理内存的诞生 → 页分�
 | slab 家族 | [slab](slab/slab.md) / [slub](slub/slub.md) / [slob](slob/slob.md) | 6.6 默认 SLUB；slob 已在 6.4 被移除（笔记保留其历史分析） |
 | 内核小内存 | [kmalloc](kmalloc/kmalloc.md) / [vmalloc](vmalloc/vmalloc.md) | 连续 vs 虚拟连续 |
 | KASAN vmalloc 检测 | [kasan-vmalloc](kasan/kasan-vmalloc.md) | shadow 按需填充/毒化即刻拆表延迟/对齐难题双图/HW_TAGS 正交实现 |
+| MTE 与 LAM | [mte-lam](kasan/mte-lam.md) | 地址位元数据双方案：arm64 4-bit 标签+TCF/TCO、x86 CR3 掩码+__access_ok 容忍哲学、untagged_addr 设施 |
 | 地址空间 | [mmu](mmu/README.md) / [canonical_address_space](canonical_address_space/README.md) | x86 线性空间布局、四级/五级页表 |
 | 缺页与 COW | [pagefault](pagefualt/pagefault.md) / [cow](cow/cow.md) | 匿名/文件缺页、写时复制 |
 | vma 与 mmap 生命周期 | [vma](vma/vma与mmap生命周期.md) | vm_area_struct 新解剖（vm_prev/vm_next 已删）、maple tree 与 VMA_ITERATOR、vma_merge 与两阶段提交、PER_VMA_LOCK |
@@ -49,5 +50,6 @@ mm/memblock.c  mm/page_alloc.c  mm/slab.c  mm/slub.c  mm/kmalloc? (slub 内)
 mm/memory.c（缺页/COW）  mm/mmap.c  mm/hugetlb.c  mm/khugepaged.c  mm/vmalloc.c
 mm/compaction.c  mm/vmscan.c  arch/x86/mm/*  arch/arm64/mm/*
 mm/kasan/shadow.c  mm/kasan/hw_tags.c  lib/Kconfig.kasan（KASAN_VMALLOC）
+arch/arm64/kernel/mte.c  arch/x86/kernel/process_64.c（LAM 使能）（MTE/LAM）
 include/linux/mmzone.h（zone/free_area/page）  include/linux/mm_types.h
 ```
