@@ -40,26 +40,39 @@ static_call 的答案：调用点的目标在运行时可改的**直接调用**
 ## 三、三角结构：key / site / tramp
 
 ```c
-struct static_call_key {          /* 全局的"名字"——控制目标 */
+struct static_call_key {          /* 全局的"名字"——控制目标（static_call_types.h:61-69）*/
 	void *func;               /* 当前生效的函数指针 */
 #ifdef CONFIG_HAVE_STATIC_CALL_INLINE
-	/* 由 objtool 填充：本 key 的所有调用点 */
-	struct static_call_site *sites;
-	int nr_sites;             /* count in .static_call_sites */
+	union {                   /* ★双态存储——bit 0 是标签（"0 = mods, 1 = sites"）*/
+		unsigned long type;
+		struct static_call_mod *mods;   /* 有模块用此 key 时：mods 链表 */
+		struct static_call_site *sites; /* 纯 vmlinux：sites 指针内嵌 */
+	};
 #endif
 };
 
-/* 每个 static_call(name)(...) 调用点： */
-struct static_call_site {         /* 链接期由 objtool 写入段 */
-	s32 insn;                 /* 相对 __static_call_sites 的偏移 */
-	s32 key;                  /* 相对 key 的偏移 */
+/* 每个 static_call(name)(...) 调用点（:44-47）：*/
+struct static_call_site {         /* "needs to be created by external tooling
+                                    (objtool or a compiler plugin)" 注释原文 */
+	s32 addr;                 /* 相对偏移的调用点地址 */
+	s32 key;                  /* 相对偏移的 key——低两位是
+	                              STATIC_CALL_SITE_TAIL/INIT 标志（:26-33）*/
 };
 
-/* 每个 DEFINE_STATIC_CALL(name, func) 还生成： */
+/* 每个 DEFINE_STATIC_CALL(name, func) 还生成：*/
 /* trampoline（汇编/机器码）——初始化为 jmp func 的 5 字节跳板 */
 ```
 
-## 四、五种指令变换（arch/x86/kernel/static_call.c:11-17/:54-111）
+★**没有 nr_sites**——sites 在 `.static_call_sites` 段里**按 key 排序后连续存放**（boot 期 `static_call_sort_entries` 排好，static_call_inline.c:106/:231），`__static_call_update` 的遍历是：
+
+```c
+	for (site = site_mod->sites;
+	     site < stop && static_call_key(site) == key; site++)   /* 连续段 */
+```
+
+——**计数隐式**（同 key 的连续 run，止于 key 变化或段尾）。mods/sites 双态的生命周期（static_call_inline.c:240-285）：排序后 vmlinux 的 sites 指针直接内嵌 key（`key->sites = site; key->type |= 1;`——注释原文 *"For vmlinux (!mod) avoid the allocation by storing the sites pointer in the key itself...allows architectures (eg. x86) to call static_call_init() before memory allocation works"*）；模块加入时抽取成 `struct static_call_mod` 链表再挂新模块。
+
+## 四、五种指令变换（arch/x86/kernel/static_call.c:7-13/:54-111）
 
 ```c
 enum insn_type {
@@ -119,14 +132,21 @@ static void __static_call_transform(void *insn, enum insn_type type,
 
 ★**tracepoint 的 static_call 化**（5.10 引入）：单消费者时 `static_call(tp_func_##name)(...)` 是**一条直接 call**（目标 = funcs[0].func）——替代旧的间接 `(*it_func)(__data, args)`。多消费者时 target 切到 iterator。
 
-## 六、消费者二：perf 的 PMU 调用
+## 六、消费者二：perf 与调度器的动态抢占
 
 ```
-DEFINE_STATIC_CALL(perf_guest_info, __weak perf_guest_info);
-/* x86 的 PMU 回调、KVM 的 guest info——高频路径上的间接调用消除 */
-```
+kernel/events/core.c:6786：
+  DEFINE_STATIC_CALL_RET0(__perf_guest_state, *perf_guest_cbs->state);
+  ★RET0 家族——KVM 未注册回调时目标=return0 → 调用点变 xor5rax（§四）
+arch/x86/events/core.c:99：
+  DEFINE_STATIC_CALL_RET0(x86_pmu_guest_get_msrs, *x86_pmu.guest_get_msrs);
 
-其他消费者：`static_call(cpu_key)`（crash 上下文的 CPU 获取）、`x86_return_thunk` 的 spectre 缓解路径等。
+其他 v6.6 实测消费者：
+  paravirt.c:118-119   pv_steal_clock / pv_sched_clock（hypervisor 时钟注入）
+  entry/common.c:394   irqentry_exit_cond_resched（中断出口的条件调度）
+  sched/core.c:6899/:6972  preempt_schedule(_notrace)（★动态抢占三模式的
+                        静态调用切换——preempt=none/voluntary/full 的实现底座）
+```
 
 ## 七、观测实战
 
@@ -160,4 +180,4 @@ perf stat -e branches,branch-misses -a -- bpftrace -e 'kfunc:X { @=count(); }'
 
 ---
 
-> 回看：[02-tracepoint 机制](02-tracepoint机制.md)（头号消费者的完整展开）｜[19-text_poke_bp](19-text_poke_bp家族.md)（打补丁的三步协议）｜[18-ftrace 汇编层](18-ftrace汇编层DIRECT分派.md)（ftrace 的另一套直接调用通道）｜[05-tracer 家族](05-tracer家族.md)（ftrace_make_call 也用 text_poke_bp）
+> 回看：[02-tracepoint 机制](02-tracepoint机制.md)（头号消费者的完整展开）｜[19-text_poke_bp](19-text_poke_bp家族.md)（打补丁的三步协议）｜[18-ftrace 汇编层](18-ftrace汇编层DIRECT分派.md)（ftrace 的另一套直接调用通道）｜[05-tracer 家族](05-tracer家族.md)（ftrace_make_call 也用 text_poke_bp）｜[scheduler/03](../../scheduler/docs/03-CFS与EEVDF详解.md)（preempt_schedule 的消费语境）
