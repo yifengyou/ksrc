@@ -11,6 +11,7 @@ RCU（Read-Copy Update）是 Linux 内核中最核心、最"内核味"的并发�
 * [preempt RCU](preempt_rcu.md) — 抢占内核下的读临界区追踪
 * [SRCU](srcu.md) — 可睡眠读侧的 RCU
 * [tasks RCU](tasks_rcu.md) — 以任务为粒度的宽限期
+* [变体家族谱](变体家族谱.md) — 读侧原语全景图：v6.6 精确名册 + v5.0 三味统一史 + RCU Tasks 三族（rude/trace 补齐）+ poll 三段式 + 六维选型决策表
 
 ## 快速心智模型
 
