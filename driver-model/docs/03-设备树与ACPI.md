@@ -55,7 +55,8 @@
 内核侧（drivers/acpi/）：
   acpi_bus_scan → acpi_device 树（namespace 即设备树）
   acpi_dev_get_resources：_CRS（Current Resource Settings）→ struct resource
-  平台桥：acpi_platform_enumerate → platform 设备（与 DT 殊途同归进总线模型）
+  平台桥：acpi_create_platform_device（acpi_platform.c:110，由
+           scan.c:2116 的枚举调用）→ platform 设备（与 DT 殊途同归进总线模型）
 ```
 
 与 DT 的本质差异：

@@ -34,7 +34,7 @@ latch 的模式（双份复制）：
   ★两份永久存在——不释放，反复覆写
 ```
 
-头注释原话（seqlock.h:702-710）：*"Where the traditional RCU/lockless data structures rely on atomic modifications to ensure queries observe either the old or the new state the latch allows the same for non-atomic updates. **The trade-off is doubling the cost of storage**; we have to maintain two copies of the entire data structure."*
+头注释原话（seqlock.h:708-712）：*"Where the traditional RCU/lockless data structures rely on atomic modifications to ensure queries observe either the old or the new state the latch allows the same for non-atomic updates. **The trade-off is doubling the cost of storage**; we have to maintain two copies of the entire data structure."*
 
 ## 三、决策表
 
@@ -75,7 +75,7 @@ struct clock_data {
 
 ## 五、printk 的选择论证
 
-`kernel/printk/printk.c` 的 `struct latched_seq`——头注释（:460-462）：
+`kernel/printk/printk.c` 的 `struct latched_seq`——头注释（:460-464）：
 
 ```
 "The next printk record to read after the last 'clear' command.

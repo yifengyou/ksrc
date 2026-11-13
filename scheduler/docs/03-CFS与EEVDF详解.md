@@ -103,16 +103,19 @@ u64 avg_vruntime(struct cfs_rq *cfs_rq)
 	}
 
 	if (load) {
-		avg = div64_s64(avg, load);     /* V = 分子/分母 */
-	} else {
-		avg = cfs_rq->min_vruntime;
+		/* sign flips effective floor / ceil */
+		if (avg < 0)
+			avg -= (load - 1);       /* ★左偏校正：负分子向 -∞ 取整，
+			                             保证 avg_vruntime()+0 判 eligible
+		                             恒真（头注释 "must have a left bias"）*/
+		avg = div_s64(avg, load);      /* V = 分子/分母 */
 	}
 
-	return cfs_rq->min_vruntime + avg;
+	return cfs_rq->min_vruntime + avg; /* load==0 时 avg=0，同样成立 */
 }
 ```
 
-注意 `div64_s64` 是**带符号**除法：分子 `\Sum (v_i - v0)*w_i` 可正可负（有任务 vruntime 小于 v0？不会——min_vruntime ≤ 所有 on_rq 的 vruntime，单项非负；但 avg_vruntime 的增量维护经过 clamp，见 `__update_min_vruntime` 的 open-coded max_vruntime）。工程细节：所有除法/乘法都移到入队/出队路径（低频），`entity_eligible()`（高频）只剩乘法+比较，**没有除法**。
+注意 `div_s64` 是**带符号**除法：分子 `\Sum (v_i - v0)*w_i` 可正可负（有任务 vruntime 小于 v0？不会——min_vruntime ≤ 所有 on_rq 的 vruntime，单项非负；但 avg_vruntime 的增量维护经过 clamp，见 `__update_min_vruntime` 的 open-coded max_vruntime）。工程细节：所有除法/乘法都移到入队/出队路径（低频），`entity_eligible()`（高频）只剩乘法+比较，**没有除法**。
 
 ### 3.3 entity_eligible()：公平性的 O(1) 判定
 
@@ -144,7 +147,7 @@ lag_i ≥ 0
 ⟺ avg_vruntime分子的整数形式 ≥ entity_key(se) * avg_load
 ```
 
-**两侧都乘到整数域比较**，避免除法引入的舍入误差（注释原话：`avg_vruntime() > se->vruntime` is inaccurate due to the loss in precision）。这是全内核公平判定的最热点之一——`__pick_eevdf` 树搜索中每个节点都要调它，所以必须是纯乘法。
+**两侧都乘到整数域比较**，避免除法引入的舍入误差（注释原话——fair.c:735-736，源码拼写原样保留：`'avg_vruntime() > se->vruntime' is inacurate due to the loss in precision caused by the division`）。这是全内核公平判定的最热点之一——`__pick_eevdf` 树搜索中每个节点都要调它，所以必须是纯乘法。
 
 ### 3.4 update_curr()：记账中心
 
@@ -221,6 +224,7 @@ static void update_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se)
 {
 	s64 lag, limit;
 
+	SCHED_WARN_ON(!se->on_rq);
 	lag = avg_vruntime(cfs_rq) - se->vruntime;
 
 	limit = calc_delta_fair(max_t(u64, 2*se->slice, TICK_NSEC), se);
@@ -291,7 +295,7 @@ vl'_i = V' - v_i = vl_i - w_i*vl_i/(W + w_i) < vl_i    （lag 被"稀释"掉一�
 
 这是 EEVDF 论文没写、但工程上必须处理的细节：**不补偿的话，反复"睡眠-唤醒"的任务每次丢一点 lag，长跑后系统性吃亏**（变成变相的睡眠惩罚）。
 
-**fork 的半个请求（PLACE_DEADLINE_INITIAL）**：新任务的 vruntime 放在 V 处（lag=0），deadline = V + vslice/2——注释原话"existing tasks will be, on average, halfway through their slice"，所以新任务也先排半个队，避免 fork 风暴瞬间插队。`sysctl_sched_child_runs_first`（默认 0）另控制 fork 后父/子谁先跑。
+**fork 的半个请求（PLACE_DEADLINE_INITIAL）**：新任务的 vruntime 放在 V 处（lag=0），deadline = V + vslice/2——注释原话（fair.c:5062，源码手误 "exisiting" 原样保留）："the exisiting tasks will be, on average, halfway through their slice"，所以新任务也先排半个队，避免 fork 风暴瞬间插队。`sysctl_sched_child_runs_first`（默认 0，fair.c:85 无初始化器）另控制 fork 后父/子谁先跑。
 
 ### 4.3 与 CFS 唤醒补偿对比
 
@@ -314,7 +318,7 @@ vl'_i = V' - v_i = vl_i - w_i*vl_i/(W + w_i) < vl_i    （lag 被"稀释"掉一�
 
 ```c
 RB_DECLARE_CALLBACKS(static, min_deadline_cb, struct sched_entity,
-		     run_node, min_deadline, entity_eligible... )
+		     run_node, min_deadline, min_deadline_update)
 
 static void __enqueue_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
 {
