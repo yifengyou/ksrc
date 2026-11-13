@@ -27,6 +27,7 @@ Linux 内存管理子系统学习笔记。按"物理内存的诞生 → 页分�
 | slab 家族 | [slab](slab/slab.md) / [slub](slub/slub.md) / [slob](slob/slob.md) | 6.6 默认 SLUB；slob 已在 6.4 被移除（笔记保留其历史分析） |
 | 内核小内存 | [kmalloc](kmalloc/kmalloc.md) / [vmalloc](vmalloc/vmalloc.md) | 连续 vs 虚拟连续；vmalloc 章含 vmap area 双树与 lazy purge（noflush 协议/lazy_max_pages 的 log 缩放/批量并区+单次跨度 TLB 刷/触发四路/vmap_block 脏位/vm_unmap_aliases 契约） |
 | KASAN vmalloc 检测 | [kasan-vmalloc](kasan/kasan-vmalloc.md) | shadow 按需填充/毒化即刻拆表延迟/对齐难题双图/HW_TAGS 正交实现 |
+| KFENCE | [kfence](kfence/kfence.md) | 采样式内存错误检测（三巨头收官）：奇偶页池布局、★采样门双层（static key+atomic gate 的武装-等待-卸协议与 "2 IPIs to all CPUs" 注释）、左右随机布局、★trylock 递归分配逃生（printk→kmalloc 的锁环）、故障分类器（奇偶判定+双侧邻居距离）、canary 双侧、四种报告、双分配器挂点 |
 | MTE 与 LAM | [mte-lam](kasan/mte-lam.md) | 地址位元数据双方案：arm64 4-bit 标签+TCF/TCO、x86 CR3 掩码+__access_ok 容忍哲学、untagged_addr 设施 |
 | KASAN boot 初始化 | [kasan-boot-init](kasan/kasan-boot-init.md) | 先有鸡还是先有蛋的三段解法（全零模板/双页表戏法/kasan_depth 门控）、x86 kasan_init 逐区清单（E820 循环/vmalloc 二选一/CEA on-demand 的 512GiB 论证/五级 PGD 碰撞）、★RO 收尾（memset+__PAGE_KERNEL_RO+双刷 TLB 原文）、arm64 对照（tmp_pg_dir/for_each_mem_range/SHADOW_INIT=0xFE 语义反转）、boot 产物复用表 |
 | tagged_addr prctl | [tagged-addr-prctl](kasan/tagged-addr-prctl.md) | 用户态标签 ABI 实现层：★opt-in 本质（access_ok 的 TIF_TAGGED_ADDR 门+PF_KTHREAD 无条件 untag 注释）、set_tagged_addr_ctrl 四护栏+sysctl 不追缴语义、set_mte_ctrl 的排除掩码反转与 asymm 隐式启用、MTE_CTRL 每线程布局、exec 重置与切换四件事、ptrace 标签读写、uapi→实现映射表 |

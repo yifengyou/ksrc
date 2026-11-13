@@ -18,6 +18,7 @@
 * [cow](cow/cow.md)
 * [vmalloc](vmalloc/vmalloc.md)
 * [KASAN_VMALLOC](kasan/kasan-vmalloc.md)
+* [KFENCE](kfence/kfence.md)
 * [MTE 与 LAM](kasan/mte-lam.md)
 * [KASAN boot 初始化](kasan/kasan-boot-init.md)
 * [tagged_addr prctl](kasan/tagged-addr-prctl.md)

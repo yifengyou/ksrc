@@ -97,6 +97,7 @@
 * [kmalloc](mm/kmalloc/kmalloc.md)
 * [vmalloc](mm/vmalloc/vmalloc.md)
 * [KASAN_VMALLOC](mm/kasan/kasan-vmalloc.md)
+* [KFENCE](mm/kfence/kfence.md)
 * [MTE 与 LAM](mm/kasan/mte-lam.md)
 * [KASAN boot 初始化](mm/kasan/kasan-boot-init.md)
 * [tagged_addr prctl](mm/kasan/tagged-addr-prctl.md)
