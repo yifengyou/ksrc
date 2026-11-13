@@ -213,6 +213,8 @@
 * [text_poke_bp 家族](trace/docs/19-text_poke_bp家族.md)
 * [static_call](trace/docs/20-static_call.md)
 * [sync_core](trace/docs/21-sync_core.md)
+* [CALL_DEPTH_ACCOUNT](trace/docs/22-CALL_DEPTH_ACCOUNT.md)
+* [CALL_DEPTH_ACCOUNT](trace/docs/22-CALL_DEPTH_ACCOUNT.md)
 
 ## 十九、块设备层（block）
 
