@@ -26,6 +26,7 @@
 | [rwbase-rt.md](rwbase-rt.md) | rwsem 的 RT 基座 | READER_BIAS=2^31 的偏置三段语义、写者三步拿锁协议、读者"快路径+代理锁"（不长持 rtmutex）、★头注释的写者饥饿论证（"not writer fair"+"proxy locked for one reader after the other"+"major surgery for a very dubious value"） |
 | [kcsan-encoding.md](kcsan-encoding.md) | KCSAN watchpoint 编码 | 单 long 三字段位布局（bit63=写/size 14b/addr 49b）、INVALID=0/CONSUMED=1 哨兵妙用、槽=PFN 取模+防回绕 padding、★假阳性两条件论证与 report 侧 matching_access 复核、watcher/racer 双剧本（diff=old^new 与 cmpxchg 精确消费）、other_infos 按槽配满的双半合流、限流三闸（skip LCG 随机/delay 随机化/报告去重防 krealloc 死锁）、reorder_access 编译器重排模拟 |
 | [lockdep-chains.md](lockdep-chains.md) | 依赖链·BFS·wait-context | ★cross-release 考古（主线从未合入——v6.6 唯一提及在 dma-fence.c:225 抱怨缺口）、chain_key 逐步折叠与 lock_chain 快照缓存、BFS 循环检测（check_prev_add 原文+check_noncircular/__bfs+BFS_E·R 码）、cmp_fn per 实例序彩蛋、容量熔断五连报文、wait-context（LD_WAIT_* 双轴/task_wait_context 的 RT 线程化考量/check_wait_context 的 min 收紧与 WAIT_OVERRIDE 逃生舱/"Invalid wait context"）、/proc/lockdep* 四文件 |
+| [sync-file-drm-sched.md](sync-file-drm-sched.md) | fence 的两张消费面孔 | 生态位四现场表、sync_file 恒单 fence 指针（merge 即换 fence_array）、poll 的 EPOLLIN 与首挂回调协议、SYNC_IOC_MERGE/FILE_INFO 两段式回读、sw_sync 时间线模型与 /sys/kernel/debug/sync/info、drm_sched 三文件分工、entity 的 spsc_queue 与 last_scheduled 串行依赖、★双 fence（scheduled/finished——finished 进 resv）、kthread 主循环（sched_set_fifo_low+三条件 wait）、TDR 超时摘犯、★karma 连坐（"jobs from it will not be scheduled further"+KERNEL RQ 豁免原话） |
 
 ## 横向选型速记
 
