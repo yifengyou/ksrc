@@ -142,4 +142,4 @@ dmesg | grep -i "retbleed\|call_depth\|skl"
 
 ---
 
-> 回看：[18-ftrace 汇编层](18-ftrace汇编层DIRECT分派.md)（CALL_DEPTH_ACCOUNT 的首次出现）｜[19-text_poke_bp](19-text_poke_bp家族.md)（ALTERNATIVE 的底层机制——同样是 text_poke）｜[21-sync_core](21-sync_core.md)（RSB 重平衡——Spectre-RSB 的另一缓解）｜[trace/README](README.md)（观测基础设施的完整族谱）
+> 回看：[18-ftrace 汇编层](18-ftrace汇编层DIRECT分派.md)（CALL_DEPTH_ACCOUNT 的首次出现）｜[19-text_poke_bp](19-text_poke_bp家族.md)（ALTERNATIVE 的底层机制——同样是 text_poke）｜[21-sync_core](21-sync_core.md)（RSB 重平衡——Spectre-RSB 的另一缓解）｜[trace/README](../README.md)（观测基础设施的完整族谱）
