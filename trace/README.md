@@ -30,7 +30,7 @@
 | [20-static_call](docs/20-static_call.md) | 运行时改目标的直接调用：双层机制（trampoline 模式一处补丁 vs inline 模式 objtool 扫 .static_call_sites 逐 site 补丁）、key/site/tramp 三角、五种指令变换（CALL/NOP/JMP/RET/JCC）、★xor5rax 技巧（5 字节清寄存器替代 call+ret）、tracepoint 的 __DO_TRACE_CALL 消费端 | static_call.h / arch/x86/kernel/static_call.c |
 | [21-sync_core](docs/21-sync_core.md) | 流水线清空原语：三种实现取舍（SERIALIZE/IRET-to-self "works on every CPU, at any CPL...but it's a bit slow...unmasks NMIs"/CPUID "nasty...exits to a hypervisor" 注释原话）、IRET-to-self 的手工栈帧构造、★PTI 联动（CR3 切换本身序列化——sync_core_before_usermode 变空）、在 text_poke_bp 三步协议中的 on_each_cpu 全核 IPI 角色、消费者清单（text_poke/membarrier/stop_machine/jump_label） | asm/sync_core.h 111 行 |
 | [22-CALL_DEPTH_ACCOUNT](docs/22-CALL_DEPTH_ACCOUNT.md) | retbleed 缓解：Intel Skylake CVE-2022-29900/29901 的 call depth tracking 方案、★sarq $5 算术移位同时做计数与比较（一条指令替代 inc+cmp 的极致微优化）、三组配套宏（RESET/CREDIT/INCREMENT）、ALTERNATIVE 运行时可裁剪、UNTRAIN_RET 三选一 runtime 分派、ftrace 汇编中的插入点分析 | nospec-branch.h |
-| [22-CALL_DEPTH_ACCOUNT](docs/22-CALL_DEPTH_ACCOUNT.md) | retbleed 缓解：★sarq $5 算术移位（每 32 次 call 计一次深度）、per-CPU 计数器、ALTERNATIVE 运行时可裁剪（无 CALL_DEPTH 特征时零开销）、UNTRAIN_RET 三选一 runtime 分派、ftrace 汇编中的插入点（18 章深挖） | nospec-branch.h:270-390 |
+| [23-Spectre缓解矩阵](docs/23-Spectre缓解矩阵.md) | 推测执行防御全景：13 漏洞 sysfs 总表（cpu.c:583-598）、spectre_v2 七模式+12 cmdline 选项（bugs.c:1367-1382 原表）、retbleed 六法（含 Stuffing）、★SRSO 五策（v6.6 新入——safe-ret 默认/ibpb-vmexit 虚拟化特化）、GDS 的 microcode/AVX-disable 双路、cpufeatures 位系（RETPOLINE/RETHUNK/UNRET/ENTRY_IBPB/CALL_DEPTH/SRSO）、prctl 进程粒度、决策树 | bugs.c/cpu.c/nospec-branch.h |
 
 ## 学习路线
 
