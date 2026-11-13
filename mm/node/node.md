@@ -1,5 +1,7 @@
 # node - 内存节点
 
+> 勘误（第 17 轮质量复查 2026-11-13）：原代码块含厂商树的 `KABI_RESERVE(1..3)` 槽位——v6.6 主线 `struct pglist_data` 的 `_pad2_` 后直接是 per_cpu_nodestats（mmzone.h:1390-1393）。已按 v6.6 删除。
+
 ```text
 struct pglist_data  (Node 节点)
         │
@@ -151,10 +153,6 @@ typedef struct pglist_data {
 #endif
 
 	CACHELINE_PADDING(_pad2_);
-
-	KABI_RESERVE(1)
-	KABI_RESERVE(2)
-	KABI_RESERVE(3)
 
 	/* Per-node vmstats */
 	struct per_cpu_nodestat __percpu *per_cpu_nodestats;

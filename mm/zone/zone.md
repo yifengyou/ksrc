@@ -1,5 +1,7 @@
 # zone
 
+> 勘误（第 17 轮质量复查 2026-11-13）：原代码块尾部含厂商树的 `KABI_USE(1, unsigned long nr_free_highatomic)` + `KABI_RESERVE` 槽位——v6.6 主线 `struct zone` 的 `_pad3_` 后直接是 vm_stat（mmzone.h:979-981），且高原子储备字段为头部的 `nr_reserved_highatomic`（:817）。已按 v6.6 删除厂商尾部。
+
 
 ```c
 struct zone {
@@ -173,12 +175,6 @@ struct zone {
 	bool			contiguous;
 
 	CACHELINE_PADDING(_pad3_);
-
-	KABI_USE(1, unsigned long nr_free_highatomic)
-	KABI_RESERVE(2)
-	KABI_RESERVE(3)
-	KABI_RESERVE(4)
-
 	/* Zone statistics */
 	atomic_long_t		vm_stat[NR_VM_ZONE_STAT_ITEMS];
 	atomic_long_t		vm_numa_event[NR_VM_NUMA_EVENT_ITEMS];
