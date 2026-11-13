@@ -28,6 +28,7 @@
 | [lockdep-chains.md](lockdep-chains.md) | 依赖链·BFS·wait-context | ★cross-release 考古（主线从未合入——v6.6 唯一提及在 dma-fence.c:225 抱怨缺口）、chain_key 逐步折叠与 lock_chain 快照缓存、BFS 循环检测（check_prev_add 原文+check_noncircular/__bfs+BFS_E·R 码）、cmp_fn per 实例序彩蛋、容量熔断五连报文、wait-context（LD_WAIT_* 双轴/task_wait_context 的 RT 线程化考量/check_wait_context 的 min 收紧与 WAIT_OVERRIDE 逃生舱/"Invalid wait context"）、/proc/lockdep* 四文件 |
 | [sync-file-drm-sched.md](sync-file-drm-sched.md) | fence 的两张消费面孔 | 生态位四现场表、sync_file 恒单 fence 指针（merge 即换 fence_array）、poll 的 EPOLLIN 与首挂回调协议、SYNC_IOC_MERGE/FILE_INFO 两段式回读、sw_sync 时间线模型与 /sys/kernel/debug/sync/info、drm_sched 三文件分工、entity 的 spsc_queue 与 last_scheduled 串行依赖、★双 fence（scheduled/finished——finished 进 resv）、kthread 主循环（sched_set_fifo_low+三条件 wait）、TDR 超时摘犯、★karma 连坐（"jobs from it will not be scheduled further"+KERNEL RQ 豁免原话） |
 | [cacheline-packing.md](cacheline-packing.md) | 热数据排布工程 | 真共享/伪共享双原则（file 注释原文）、cache.h 宏族（CACHELINE_PADDING 的零长成员+对齐实现）、五案例（pcpu_hot 的 pad[64]+static_assert/lockref 的 4+4→aligned_u64 cmpxchg64/zone 四段式三分/file 双原则/sched_clock 同行）+super_block 反案例（"no need to put them into separate cachelines"）、INTERNODE_CACHE_SHIFT 跨节点档、perf c2c/pahole 观测 |
+| [rtmutex-pi.md](rtmutex-pi.md) | 优先级继承引擎 | waiter 双树身份（锁 waiters+owner pi_waiters）与栈分配纪律、rt_waiter_node 的 prio+deadline DL 感知排序、★rt_mutex_steal 横向抢策略（RT/DL 排除原文"unbounded latency"）、★链走 13 步协议（[R]/[P]/[L] 保护域图例+丢锁重试+四组退出条件）、死锁检测（orig_lock/owner 判定+ww 特例+P3 陷阱）与 max_lock_depth=1024 sysctl、rt_mutex_setprio 的类迁移（DL 数值同也全跑）、消费家族表 |
 
 ## 横向选型速记
 
