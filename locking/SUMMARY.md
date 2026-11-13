@@ -19,6 +19,7 @@
 * [dma_fence 异步完成](dma-fence.md)
 * [latch vs RCU 对比](latch-vs-rcu.md)
 * [rwbase_rt RT 基座](rwbase-rt.md)
+* [KCSAN encoding](kcsan-encoding.md)
 
 ## 内核官方文档镜像（本目录 .rst）
 

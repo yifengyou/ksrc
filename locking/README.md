@@ -24,6 +24,7 @@
 | [dma-fence.md](dma-fence.md) | 异步完成原语 | 三元组身份（context/timeline/seqno）、三态标志的原子位操作、★cb_list↔timestamp↔rcu 联合体三阶段生命周期（"only valid until the signal bit is set" 注释原话）、signal 的 test_and_set→list_replace→回调遍历、default_wait 的回调自旋等待、死锁约束清单（lockdep 的 fence annotation） |
 | [latch-vs-rcu.md](latch-vs-rcu.md) | 决策对比 | 间接 vs 复制（指针替换+GP 回收 vs 双份覆写）、决策表（读者成本/写者成本/内存/NMI/极早 boot/更新频率/内存回收/数据形态 八维）、sched_clock 的 "single 64-byte cache line" 布局论证、printk 的 latched_seq（最小 u64）、RCU 用户的反面论证（dcache/xarray 的大数据量）、总结口诀 |
 | [rwbase-rt.md](rwbase-rt.md) | rwsem 的 RT 基座 | READER_BIAS=2^31 的偏置三段语义、写者三步拿锁协议、读者"快路径+代理锁"（不长持 rtmutex）、★头注释的写者饥饿论证（"not writer fair"+"proxy locked for one reader after the other"+"major surgery for a very dubious value"） |
+| [kcsan-encoding.md](kcsan-encoding.md) | KCSAN watchpoint 编码 | 单 long 三字段位布局（bit63=写/size 14b/addr 49b）、INVALID=0/CONSUMED=1 哨兵妙用、槽=PFN 取模+防回绕 padding、★假阳性两条件论证与 report 侧 matching_access 复核、watcher/racer 双剧本（diff=old^new 与 cmpxchg 精确消费）、other_infos 按槽配满的双半合流、限流三闸（skip LCG 随机/delay 随机化/报告去重防 krealloc 死锁）、reorder_access 编译器重排模拟 |
 
 ## 横向选型速记
 
