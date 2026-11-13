@@ -28,6 +28,7 @@ Linux 内存管理子系统学习笔记。按"物理内存的诞生 → 页分�
 | 内核小内存 | [kmalloc](kmalloc/kmalloc.md) / [vmalloc](vmalloc/vmalloc.md) | 连续 vs 虚拟连续 |
 | KASAN vmalloc 检测 | [kasan-vmalloc](kasan/kasan-vmalloc.md) | shadow 按需填充/毒化即刻拆表延迟/对齐难题双图/HW_TAGS 正交实现 |
 | MTE 与 LAM | [mte-lam](kasan/mte-lam.md) | 地址位元数据双方案：arm64 4-bit 标签+TCF/TCO、x86 CR3 掩码+__access_ok 容忍哲学、untagged_addr 设施 |
+| KASAN boot 初始化 | [kasan-boot-init](kasan/kasan-boot-init.md) | 先有鸡还是先有蛋的三段解法（全零模板/双页表戏法/kasan_depth 门控）、x86 kasan_init 逐区清单（E820 循环/vmalloc 二选一/CEA on-demand 的 512GiB 论证/五级 PGD 碰撞）、★RO 收尾（memset+__PAGE_KERNEL_RO+双刷 TLB 原文）、arm64 对照（tmp_pg_dir/for_each_mem_range/SHADOW_INIT=0xFE 语义反转）、boot 产物复用表 |
 | 地址空间 | [mmu](mmu/README.md) / [canonical_address_space](canonical_address_space/README.md) | x86 线性空间布局、四级/五级页表 |
 | 缺页与 COW | [pagefault](pagefualt/pagefault.md) / [cow](cow/cow.md) | 匿名/文件缺页、写时复制 |
 | vma 与 mmap 生命周期 | [vma](vma/vma与mmap生命周期.md) | vm_area_struct 新解剖（vm_prev/vm_next 已删）、maple tree 与 VMA_ITERATOR、vma_merge 与两阶段提交、PER_VMA_LOCK |
