@@ -20,24 +20,24 @@ async.c: Asynchronous function calls for boot performance
 "not unlike how out-of-order CPUs retire their instructions in order"
 ```
 
-**协议契约**（:26-29 注释原话）：异步函数在执行**全局可见操作前**（如注册设备号），必须先 `async_synchronize_cookie(自己的 cookie)`——保证所有先于自己调度的异步操作全部完成。
+**协议契约**（:31-37 注释原话）：异步函数在执行**全局可见操作前**（如注册设备号），必须先 `async_synchronize_cookie(自己的 cookie)`——保证所有先于自己调度的异步操作全部完成。
 
-## 二、cookie 协议与核心结构（async.c:52-107）
+## 二、cookie 协议与核心结构（async.c:58-107）
 
 ```c
 typedef u64 async_cookie_t;                 /* async.h:16 */
 typedef void (*async_func_t)(void *data, async_cookie_t cookie);
                                             /* ★函数拿到自己的 cookie */
 
-static async_cookie_t next_cookie = 1;      /* async.c:52 单调分配器 */
-#define MAX_WORK        32768               /* :54 全局在途上限 */
-#define ASYNC_COOKIE_MAX ULLONG_MAX         /* :55 "infinity cookie" */
-static LIST_HEAD(async_global_pending);     /* :56 所有 registered 域的并集 */
-static ASYNC_DOMAIN(async_dfl_domain);      /* :57 缺省域 */
-static DECLARE_WAIT_QUEUE_HEAD(async_done); /* :69 唤醒点 */
-static atomic_t entry_count;                /* :71 全局在途计数 */
+static async_cookie_t next_cookie = 1;      /* async.c:58 单调分配器 */
+#define MAX_WORK        32768               /* :60 全局在途上限 */
+#define ASYNC_COOKIE_MAX ULLONG_MAX         /* :61 "infinity cookie" */
+static LIST_HEAD(async_global_pending);     /* :63 所有 registered 域的并集 */
+static ASYNC_DOMAIN(async_dfl_domain);      /* :64 缺省域 */
+static DECLARE_WAIT_QUEUE_HEAD(async_done); /* :77 唤醒点 */
+static atomic_t entry_count;                /* :79 全局在途计数 */
 
-struct async_entry {                        /* :60-67 双挂链 */
+struct async_entry {                        /* :67-77 双挂链 */
 	struct list_head domain_list;   /* 挂 domain->pending */
 	struct list_head global_list;   /* 挂 async_global_pending（registered 域）*/
 	struct work_struct work;
@@ -47,9 +47,9 @@ struct async_entry {                        /* :60-67 双挂链 */
 };
 ```
 
-**顺序性来源**：两条链都是 `list_add_tail` 按分配序入队——`lowest_in_progress()`（:83）只需看链表**头节点的 cookie**（最小未完成者）；运行完成后 `async_run_entry_fn`（:110）把自己从两条链同时摘除并 `wake_up(&async_done)`。
+**顺序性来源**：两条链都是 `list_add_tail` 按分配序入队——`lowest_in_progress()`（:87）只需看链表**头节点的 cookie**（最小未完成者）；运行完成后 `async_run_entry_fn`（:115）把自己从两条链同时摘除并 `wake_up(&async_done)`。
 
-## 三、调度路径：async_schedule_node_domain（async.c:141-214）
+## 三、调度路径：async_schedule_node_domain（async.c:165-213）
 
 ```
 async_schedule(func, data)                → 缺省域，NUMA_NO_NODE
@@ -59,7 +59,7 @@ async_schedule_dev_domain(func, dev, dom) → 二者组合
 （以上均为 async.h:52-110 的 inline 包装，落点同一个函数）
         │
         ▼
-async_schedule_node_domain(:141)：
+async_schedule_node_domain(:165)：
   ① kzalloc(GFP_ATOMIC)   ← 允许原子上下文调用
   ② ★过载回落：!entry || entry_count > MAX_WORK(32768)
        → 不排队，同步就地执行 func(data, newcookie) 并直接返回
@@ -70,9 +70,9 @@ async_schedule_node_domain(:141)：
   ④ queue_work_node(node, system_unbound_wq, &entry->work)
 ```
 
-执行体 `async_run_entry_fn`（:110-137）：`pr_debug("calling  %lli_%pS @ %i\n", ...)` → `entry->func(entry->data, entry->cookie)` → 摘双链 → `kfree` → `atomic_dec` → `wake_up(&async_done)`。与 init/main.c 的 `calling  %pS @ %i` 报告格式同族——boot 分析工具（bootgraph）两者通吃。
+执行体 `async_run_entry_fn`（:115-141）：`pr_debug("calling  %lli_%pS @ %i\n", ...)` → `entry->func(entry->data, entry->cookie)` → 摘双链 → `kfree` → `atomic_dec` → `wake_up(&async_done)`。与 init/main.c 的 `calling  %pS @ %i` 报告格式同族——boot 分析工具（bootgraph）两者通吃。
 
-## 四、汇合路径：一个不等式搞定全部（async.c:198-261）
+## 四、汇合路径：一个不等式搞定全部（async.c:267-279）
 
 ```c
 void async_synchronize_cookie_domain(async_cookie_t cookie,
@@ -156,7 +156,7 @@ if (irqs_disabled()) {
 WARN(msgbuf[0], "initcall %pS returned with %s\n", fn, msgbuf);
 ```
 
-另：`initcall_blacklist=` cmdline（:1104-1171）按函数名拉黑（`-EPERM`）；`initcall_debug`（:787-788，core_param）注册 tracepoint 回调打印 **"calling  %pS @ %i"**（:1174）与 **"initcall %pS returned %d after %lld usecs"**（:1182）——`@PID` 一眼识别 async worker（PID 是 kworker 的）。bootgraph/initcall graph 均以此为原料。
+另：`initcall_blacklist=` cmdline（:1104-1171）按函数名拉黑（`-EPERM`）；`initcall_debug`（:787-788，core_param）注册 tracepoint 回调打印 **"calling  %pS @ %i"**（:1178）与 **"initcall %pS returned %d after %lld usecs"**（:1188）——`@PID` 一眼识别 async worker（PID 是 kworker 的）。bootgraph/initcall graph 均以此为原料。
 
 ## 七、异步探测：三层开关与一条警戒线
 
