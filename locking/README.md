@@ -21,6 +21,7 @@
 | [dma-resv.md](dma-resv.md) | GPU 预约协议 | ww_mutex 最大消费者：预约 = ww_mutex + fence 列表双层结构、四档 USAGE 偏序（KERNEL<WRITE<READ<BOOKKEEP 的 fence 查询与升格）、-EDEADLK 的 unlock_all+lock_slow+retry 标准模式、reserve_fences 的 "cannot fail" 契约、RCU 迭代器的 restarted 检测、与 ww-mutex 的对照消费链 |
 | [seqcount-latch.md](seqcount-latch.md) | 双缓冲乐观读 | ★NMI 安全的 seqlock 变体：模 2 的空间应用（奇偶选两份拷贝之一——读者总有稳定版）、写者四步双写协议（wmb→seq++→改[0]→wmb→seq++→改[1]）、"multiversion concurrency control" 头注释原话、与普通 seqcount 的读者重试 vs 拷贝选择对照、printk/sched_clock 双消费者 |
 | [preempt-rt-matrix.md](preempt-rt-matrix.md) | RT 全景 | 完整替换矩阵（spinlock→rt_mutex_base/mutex→rt/rwsem→rwbase_rt/ww_mutex→rt/local_lock 的 preempt_disable→migrate_disable+spin_lock 三变/raw 不变）；spinlock_rt 的 "explicitly disable migration and take rcu_read_lock() across the lock held section" 注释原话；不可替换的 raw 场景清单 |
+| [dma-fence.md](dma-fence.md) | 异步完成原语 | 三元组身份（context/timeline/seqno）、三态标志的原子位操作、★cb_list↔timestamp↔rcu 联合体三阶段生命周期（"only valid until the signal bit is set" 注释原话）、signal 的 test_and_set→list_replace→回调遍历、default_wait 的回调自旋等待、死锁约束清单（lockdep 的 fence annotation） |
 
 ## 横向选型速记
 
