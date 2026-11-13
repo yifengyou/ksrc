@@ -21,6 +21,7 @@
 * [MTE 与 LAM](kasan/mte-lam.md)
 * [KASAN boot 初始化](kasan/kasan-boot-init.md)
 * [tagged_addr prctl](kasan/tagged-addr-prctl.md)
+* [mte_sync_tags](kasan/mte-sync-tags.md)
 * [kmalloc](kmalloc/kmalloc.md)
 * [tlb](tlb/tlb.md)
 * [cache](cache/cache.md)

@@ -99,6 +99,7 @@
 * [MTE 与 LAM](mm/kasan/mte-lam.md)
 * [KASAN boot 初始化](mm/kasan/kasan-boot-init.md)
 * [tagged_addr prctl](mm/kasan/tagged-addr-prctl.md)
+* [mte_sync_tags](mm/kasan/mte-sync-tags.md)
 * [thp 透明大页](mm/thp/thp.md)
 
 ## 六、RCU
