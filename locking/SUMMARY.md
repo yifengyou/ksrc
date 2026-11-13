@@ -20,6 +20,7 @@
 * [latch vs RCU 对比](latch-vs-rcu.md)
 * [rwbase_rt RT 基座](rwbase-rt.md)
 * [KCSAN encoding](kcsan-encoding.md)
+* [lockdep chains：依赖链·BFS·wait-context](lockdep-chains.md)
 
 ## 内核官方文档镜像（本目录 .rst）
 
