@@ -71,6 +71,7 @@
 * [KCSAN encoding](locking/kcsan-encoding.md)
 * [lockdep chains：依赖链·BFS·wait-context](locking/lockdep-chains.md)
 * [sync_file 与 drm_sched](locking/sync-file-drm-sched.md)
+* [cacheline 打包](locking/cacheline-packing.md)
 * [内存屏障（官方镜像 memory-barriers.txt）](memory-barriers.txt)
 * [atomic_t（官方镜像）](atomic_t.txt)
 

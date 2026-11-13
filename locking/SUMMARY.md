@@ -22,6 +22,7 @@
 * [KCSAN encoding](kcsan-encoding.md)
 * [lockdep chains：依赖链·BFS·wait-context](lockdep-chains.md)
 * [sync_file 与 drm_sched](sync-file-drm-sched.md)
+* [cacheline 打包](cacheline-packing.md)
 
 ## 内核官方文档镜像（本目录 .rst）
 
